@@ -38,30 +38,30 @@ public final class SmartDashboardManager {
     /**
      * <p>Creates a SmartDashboard Property that will update automatically when the update method of
      * SmartDashboardManager is called.</p>
-     *
+     * <p>
      * <p>
      * Example: <pre>{@code
      *   addBind("Left Motor Power", 0, () -> SubsystemManager.getSubsystem(DriveTrain.class).getLeftMotorPower());
      *   }</pre>
      * </p>
-     *
+     * <p>
      * If the supplier is null the property is effectively static, unless another supplier is added later.
      *
-     * @param key SmartDashboard key
-     * @param defaultValue Default value that SmartDashboard will returns if it cannot find the value
+     * @param key           SmartDashboard key
+     * @param defaultValue  Default value that SmartDashboard will returns if it cannot find the value
      * @param valueSupplier Supplier used to get the updating value
-     * @param <T> the data type you want SmartDashboard to display (most of the time you don't need to worry about it)
+     * @param <T>           the data type you want SmartDashboard to display (most of the time you don't need to worry about it)
      * @return The SmartDashboard property created
      */
     public static <T> SmartDashboardProperty<T> addBind(String key, T defaultValue,
-        Supplier<T> valueSupplier) {
+                                                        Supplier<T> valueSupplier) {
         if (PROPERTIES.stream().anyMatch(p -> p.getKey().equals(key))) {
             throw new RobotRuntimeException(
-                "Cannot have duplicate keys for SmartDashboard. Key in question is " + key);
+                    "Cannot have duplicate keys for SmartDashboard. Key in question is " + key);
         }
 
         SmartDashboardProperty<T> prop = new SmartDashboardProperty<>(key, defaultValue,
-            valueSupplier);
+                valueSupplier);
 
         PROPERTIES.add(prop);
 
@@ -83,9 +83,9 @@ public final class SmartDashboardManager {
      * @see #addBind(String, Object, Supplier) its basically the same
      */
     public static <T> DebugSmartDashboardProperty<T> addDebug(String key, T defaultValue,
-        Supplier<T> valueSupplier) {
+                                                              Supplier<T> valueSupplier) {
         DebugSmartDashboardProperty<T> prop = new DebugSmartDashboardProperty<>(key, defaultValue,
-            valueSupplier);
+                valueSupplier);
 
         PROPERTIES.add(prop);
 
@@ -138,17 +138,17 @@ public final class SmartDashboardManager {
     @SuppressWarnings("unchecked")
     public static <T> SmartDashboardProperty<T> getProperty(String key) {
         Optional<SmartDashboardProperty> smartDashboardProperty = SmartDashboardManager.PROPERTIES
-            .stream()
-            .filter(p -> p.getKey()
-                .equals(key)) // gts the properties with the same key as the one searching for
-            .findFirst();  /// gets the first SmartDashboard property
+                .stream()
+                .filter(p -> p.getKey()
+                        .equals(key)) // gts the properties with the same key as the one searching for
+                .findFirst();  /// gets the first SmartDashboard property
 
         if (smartDashboardProperty.isPresent()) { // if there is a SmartDashboard property
             return smartDashboardProperty.get(); // returns the SmartDashboard property
         }
 
         throw new RobotRuntimeException("Property " + key
-            + " does not exist. Did you forget to add it?"); // if it did not find the SmartDashboard property throw error
+                + " does not exist. Did you forget to add it?"); // if it did not find the SmartDashboard property throw error
     }
 
     /**

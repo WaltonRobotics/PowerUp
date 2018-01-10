@@ -19,7 +19,7 @@ public class SmartDashboardProperty<T> {
     /**
      * Used when you want a static value to be on SmartDashboard.
      *
-     * @param key the key that SmartDashboard will take in to find or update the value
+     * @param key          the key that SmartDashboard will take in to find or update the value
      * @param defaultValue the default value that SmartDashboard will take in to retrieve a value
      */
     public SmartDashboardProperty(String key, T defaultValue) {
@@ -29,10 +29,10 @@ public class SmartDashboardProperty<T> {
     /**
      * Initializes variables and sets up the onValueChange Runnable object.
      *
-     * @param key the key that SmartDashboard will take in to find or update the value
-     * @param defaultValue the default value that SmartDashboard will take in to retrieve a value
+     * @param key           the key that SmartDashboard will take in to find or update the value
+     * @param defaultValue  the default value that SmartDashboard will take in to retrieve a value
      * @param valueSupplier the value that you wish to place into SmartDashboard, can be null for a
-     * static value
+     *                      static value
      */
     public SmartDashboardProperty(String key, T defaultValue, Supplier<T> valueSupplier) {
         this.key = key;
@@ -99,7 +99,7 @@ public class SmartDashboardProperty<T> {
      * Sets valueSupplier
      *
      * @param valueSupplier the new valueSupplier that should return what value should be placed in
-     * SmartDashboard
+     *                      SmartDashboard
      */
     public void setValueSupplier(Supplier<T> valueSupplier) {
         this.valueSupplier = valueSupplier;
@@ -159,6 +159,6 @@ public class SmartDashboardProperty<T> {
     @Override
     public String toString() {
         return String.format("SmartDashboardProperty{key='%s', defaultValue=%s, value=%s}", key,
-            defaultValue, value);
+                defaultValue, value);
     }
 }

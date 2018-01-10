@@ -15,8 +15,7 @@ public class Config {
         public static final int GAMEPAD_PORT = 0;
     }
 
-    public static final class Paths
-    {
+    public static final class Paths {
         public static final String PATH_DIRECTORY = "./paths/";
         public static final String NETWORKTABLE = "SmartDashboard";
     }

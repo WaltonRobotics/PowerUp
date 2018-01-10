@@ -7,7 +7,7 @@ package org.usfirst.frc.team2974.robot.io.logitech;
  */
 public enum GamepadButton {
     _1(1), _2(2), _3(3), _4(4), _5(5), _6(6), _7(7), _8(8), _9(9), _10(10), LEFT_THUMB_STICK(
-        11), RIGHT_THUMB_STICK(12);
+            11), RIGHT_THUMB_STICK(12);
 
     private final int index;
 
@@ -40,8 +40,8 @@ public enum GamepadButton {
     @Override
     public String toString() {
         return String.format(
-            "GamepadButton{index=%d}"
-            , index
+                "GamepadButton{index=%d}"
+                , index
         );
     }
 }

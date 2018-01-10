@@ -16,8 +16,8 @@ public enum POVButton {
     @Override
     public String toString() {
         return String.format(
-            "POVButton{angle=%d}"
-            , angle
+                "POVButton{angle=%d}"
+                , angle
         );
     }
 }

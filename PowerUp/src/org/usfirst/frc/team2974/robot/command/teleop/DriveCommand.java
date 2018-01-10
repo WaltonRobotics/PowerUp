@@ -14,13 +14,11 @@ public class DriveCommand extends Command {
         differentialDrive = new DifferentialDrive(RobotHardware.leftMotor, RobotHardware.rightMotor);
     }
 
-    public void shiftUp()
-    {
+    public void shiftUp() {
         RobotHardware.shifter.set(true);
     }
 
-    public void shiftDown()
-    {
+    public void shiftDown() {
         RobotHardware.shifter.set(false);
     }
 
