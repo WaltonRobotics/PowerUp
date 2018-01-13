@@ -25,7 +25,6 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	SendableChooser<Command> pathChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -43,12 +42,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(0, 1)));
 		SmartDashboard.putData("Auto mode", chooser);
 		
-		pathChooser.addDefault("Nothing", null);
-		pathChooser.addObject("Cross baseline", null);
-		pathChooser.addObject("Scale", null);
-		pathChooser.addObject("Switch", null);
-		pathChooser.addObject("Scale, Switch", null);
-		SmartDashboard.putData("Auton directions", pathChooser);
+		SmartDashboard.putBoolean("Cross Baseline", true);
+		SmartDashboard.putBoolean("Scale", true);
+		SmartDashboard.putBoolean("Switch", true);
+		SmartDashboard.putBoolean("Exchange", false);
 	}
 
 	@Override
