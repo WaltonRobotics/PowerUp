@@ -38,8 +38,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.25, .5), new Point(.4, 1)));
-		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(0, 1)));
+		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.1, .5), new Point(.2, 1)));
+		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(1, 0)));
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		SmartDashboard.putBoolean("Cross Baseline", true);
@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	@Override
