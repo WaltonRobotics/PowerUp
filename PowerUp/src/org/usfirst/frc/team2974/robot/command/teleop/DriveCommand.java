@@ -2,7 +2,7 @@ package org.usfirst.frc.team2974.robot.command.teleop;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import org.usfirst.frc.team2974.robot.IO;
+import org.usfirst.frc.team2974.robot.OI;
 import org.usfirst.frc.team2974.robot.RobotHardware;
 import org.usfirst.frc.team2974.robot.io.JoystickButton;
 
@@ -24,13 +24,13 @@ public class DriveCommand extends Command {
 
     @Override
     protected void execute() {
-        if (IO.RIGHT_JOYSTICK.getRawButtonPressed(JoystickButton._2.getIndex()))
+        if (OI.RIGHT_JOYSTICK.getRawButtonPressed(JoystickButton._2.getIndex()))
             shiftDown();
 
-        else if (IO.RIGHT_JOYSTICK.getRawButtonPressed(JoystickButton._3.getIndex()))
+        else if (OI.RIGHT_JOYSTICK.getRawButtonPressed(JoystickButton._3.getIndex()))
             shiftUp();
 
-        differentialDrive.tankDrive(IO.LEFT_JOYSTICK.getY(), IO.LEFT_JOYSTICK.getY());
+        differentialDrive.tankDrive(OI.LEFT_JOYSTICK.getY(), OI.LEFT_JOYSTICK.getY());
     }
 
     public DifferentialDrive getDifferentialDrive() {

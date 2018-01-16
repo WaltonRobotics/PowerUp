@@ -8,8 +8,11 @@
 package org.usfirst.frc.team2974.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
+import org.usfirst.frc.team2974.robot.smartdashboard.SmartDashboardManager;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,14 +28,16 @@ public class Robot extends IterativeRobot {
     /////////////////////// COMMANDS    ///////////////////////////////////
     public static final DriveCommand driveCommand = new DriveCommand();
 
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
-        Scheduler.getInstance().add(driveCommand);
+        update();
+
+    	Scheduler.getInstance().add(driveCommand);
+        Scheduler.getInstance().enable();
     }
 
     /**
@@ -48,6 +53,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
+		update();
 
     }
 
@@ -56,7 +62,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousPeriodic() {
-
+		update();
     }
 
     /**
@@ -64,6 +70,9 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
+	    update();
+
+	    Scheduler.getInstance().run();
     }
 
     /**
@@ -71,5 +80,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testPeriodic() {
+	    Scheduler.getInstance().run();
+	    update();
+    }
+
+    public void update(){
+	    SmartDashboardManager.update();
     }
 }

@@ -45,9 +45,9 @@ public enum GamePosition {
 
     GamePosition(String position) {
         this.position = position;
-        if (!PathLoader.SAVED_PATHS_HASH_MAP.containsKey(name())) {
-            throw new RobotRuntimeException("There is no path assigned the name of " + name() + " in the paths save directory: " + Config.Paths.PATH_DIRECTORY);
-        }
+//        if (!PathLoader.SAVED_PATHS_HASH_MAP.containsKey(name())) {
+//            throw new RobotRuntimeException("There is no path assigned the name of " + name() + " in the paths save directory: " + Config.Paths.PATH_DIRECTORY);
+//        }
 
         poses = PathLoader.SAVED_PATHS_HASH_MAP.get(name());
     }
