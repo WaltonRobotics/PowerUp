@@ -46,21 +46,31 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Scale", true);
 		SmartDashboard.putBoolean("Switch", true);
 		SmartDashboard.putBoolean("Exchange", false);
+		
+		drivetrain.setEncoderDistancePerPulse();
+		updateSmartDashboard();
+		RobotMap.compressor.stop(); //TODO
 	}
 
 	@Override
 	public void disabledInit() {
-
+		drivetrain.reset();
+		chooser.addDefault("Nothing", null);
+		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.1, .5), new Point(.2, 1)));
+		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(.25, 0)));
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putData("Auto mode", chooser);
+		updateSmartDashboard();
 	}
 
 	@Override
 	public void autonomousInit() {
+		drivetrain.reset();
 		autonomousCommand = chooser.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -72,12 +82,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	@Override
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		drivetrain.reset();
+//		 RobotMap.compressor.start();
+		
 	}
 
 	/**
@@ -86,6 +100,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	/**
@@ -95,5 +110,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+	
+	private void updateSmartDashboard() {
+		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
+		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 	}
 }

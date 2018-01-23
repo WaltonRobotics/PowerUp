@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2974.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -17,11 +19,17 @@ public class RobotMap {
 	public static Encoder encoderLeft;
 	public static Encoder encoderRight;
 	
+	public static Compressor compressor;
+	public static Solenoid pneumaticsShifter;
+	
 	public static void init() {
 		left = new Talon(0);
 		right = new Talon(1);
 		
 		encoderRight = new Encoder(new DigitalInput(0), new DigitalInput(1));
 		encoderLeft = new Encoder(new DigitalInput(2), new DigitalInput(3));
+		
+		compressor = new Compressor();
+		pneumaticsShifter = new Solenoid(0);
 	}
 }
