@@ -38,14 +38,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.1, .5), new Point(.2, 1)));
+		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .125), new Point(1, .25)));
 		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(1, 0)));
 		SmartDashboard.putData("Auto mode", chooser);
-		
-		SmartDashboard.putBoolean("Cross Baseline", true);
-		SmartDashboard.putBoolean("Scale", true);
-		SmartDashboard.putBoolean("Switch", true);
-		SmartDashboard.putBoolean("Exchange", false);
 		
 		drivetrain.setEncoderDistancePerPulse();
 		updateSmartDashboard();
@@ -55,16 +50,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.reset();
-		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.1, .5), new Point(.2, 1)));
-		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(.25, 0)));
-		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putData("Auto mode", chooser);
 		updateSmartDashboard();
 	}
 
@@ -115,5 +105,9 @@ public class Robot extends IterativeRobot {
 	private void updateSmartDashboard() {
 		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
+		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
+		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
+		System.out.println("Left: " + RobotMap.encoderLeft.get() + "\t Right: " + RobotMap.encoderRight.get());
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 }
