@@ -2,9 +2,6 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Config;
-import org.usfirst.frc.team2974.robot.exception.RobotRuntimeException;
-import org.usfirst.frc.team2974.robot.util.PathLoader;
-import org.usfirst.frc.team2974.robot.util.Pose;
 
 /**
  * This enum is meant to represent all possible autonomous.

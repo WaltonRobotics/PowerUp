@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import org.usfirst.frc.team2974.robot.exception.RobotRuntimeException;
 
 public final class SmartDashboardManager {
 
@@ -56,8 +55,8 @@ public final class SmartDashboardManager {
 	public static <T> SmartDashboardProperty<T> addBind(String key, T defaultValue,
 		Supplier<T> valueSupplier) {
 		if (PROPERTIES.stream().anyMatch(p -> p.getKey().equals(key))) {
-			throw new RobotRuntimeException(
-				"Cannot have duplicate keys for SmartDashboard. Key in question is " + key);
+//			throw new RobotRuntimeException(
+//				"Cannot have duplicate keys for SmartDashboard. Key in question is " + key);
 		}
 
 		SmartDashboardProperty<T> prop = new SmartDashboardProperty<>(key, defaultValue,
@@ -146,9 +145,10 @@ public final class SmartDashboardManager {
 		if (smartDashboardProperty.isPresent()) { // if there is a SmartDashboard property
 			return smartDashboardProperty.get(); // returns the SmartDashboard property
 		}
+		return null;
 
-		throw new RobotRuntimeException("Property " + key
-			+ " does not exist. Did you forget to add it?"); // if it did not find the SmartDashboard property throw error
+//		throw new RobotRuntimeException("Property " + key
+//			+ " does not exist. Did you forget to add it?"); // if it did not find the SmartDashboard property throw error
 	}
 
 	/**

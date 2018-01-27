@@ -1,34 +1,41 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team2974.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
-import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
-import org.usfirst.frc.team2974.robot.smartdashboard.SmartDashboardManager;
+import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
+import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
+import org.waltonrobotics.controller.Point;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
  */
 public class Robot extends IterativeRobot {
 
-    // these are for the game data
+	public static Drivetrain drivetrain;
+	public static OI oi;
+
+	CommandGroup autonCommands;
+	private Command autonomousCommand;
+	
+	SendableChooser<Command> chooser = new SendableChooser<>();
+	private SendableChooser<Character> startLocation;
+    private SendableChooser<Integer> autonChooserScale;
+    private SendableChooser<Integer> autonChooserSwitch;
+    private SendableChooser<Integer> autonChooserVault;
+    
+ // these are for the game data
     private static final int SWITCH_POSITION = 0;
     private static final int SCALE_POSITION = 1;
 
@@ -37,35 +44,24 @@ public class Robot extends IterativeRobot {
     private static final int COULD = 1;
     private static final int WILL_NOT = 0;
 
-    /////////////////////// SUBSYSTEMS ////////////////////////////////////
+	/**
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
+	 */
+	@Override
+	public void robotInit() {
+		RobotMap.init();
 
-    //// DriveTrain             ////
-    // public static DriveTrain driveTrain = new DriveTrain();
-    //// Climber                ////
-    // public static Climber climber = new Climber();
-    //// Intestine (Intake/Out) ////
-    // public static Intestine intestine = new Intestine();
-    //// Lift (for cube)        ////
-    // public static Lift lift = new Lift();
+		drivetrain = new Drivetrain();
+		oi = new OI();
 
-    private CommandGroup autonCommands;
-
-    /////////////////////// DASHBOARD  ///////////////////////////////////
-
-    private SendableChooser<Character> startLocation;
-    private SendableChooser<Integer> autonChooserScale;
-    private SendableChooser<Integer> autonChooserSwitch;
-    private SendableChooser<Integer> autonChooserVault;
-
-    //
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    @Override
-    public void robotInit() {
-        startLocation = new SendableChooser<>();
+		chooser.addDefault("Nothing", null);
+		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
+		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, 0), new Point(1, 0)));
+		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
+		SmartDashboard.putData("Auto mode", chooser);
+		
+		startLocation = new SendableChooser<>();
         startLocation.addObject("Left", 'L');
         startLocation.addObject("Right", 'R');
         startLocation.addDefault("Center", 'C');
@@ -78,9 +74,13 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Scale", autonChooserScale);
         SmartDashboard.putData("Auton Switch", autonChooserSwitch);
         SmartDashboard.putData("Auton Vault", autonChooserVault);
-    }
 
-    /**
+		drivetrain.setEncoderDistancePerPulse();
+		updateSmartDashboard();
+//		RobotMap.compressor.stop(); // TODO
+	}
+	
+	/**
      * This sets up the sendable choosers for autonomous.
      * @return
      */
@@ -93,20 +93,20 @@ public class Robot extends IterativeRobot {
         return chooser;
     }
 
-    /**
-     * This autonomous (along with the chooser code above) shows how to select
-     * between different autonomous modes using the dashboard. The sendable
-     * chooser code works with the Java SmartDashboard. If you prefer the
-     * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-     * getString line to get the auto name from the text box below the Gyro
-     * <p>
-     * <p>You can add additional auto modes by adding additional comparisons to
-     * the switch structure below with additional strings. If using the
-     * SendableChooser make sure to add them to the chooser code above as well.
-     */
-    @Override
-    public void autonomousInit() {
-        // last character doesn't matter
+	@Override
+	public void disabledInit() {
+		drivetrain.reset();
+	}
+
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+		updateSmartDashboard();
+	}
+
+	@Override
+	public void autonomousInit() {
+		// last character doesn't matter
         String gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
         gameData = gameData.substring(0, 2); // now "LR" or something like that
 
@@ -124,53 +124,79 @@ public class Robot extends IterativeRobot {
         gamePosition += 'N'; // N for not used :)
 
         autonCommands = GamePosition.getGamePosition(gamePosition).getCommands();
-        autonCommands.start();
-    }
-
+//        autonCommands.start();
+        
+		drivetrain.reset();
+		autonomousCommand = chooser.getSelected();
+		if (autonomousCommand != null)
+			autonomousCommand.start();
+		
+	}
+	
     private boolean onSide(String gameData, int entityPosition, char startPosition) {
         return gameData.charAt(entityPosition) == startPosition;
     }
-
+    
     /**
-     *
-     * @param startPosition the starting position of the robot
-     * @param chosenValue the chosen value for either
-     * @param onSide if the game entity is on the side with the robot
-     * @return
-     */
-    private char makeGamePosition(char startPosition, int chosenValue, boolean onSide) {
-        if(chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
-            return startPosition;
-        }
-        return '.';
-    }
+    *
+    * @param startPosition the starting position of the robot
+    * @param chosenValue the chosen value for either
+    * @param onSide if the game entity is on the side with the robot
+    * @return
+    */
+   private char makeGamePosition(char startPosition, int chosenValue, boolean onSide) {
+       if(chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
+           return startPosition;
+       }
+       return '.';
+   }
 
-    /**
-     * This function is called periodically during autonomous.
-     */
-    @Override
-    public void autonomousPeriodic() {
-		update();
-    }
 
-    /**
-     * This function is called periodically during operator control.
-     */
-    @Override
-    public void teleopPeriodic() {
-	    update();
-    }
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
-	    update();
-    }
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	@Override
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+		updateSmartDashboard();
+	}
 
-    public void update(){
-	    SmartDashboardManager.update();
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void teleopInit() {
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
+		drivetrain.reset();
+		// RobotMap.compressor.start();
+
+	}
+
+	/**
+	 * This function is called periodically during operator control
+	 */
+	@Override
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+		updateSmartDashboard();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	@SuppressWarnings("deprecation")
+	@Override
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+
+	private void updateSmartDashboard() {
+		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
+		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
+		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
+		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
+		SmartDashboard.putData("Auto mode", chooser);
+		// System.out.println("Left: " + drivetrain.getWheelPositions().getLeft() + "\t
+		// Right: "
+		// + drivetrain.getWheelPositions().getRight());
+	}
 }
