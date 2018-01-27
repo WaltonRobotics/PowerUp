@@ -25,7 +25,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public RobotPair getWheelPositions() {
-		return new RobotPair(encoderLeft.getDistance(), -encoderRight.getDistance());
+		return new RobotPair(-encoderLeft.getDistance(), encoderRight.getDistance());
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public void setSpeeds(double leftPower, double rightPower) {
-		right.set(-rightPower);
-		left.set(leftPower);
+		right.set(rightPower);
+		left.set(-leftPower);
 	}
 	
 	public void shiftDown() {

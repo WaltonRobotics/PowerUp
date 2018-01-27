@@ -38,13 +38,14 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .125), new Point(1, .25)));
-		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(1, 0)));
+		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
+		chooser.addObject("Straight 1 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, 0), new Point(1, 0)));
+		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
 		SmartDashboard.putData("Auto mode", chooser);
-		
+
 		drivetrain.setEncoderDistancePerPulse();
 		updateSmartDashboard();
-		RobotMap.compressor.stop(); //TODO
+		RobotMap.compressor.stop(); // TODO
 	}
 
 	@Override
@@ -80,8 +81,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		drivetrain.reset();
-//		 RobotMap.compressor.start();
-		
+		// RobotMap.compressor.start();
+
 	}
 
 	/**
@@ -101,13 +102,15 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
-	
+
 	private void updateSmartDashboard() {
 		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
 		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
-		System.out.println("Left: " + RobotMap.encoderLeft.get() + "\t Right: " + RobotMap.encoderRight.get());
 		SmartDashboard.putData("Auto mode", chooser);
+		// System.out.println("Left: " + drivetrain.getWheelPositions().getLeft() + "\t
+		// Right: "
+		// + drivetrain.getWheelPositions().getRight());
 	}
 }
