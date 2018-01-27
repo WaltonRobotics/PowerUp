@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Config;
 import org.usfirst.frc.team2974.robot.exception.RobotRuntimeException;
 import org.usfirst.frc.team2974.robot.util.PathLoader;
@@ -40,7 +41,7 @@ public enum GamePosition {
 
     CROSS_BASELINE("c..."), DO_NOTHING("....");
 
-    private final Pose[] poses;
+    private final CommandGroup commands;
     private final String position;
 
     GamePosition(String position) {
@@ -49,7 +50,9 @@ public enum GamePosition {
 //            throw new RobotRuntimeException("There is no path assigned the name of " + name() + " in the paths save directory: " + Config.Paths.PATH_DIRECTORY);
 //        }
 
-        poses = PathLoader.SAVED_PATHS_HASH_MAP.get(name());
+        // TODO: ultimately replace with AutonLoader (or something)
+        commands = null;
+//        poses = PathLoader.SAVED_PATHS_HASH_MAP.get(name());
     }
 
     public static GamePosition getGamePosition(String string) {
@@ -61,11 +64,18 @@ public enum GamePosition {
         return DO_NOTHING;
     }
 
+    public CommandGroup execute() {
+        // execute its function
+        // moving and placing cubes included
+
+        return commands;
+    }
+
     public String getPosition() {
         return position;
     }
 
-    public Pose[] getPoses() {
-        return poses;
+    public CommandGroup getCommands() {
+        return commands;
     }
 }

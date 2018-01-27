@@ -7,10 +7,15 @@
 
 package org.usfirst.frc.team2974.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
 import org.usfirst.frc.team2974.robot.smartdashboard.SmartDashboardManager;
 
@@ -22,11 +27,37 @@ import org.usfirst.frc.team2974.robot.smartdashboard.SmartDashboardManager;
  * project.
  */
 public class Robot extends IterativeRobot {
+
+    // these are for the game data
+    private static final int SWITCH_POSITION = 0;
+    private static final int SCALE_POSITION = 1;
+
+    // these are for the auton choosers
+    private static final int SHOULD = 2;
+    private static final int COULD = 1;
+    private static final int WILL_NOT = 0;
+
     /////////////////////// SUBSYSTEMS ////////////////////////////////////
 
+    //// DriveTrain             ////
+    // public static DriveTrain driveTrain = new DriveTrain();
+    //// Climber                ////
+    // public static Climber climber = new Climber();
+    //// Intestine (Intake/Out) ////
+    // public static Intestine intestine = new Intestine();
+    //// Lift (for cube)        ////
+    // public static Lift lift = new Lift();
 
-    /////////////////////// COMMANDS    ///////////////////////////////////
-    public static final DriveCommand driveCommand = new DriveCommand();
+    private CommandGroup autonCommands;
+
+    /////////////////////// DASHBOARD  ///////////////////////////////////
+
+    private SendableChooser<Character> startLocation;
+    private SendableChooser<Integer> autonChooserScale;
+    private SendableChooser<Integer> autonChooserSwitch;
+    private SendableChooser<Integer> autonChooserVault;
+
+    //
 
     /**
      * This function is run when the robot is first started up and should be
@@ -34,10 +65,32 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        update();
+        startLocation = new SendableChooser<>();
+        startLocation.addObject("Left", 'L');
+        startLocation.addObject("Right", 'R');
+        startLocation.addDefault("Center", 'C');
 
-    	Scheduler.getInstance().add(driveCommand);
-        Scheduler.getInstance().enable();
+        autonChooserScale = setUpAuton();
+        autonChooserSwitch = setUpAuton();
+        autonChooserVault = setUpAuton();
+
+        SmartDashboard.putData("Start Location", startLocation);
+        SmartDashboard.putData("Auton Scale", autonChooserScale);
+        SmartDashboard.putData("Auton Switch", autonChooserSwitch);
+        SmartDashboard.putData("Auton Vault", autonChooserVault);
+    }
+
+    /**
+     * This sets up the sendable choosers for autonomous.
+     * @return
+     */
+    private SendableChooser<Integer> setUpAuton() {
+        SendableChooser<Integer> chooser = new SendableChooser<>();
+        chooser.addObject("Should", SHOULD); // will do this no matter what
+        chooser.addObject("Could", COULD); // will do if and only if it is in your 'area'.
+        chooser.addDefault("Will Not", WILL_NOT); // will never do
+
+        return chooser;
     }
 
     /**
@@ -53,8 +106,43 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-		update();
+        // last character doesn't matter
+        String gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+        gameData = gameData.substring(0, 2); // now "LR" or something like that
 
+        char startPosition = startLocation.getSelected();
+        int scaleChosen = autonChooserScale.getSelected();
+        int switchChosen = autonChooserSwitch.getSelected();
+        int vaultChosen = autonChooserVault.getSelected();
+
+        // TODO: FIXME: AT THIS MOMENT THE VAULT IS NOT TAKEN INTO CONSIDERATION
+
+        String gamePosition = "";
+        gamePosition += Character.toLowerCase(startPosition);
+        gamePosition += makeGamePosition(startPosition, switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
+        gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
+        gamePosition += 'N'; // N for not used :)
+
+        autonCommands = GamePosition.getGamePosition(gamePosition).getCommands();
+        autonCommands.start();
+    }
+
+    private boolean onSide(String gameData, int entityPosition, char startPosition) {
+        return gameData.charAt(entityPosition) == startPosition;
+    }
+
+    /**
+     *
+     * @param startPosition the starting position of the robot
+     * @param chosenValue the chosen value for either
+     * @param onSide if the game entity is on the side with the robot
+     * @return
+     */
+    private char makeGamePosition(char startPosition, int chosenValue, boolean onSide) {
+        if(chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
+            return startPosition;
+        }
+        return '.';
     }
 
     /**
@@ -71,8 +159,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
 	    update();
-
-	    Scheduler.getInstance().run();
     }
 
     /**
@@ -80,11 +166,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testPeriodic() {
-	    Scheduler.getInstance().run();
 	    update();
     }
 
     public void update(){
 	    SmartDashboardManager.update();
+        Scheduler.getInstance().run();
     }
 }
