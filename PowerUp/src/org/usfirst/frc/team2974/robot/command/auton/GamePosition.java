@@ -6,7 +6,7 @@ import org.usfirst.frc.team2974.robot.Config;
 /**
  * This enum is meant to represent all possible autonomous.
  *
- * Drive Station position
+ * DriveCommand Station position
  * l = left drive station
  * c = center drive station
  * r = right drive station

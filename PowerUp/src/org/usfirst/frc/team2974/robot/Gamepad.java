@@ -24,7 +24,7 @@ public class Gamepad extends Joystick {
    * 
    * forward is -1 and backward is 1 //TODO check this
    * 
-   * @return the left thumb stick y value between -1 and 1
+   * @return the leftJoystick thumb stick y value between -1 and 1
    * 
    */
 
@@ -34,9 +34,9 @@ public class Gamepad extends Joystick {
 
   /**
    * 
-   * left is 1 right is -1 //TODO check this
+   * motorLeft is 1 motorRight is -1 //TODO check this
    * 
-   * @return the left thumb stick x value between -1 and 1
+   * @return the motorLeft thumb stick x value between -1 and 1
    * 
    */
 
@@ -46,9 +46,9 @@ public class Gamepad extends Joystick {
 
   /**
    * 
-   * left is 1 right is -1 //TODO check this
+   * leftJoystick is 1 motorRight is -1 //TODO check this
    * 
-   * @return the right thumb stick x value between -1 and 1
+   * @return the motorRight thumb stick x value between -1 and 1
    * 
    */
 
@@ -60,7 +60,7 @@ public class Gamepad extends Joystick {
    * 
    * forward is -1 and backward is 1 //TODO check this
    * 
-   * @return the right thumb stick y value between -1 and 1
+   * @return the motorRight thumb stick y value between -1 and 1
    * 
    */
 
@@ -73,7 +73,7 @@ public class Gamepad extends Joystick {
    * 
    * 0 is not pressed and 1 is completely pressed
    * 
-   * @return the left trigger value between 0 and 1
+   * @return the leftJoystick trigger value between 0 and 1
    * 
    */
 
@@ -85,7 +85,7 @@ public class Gamepad extends Joystick {
    * 
    * 0 is not pressed and 1 is completely pressed
    * 
-   * @return the right trigger value between 0 and 1
+   * @return the motorRight trigger value between 0 and 1
    * 
    */
 

@@ -6,8 +6,7 @@ import org.usfirst.frc.team2974.robot.command.auton.DoNothingCommand;
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 
 /**
- * @author Evan Tichenor (evan.tichenor@gmail.com)
- * @version 1.0, 1/27/2018
+ * Used solely to get the autonomous commands from GamePosition.
  */
 public class AutonLoader {
 
@@ -15,11 +14,10 @@ public class AutonLoader {
         switch (gamePosition) {
             case CROSS_BASELINE:
                 return new CrossBaselineCommand();
-
+            // TODO: add others
             default:
             case DO_NOTHING:
                 return new DoNothingCommand();
-
         }
     }
 }

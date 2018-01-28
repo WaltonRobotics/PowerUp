@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
+import static org.usfirst.frc.team2974.robot.Config.Hardware.*;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -13,23 +15,24 @@ import edu.wpi.first.wpilibj.Talon;
  * floating around.
  */
 public class RobotMap {
-	public static Talon left;
-	public static Talon right;
+	public static final Talon motorLeft;
+	public static final Talon motorRight;
 	
-	public static Encoder encoderLeft;
-	public static Encoder encoderRight;
+	public static final Encoder encoderLeft;
+	public static final Encoder encoderRight;
 	
-	public static Compressor compressor;
-	public static Solenoid pneumaticsShifter;
+	public static final Compressor compressor;
+	public static final Solenoid pneumaticsShifter;
 	
-	public static void init() {
-		left = new Talon(0);
-		right = new Talon(1);
-		
-		encoderRight = new Encoder(new DigitalInput(0), new DigitalInput(1));
-		encoderLeft = new Encoder(new DigitalInput(2), new DigitalInput(3));
+	static {
+		motorLeft = new Talon(LEFT_MOTOR_CHANNEL);
+		motorRight = new Talon(RIGHT_MOTOR_CHANNEL);
+
+		// TODO: reverse the encoder which goes negative
+		encoderRight = new Encoder(new DigitalInput(RIGHT_ENCODER_CHANNEL1), new DigitalInput(RIGHT_ENCODER_CHANNEL2));
+		encoderLeft = new Encoder(new DigitalInput(LEFT_ENCODER_CHANNEL1), new DigitalInput(LEFT_ENCODER_CHANNEL2));
 		
 		compressor = new Compressor();
-		pneumaticsShifter = new Solenoid(0);
+		pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
 	}
 }

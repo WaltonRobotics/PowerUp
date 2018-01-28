@@ -1,10 +1,10 @@
 /bin/
 
 # IntelliJ and Eclipse files
-.idea/
+./.idea/
 # .classpath
 # .project
-.settings/
+./.settings/
 # build.properties
 # build.xml
 # *.iml

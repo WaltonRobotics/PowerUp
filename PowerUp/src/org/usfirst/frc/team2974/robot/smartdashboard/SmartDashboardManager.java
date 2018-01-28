@@ -39,7 +39,7 @@ public final class SmartDashboardManager {
 	 * <p>Creates a SmartDashboard Property that will update automatically when the update method of
 	 * SmartDashboardManager is called.</p> <p> <p>
 	 * Example: <pre>{@code
-	 *   addBind("Left Motor Power", 0, () -> SubsystemManager.getSubsystem(DriveTrain.class).getLeftMotorPower());
+	 *   addBind("Left Motor Power", 0, () -> SubsystemManager.getSubsystem(Drivetrain.class).getLeftMotorPower());
 	 *   }</pre>
 	 * </p> <p> If the supplier is null the property is effectively static, unless another supplier
 	 * is added later.

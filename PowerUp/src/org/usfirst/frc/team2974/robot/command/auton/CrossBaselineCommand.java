@@ -3,8 +3,8 @@ package org.usfirst.frc.team2974.robot.command.auton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * @author Evan Tichenor (evan.tichenor@gmail.com)
- * @version 1.0, 1/27/2018
+ * Command for crossing the baseline.
+ * Usage is: new CrossBaselineCommand().leftSide();
  */
 public class CrossBaselineCommand extends CommandGroup {
 
@@ -14,15 +14,31 @@ public class CrossBaselineCommand extends CommandGroup {
         // drive forward x meters if in center
     }
 
-    public CrossBaselineCommand left() {
+    /**
+     * Called when on the left side of the field.
+     * @return this
+     */
+    public CrossBaselineCommand leftSide() {
+        // TODO: do addSequential();
 
+        return this;
     }
 
-    public CrossBaselineCommand right() {
+    /**
+     * Called when on the right side of the field.
+     * @return this
+     */
+    public CrossBaselineCommand rightSide() {
 
+        return this;
     }
 
+    /**
+     * Called when on the center of the field.
+     * @return this
+     */
     public CrossBaselineCommand center() {
 
+        return this;
     }
 }

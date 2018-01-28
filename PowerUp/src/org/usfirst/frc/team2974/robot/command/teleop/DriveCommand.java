@@ -1,33 +1,33 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
 import org.usfirst.frc.team2974.robot.Robot;
-import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
+import static org.usfirst.frc.team2974.robot.OI.*;
 
 /**
  *
  */
-public class Drive extends Command {
-	
-	private Drivetrain drivetrain = Robot.drivetrain;
+public class DriveCommand extends Command {
 
-    public Drive() {
+    public DriveCommand() {
     	requires(drivetrain);
     }
     
     public double getLeftThrottle() {
-		if (Math.abs(Robot.oi.left.getY()) < 0.3) {
+		if (Math.abs(leftJoystick.getY()) < 0.3) {
 			return 0;
 		}
-		return Robot.oi.left.getY();
+		return leftJoystick.getY();
 	}
 
 	public double getRightThrottle() {
-		if (Math.abs(Robot.oi.right.getY()) < 0.3) {
+		if (Math.abs(rightJoystick.getY()) < 0.3) {
 			return 0;
 		}
-		return Robot.oi.right.getY();
+		return rightJoystick.getY();
 
 	}
 
@@ -38,9 +38,9 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
-    	if (Robot.oi.shiftUp.get()||Robot.oi.shiftUpAlt.get())
+    	if (shiftUp.get() || shiftUpAlt.get())
 			drivetrain.shiftUp();
-    	if (Robot.oi.shiftDown.get()||Robot.oi.shiftDownAlt.get())
+    	if (shiftDown.get() || shiftDownAlt.get())
 			drivetrain.shiftDown();
     }
 

@@ -1,24 +1,16 @@
 package org.usfirst.frc.team2974.robot.subsystems;
 
-import org.usfirst.frc.team2974.robot.RobotMap;
-import org.usfirst.frc.team2974.robot.command.teleop.Drive;
+import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
 import org.waltonrobotics.AbstractDrivetrain;
 import org.waltonrobotics.controller.RobotPair;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
+
+import static org.usfirst.frc.team2974.robot.RobotMap.*;
 
 /**
  *
  */
 public class Drivetrain extends AbstractDrivetrain {
-
-	private Talon right = RobotMap.right;
-	private Talon left = RobotMap.left;
-	private Encoder encoderLeft = RobotMap.encoderLeft;
-	private Encoder encoderRight = RobotMap.encoderRight;
-	Solenoid shifter = RobotMap.pneumaticsShifter;
 	
 	public Drivetrain() {
 	}
@@ -30,13 +22,12 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Drive());
-		
+		setDefaultCommand(new DriveCommand());
 	}
 
 	@Override
 	public void reset() {
-		System.out.println("Reset");
+		System.out.println("Reset Drivetrain");
 		encoderLeft.reset();
 		encoderRight.reset();
 	}
@@ -49,19 +40,19 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public void setSpeeds(double leftPower, double rightPower) {
-		right.set(rightPower);
-		left.set(-leftPower);
+		motorRight.set(rightPower);
+		motorLeft.set(-leftPower);
 	}
 	
 	public void shiftDown() {
-		if (!shifter.get()) {
-			shifter.set(true);
+		if (!pneumaticsShifter.get()) {
+			pneumaticsShifter.set(true);
 		}
 	}
 
 	public void shiftUp() {
-		if (shifter.get()) {
-			shifter.set(false);
+		if (pneumaticsShifter.get()) {
+			pneumaticsShifter.set(false);
 		}
 	}
 

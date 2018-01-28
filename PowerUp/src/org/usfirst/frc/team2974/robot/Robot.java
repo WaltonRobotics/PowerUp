@@ -24,7 +24,6 @@ import org.waltonrobotics.controller.Point;
 public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
-	public static OI oi;
 
 	CommandGroup autonCommands;
 	private Command autonomousCommand;
@@ -34,8 +33,8 @@ public class Robot extends IterativeRobot {
     private SendableChooser<Integer> autonChooserScale;
     private SendableChooser<Integer> autonChooserSwitch;
     private SendableChooser<Integer> autonChooserVault;
-    
- // these are for the game data
+
+    // these are for the game data
     private static final int SWITCH_POSITION = 0;
     private static final int SCALE_POSITION = 1;
 
@@ -50,10 +49,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		RobotMap.init();
-
 		drivetrain = new Drivetrain();
-		oi = new OI();
 
 		chooser.addDefault("Nothing", null);
 		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
@@ -82,7 +78,7 @@ public class Robot extends IterativeRobot {
 	
 	/**
      * This sets up the sendable choosers for autonomous.
-     * @return
+     * @return new chooser for auton modes
      */
     private SendableChooser<Integer> setUpAuton() {
         SendableChooser<Integer> chooser = new SendableChooser<>();
@@ -108,7 +104,6 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// last character doesn't matter
         String gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
-        gameData = gameData.substring(0, 2); // now "LR" or something like that
 
         char startPosition = startLocation.getSelected();
         int scaleChosen = autonChooserScale.getSelected();
@@ -125,14 +120,22 @@ public class Robot extends IterativeRobot {
 
         autonCommands = GamePosition.getGamePosition(gamePosition).getCommands();
 //        autonCommands.start();
-        
+
+		// this is for testing
 		drivetrain.reset();
 		autonomousCommand = chooser.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 		
 	}
-	
+
+	/**
+	 * Checks if the robot is on the side of the entity
+	 * @param gameData the game data
+	 * @param entityPosition the entity position in the game data
+	 * @param startPosition the robot's starting position
+	 * @return true if they are on the same side, false otherwise
+	 */
     private boolean onSide(String gameData, int entityPosition, char startPosition) {
         return gameData.charAt(entityPosition) == startPosition;
     }
@@ -142,7 +145,7 @@ public class Robot extends IterativeRobot {
     * @param startPosition the starting position of the robot
     * @param chosenValue the chosen value for either
     * @param onSide if the game entity is on the side with the robot
-    * @return
+    * @return the character if
     */
    private char makeGamePosition(char startPosition, int chosenValue, boolean onSide) {
        if(chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
@@ -168,7 +171,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		drivetrain.reset();
 		// RobotMap.compressor.start();
-
 	}
 
 	/**
@@ -189,6 +191,9 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 
+	/**
+	 * Put things in here you want to update for SmartDashboard.
+	 */
 	private void updateSmartDashboard() {
 		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
