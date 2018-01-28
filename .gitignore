@@ -12,6 +12,8 @@
 .classpath
 .project
 .settings/
+build/
+dist/
 build.properties
 build.xml
 *.iml
@@ -20,7 +22,6 @@ build.xml
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
