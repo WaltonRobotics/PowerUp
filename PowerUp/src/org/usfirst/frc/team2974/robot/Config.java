@@ -19,7 +19,7 @@ public final class Config {
     public static final class Input {
         public static final int RIGHT_JOYSTICK_PORT = 1;
         public static final int LEFT_JOYSTICK_PORT = 0;
-        public static final int GAMEPAD_PORT = 0; // 2?
+        public static final int GAMEPAD_PORT = 2;
 
         public static final int SHIFT_UP_BUTTON = 2;
         public static final int SHIFT_UP_BUTTON_ALT = 11;
