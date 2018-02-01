@@ -26,11 +26,7 @@ public class SimpleSpline extends Command {
 
 	protected void initialize() {
 		drivetrain.reset();
-<<<<<<< HEAD
-		drivetrain.addControllerMotions(new Spline(.5, 1, .70485, startAngle, endAngle, false, knots));
-=======
 		drivetrain.addControllerMotions(new Spline(1, 1, ROBOT_WIDTH, startAngle, endAngle, false, knots));
->>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 
 		Robot.drivetrain.startControllerMotion();
 	}

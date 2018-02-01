@@ -26,15 +26,10 @@ public class Robot extends IterativeRobot {
 
 	CommandGroup autonCommands;
 	private Command autonomousCommand;
-<<<<<<< HEAD
-
-	SendableChooser<Command> chooser = new SendableChooser<>();
-=======
 	
 	private SendableChooser<Command> chooser;
 
 	private SendableChooser<Boolean> doNothingChooser;
->>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 	private SendableChooser<Character> startLocation;
 	private SendableChooser<Integer> autonChooserScale;
 	private SendableChooser<Integer> autonChooserSwitch;
@@ -63,8 +58,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Straight 2 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(2, 0)));
 		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
 		SmartDashboard.putData("Auto mode", chooser);
-<<<<<<< HEAD
-=======
 
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);
@@ -75,7 +68,6 @@ public class Robot extends IterativeRobot {
         startLocation.addObject("Left", 'L');
         startLocation.addObject("Right", 'R');
         startLocation.addDefault("Center", 'C');
->>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Left", 'L');
@@ -138,15 +130,9 @@ public class Robot extends IterativeRobot {
 		gamePosition += makeGamePosition(startPosition, switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
 		gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
 		gamePosition += 'N'; // N for not used :)
-
-<<<<<<< HEAD
-		autonCommands = GamePosition.getGamePosition(gamePosition).getCommands();
-		// autonCommands.start();
-=======
+		
         autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
 //        autonCommands.start();
->>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
-
 		// this is for testing
 		drivetrain.reset();
 		autonomousCommand = chooser.getSelected();
