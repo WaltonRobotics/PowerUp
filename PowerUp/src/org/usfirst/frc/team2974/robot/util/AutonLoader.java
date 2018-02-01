@@ -12,9 +12,60 @@ public class AutonLoader {
 
     public static CommandGroup getAutonCommands(GamePosition gamePosition) {
         switch (gamePosition) {
-            case CROSS_BASELINE:
-                return new CrossBaselineCommand();
-            // TODO: add others
+            case DRIVE_STATION_LEFT_LEVER_RIGHT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_LEFT_LEVER_RIGHT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_LEFT_LEVER_LEFT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_LEFT_LEVER_LEFT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_RIGHT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_RIGHT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_LEFT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_LEFT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_RIGHT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_RIGHT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_LEFT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_LEFT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_LEFT_LEVER_RIGHT:
+                return null;
+            case DRIVE_STATION_LEFT_LEVER_LEFT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_RIGHT:
+                return null;
+            case DRIVE_STATION_CENTER_LEVER_LEFT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_RIGHT:
+                return null;
+            case DRIVE_STATION_RIGHT_LEVER_LEFT:
+                return null;
+            case DRIVE_STATION_LEFT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_LEFT_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_CENTER_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_CENTER_SCALE_LEFT:
+                return null;
+            case DRIVE_STATION_RIGHT_SCALE_RIGHT:
+                return null;
+            case DRIVE_STATION_RIGHT_SCALE_LEFT:
+                return null;
+            case CROSS_BASELINE_RIGHT:
+                return new CrossBaselineCommand().rightSide();
+            case CROSS_BASELINE_CENTER:
+                return new CrossBaselineCommand().center();
+            case CROSS_BASELINE_LEFT:
+                return new CrossBaselineCommand().leftSide();
             default:
             case DO_NOTHING:
                 return new DoNothingCommand();

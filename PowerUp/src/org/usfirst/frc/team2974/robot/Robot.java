@@ -26,8 +26,15 @@ public class Robot extends IterativeRobot {
 
 	CommandGroup autonCommands;
 	private Command autonomousCommand;
+<<<<<<< HEAD
 
 	SendableChooser<Command> chooser = new SendableChooser<>();
+=======
+	
+	private SendableChooser<Command> chooser;
+
+	private SendableChooser<Boolean> doNothingChooser;
+>>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 	private SendableChooser<Character> startLocation;
 	private SendableChooser<Integer> autonChooserScale;
 	private SendableChooser<Integer> autonChooserSwitch;
@@ -50,11 +57,25 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 
+		chooser = new SendableChooser<>();
 		chooser.addDefault("Nothing", null);
 		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
 		chooser.addObject("Straight 2 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(2, 0)));
 		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
 		SmartDashboard.putData("Auto mode", chooser);
+<<<<<<< HEAD
+=======
+
+		doNothingChooser = new SendableChooser<>();
+		doNothingChooser.addObject("Do Nothing!", true);
+		doNothingChooser.addDefault("Please move!", false);
+		SmartDashboard.putData("Do Nothing", doNothingChooser);
+		
+		startLocation = new SendableChooser<>();
+        startLocation.addObject("Left", 'L');
+        startLocation.addObject("Right", 'R');
+        startLocation.addDefault("Center", 'C');
+>>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Left", 'L');
@@ -97,6 +118,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+    	if(doNothingChooser.getSelected()) { // if should do nothing
+    		autonCommands = GamePosition.DO_NOTHING.getCommand();
+    		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
+		}
+
 		// last character doesn't matter
 		String gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
@@ -113,8 +139,13 @@ public class Robot extends IterativeRobot {
 		gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
 		gamePosition += 'N'; // N for not used :)
 
+<<<<<<< HEAD
 		autonCommands = GamePosition.getGamePosition(gamePosition).getCommands();
 		// autonCommands.start();
+=======
+        autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
+//        autonCommands.start();
+>>>>>>> c5b9beed989ea774cade536186e1fe72c32cf9df
 
 		// this is for testing
 		drivetrain.reset();

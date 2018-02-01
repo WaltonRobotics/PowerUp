@@ -5,6 +5,8 @@ public final class Config {
     private Config() {}
 
     public static final class Hardware {
+        public static final double ROBOT_WIDTH = .70485;
+
         public static final int LEFT_MOTOR_CHANNEL = 0;
         public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input
         public static final int LEFT_ENCODER_CHANNEL2 = 3; // for second digital input
@@ -28,8 +30,9 @@ public final class Config {
         public static final int SHIFT_DOWN_BUTTON_ALT = 10;
     }
 
-    public static final class Paths {
+    public static final class Path {
         public static final String PATH_DIRECTORY = "./paths/";
         public static final String NETWORKTABLE = "SmartDashboard";
+        public static final double MIDDLE_Y_SWITCH = 3.4100;
     }
 }

@@ -1,6 +1,10 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.waltonrobotics.controller.Point;
+
+import static org.usfirst.frc.team2974.robot.Config.Path.MIDDLE_Y_SWITCH;
 
 /**
  * Command for crossing the baseline.
@@ -8,10 +12,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class CrossBaselineCommand extends CommandGroup {
 
+    /**
+     * Follow up your constructor with a call to either
+     *  leftSide, rightSide, or center to make this command work correctly.
+     */
     public CrossBaselineCommand() {
         super();
 
-        // drive forward x meters if in center
+        // add sequential later.
     }
 
     /**
@@ -19,9 +27,7 @@ public class CrossBaselineCommand extends CommandGroup {
      * @return this
      */
     public CrossBaselineCommand leftSide() {
-        // TODO: do addSequential();
-
-        return this;
+        return rightSide();
     }
 
     /**
@@ -29,7 +35,8 @@ public class CrossBaselineCommand extends CommandGroup {
      * @return this
      */
     public CrossBaselineCommand rightSide() {
-
+        // drive forward x meters
+        addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(0, MIDDLE_Y_SWITCH))); // 5 -> change to whatever
         return this;
     }
 
@@ -38,7 +45,15 @@ public class CrossBaselineCommand extends CommandGroup {
      * @return this
      */
     public CrossBaselineCommand center() {
+        // either go left or right, depends on switch position
+        if(DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R') {
+            // go right
+            addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(1.318, 2.698)));
+        } else {
+            // go left
+            addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(-1.492, 2.698)));
+        }
 
-        return this;
+        return this; // ease of use :)
     }
 }
