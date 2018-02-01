@@ -24,7 +24,7 @@ public class SimpleSpline extends Command {
 
 	protected void initialize() {
 		drivetrain.reset();
-		drivetrain.addControllerMotions(new Spline(1, 1, .70485, startAngle, endAngle, false, knots));
+		drivetrain.addControllerMotions(new Spline(.5, 1, .70485, startAngle, endAngle, false, knots));
 
 		Robot.drivetrain.startControllerMotion();
 	}
@@ -35,7 +35,7 @@ public class SimpleSpline extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return drivetrain.isControllerFinished();
 	}
 
 	// Called once after isFinished returns true

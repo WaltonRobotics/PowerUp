@@ -17,7 +17,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public RobotPair getWheelPositions() {
-		return new RobotPair(-encoderLeft.getDistance(), encoderRight.getDistance());
+		return new RobotPair(encoderLeft.getDistance(), encoderRight.getDistance());
 	}
 
 	@Override
@@ -36,12 +36,15 @@ public class Drivetrain extends AbstractDrivetrain {
 	public void setEncoderDistancePerPulse() {
 		encoderLeft.setDistancePerPulse(0.0005652);
 		encoderRight.setDistancePerPulse(0.0005652);
+		
+		encoderRight.setReverseDirection(true);
+		motorRight.setInverted(true);
 	}
 
 	@Override
 	public void setSpeeds(double leftPower, double rightPower) {
 		motorRight.set(rightPower);
-		motorLeft.set(-leftPower);
+		motorLeft.set(leftPower);
 	}
 	
 	public void shiftDown() {
@@ -68,7 +71,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public double getKP() {
-		return 20;
+		return 2;
 	}
 
 	@Override
