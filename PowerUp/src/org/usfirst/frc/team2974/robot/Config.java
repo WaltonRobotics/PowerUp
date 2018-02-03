@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2974.robot;
 
+import org.waltonrobotics.controller.Point;
+
 public final class Config {
 
     private Config() {}
@@ -34,5 +36,11 @@ public final class Config {
         public static final String PATH_DIRECTORY = "./paths/";
         public static final String NETWORKTABLE = "SmartDashboard";
         public static final double MIDDLE_Y_SWITCH = 3.4100;
+        public static final double CROSS_BASELINE_Y = 4.2748092;
+
+        // these points are measured from the center line
+        public static final Point STARTING_POSITION_RIGHT = new Point(2.887624, 0.85725);
+        public static final Point STARTING_POSITION_CENTER = new Point(0.1238, 0.85725);
+        public static final Point STARTING_POSITION_LEFT = new Point(-2.887624, 0.85725);
     }
 }

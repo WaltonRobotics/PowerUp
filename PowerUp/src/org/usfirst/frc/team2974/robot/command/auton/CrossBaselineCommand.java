@@ -4,17 +4,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.waltonrobotics.controller.Point;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.MIDDLE_Y_SWITCH;
-
 /**
  * Command for crossing the baseline.
- * Usage is: new CrossBaselineCommand().leftSide();
+ * Usage is: new CrossBaselineCommand().left();
  */
 public class CrossBaselineCommand extends CommandGroup {
 
     /**
      * Follow up your constructor with a call to either
-     *  leftSide, rightSide, or center to make this command work correctly.
+     *  left, right, or center to make this command work correctly.
      */
     public CrossBaselineCommand() {
         super();
@@ -26,17 +24,17 @@ public class CrossBaselineCommand extends CommandGroup {
      * Called when on the left side of the field.
      * @return this
      */
-    public CrossBaselineCommand leftSide() {
-        return rightSide();
+    public CrossBaselineCommand left(double yMovement) {
+        return right(yMovement);
     }
 
     /**
      * Called when on the right side of the field.
      * @return this
      */
-    public CrossBaselineCommand rightSide() {
+    public CrossBaselineCommand right(double yMovement) {
         // drive forward x meters
-        addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(0, MIDDLE_Y_SWITCH))); // 5 -> change to whatever
+        addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(0, yMovement))); // 5 -> change to whatever
         return this;
     }
 
