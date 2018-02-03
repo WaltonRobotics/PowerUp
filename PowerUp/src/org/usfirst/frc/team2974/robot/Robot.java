@@ -63,11 +63,6 @@ public class Robot extends IterativeRobot {
 		doNothingChooser.addObject("Do Nothing!", true);
 		doNothingChooser.addDefault("Please move!", false);
 		SmartDashboard.putData("Do Nothing", doNothingChooser);
-		
-		startLocation = new SendableChooser<>();
-        startLocation.addObject("Left", 'L');
-        startLocation.addObject("Right", 'R');
-        startLocation.addDefault("Center", 'C');
 
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Left", 'L');
