@@ -41,13 +41,10 @@ public enum GamePosition {
 
     DO_NOTHING("....");
 
-    private final CommandGroup commands;
     private final String position;
 
     GamePosition(String position) {
         this.position = position;
-
-        commands = AutonLoader.getAutonCommands(this);
     }
 
     public static GamePosition getGamePosition(String string) {
@@ -64,6 +61,6 @@ public enum GamePosition {
     }
 
     public CommandGroup getCommand() {
-        return commands;
+        return AutonLoader.getAutonCommands(this);
     }
 }

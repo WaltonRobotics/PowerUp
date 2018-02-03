@@ -8,6 +8,7 @@ public final class Config {
 
     public static final class Hardware {
         public static final double ROBOT_WIDTH = .70485;
+        public static final double DISTANCE_PER_PULSE = 0.0005652;
 
         public static final int LEFT_MOTOR_CHANNEL = 0;
         public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input

@@ -5,6 +5,7 @@ import org.waltonrobotics.AbstractDrivetrain;
 import org.waltonrobotics.controller.RobotPair;
 
 
+import static org.usfirst.frc.team2974.robot.Config.Hardware.DISTANCE_PER_PULSE;
 import static org.usfirst.frc.team2974.robot.RobotMap.*;
 
 /**
@@ -34,8 +35,8 @@ public class Drivetrain extends AbstractDrivetrain {
 	
 	@Override
 	public void setEncoderDistancePerPulse() {
-		encoderLeft.setDistancePerPulse(0.0005652);
-		encoderRight.setDistancePerPulse(0.0005652);
+		encoderLeft.setDistancePerPulse(DISTANCE_PER_PULSE);
+		encoderRight.setDistancePerPulse(DISTANCE_PER_PULSE);
 		
 		encoderRight.setReverseDirection(true);
 		motorRight.setInverted(true);

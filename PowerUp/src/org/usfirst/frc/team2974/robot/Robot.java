@@ -124,15 +124,16 @@ public class Robot extends IterativeRobot {
 		gamePosition += Character.toLowerCase(startPosition);
 		gamePosition += makeGamePosition(startPosition, switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
 		gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
-		gamePosition += 'N'; // N for not used :)
+		gamePosition += '.'; // N for not used :)
 		
         autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
-//        autonCommands.start();
+        if(autonCommands != null)
+        	autonCommands.start();
 		// this is for testing
-		drivetrain.reset();
-		autonomousCommand = chooser.getSelected();
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+//		drivetrain.reset();
+//		autonomousCommand = chooser.getSelected();
+//		if (autonomousCommand != null)
+//			autonomousCommand.start();
 
 	}
 
@@ -210,7 +211,7 @@ public class Robot extends IterativeRobot {
 	 * Put things in here you want to update for SmartDashboard.
 	 */
 	private void updateSmartDashboard() {
-		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
+		SmartDashboard.putNumber("Left", RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
 		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
