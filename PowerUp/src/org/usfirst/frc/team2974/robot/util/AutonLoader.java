@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2974.robot.util;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+
+import org.usfirst.frc.team2974.robot.command.auton.CrossBaseLineNoEncoder;
 import org.usfirst.frc.team2974.robot.command.auton.CrossBaselineCommand;
 import org.usfirst.frc.team2974.robot.command.auton.DoNothingCommand;
 import org.usfirst.frc.team2974.robot.command.auton.DriveToScale;
@@ -34,7 +36,7 @@ public class AutonLoader {
             case DRIVE_STATION_RIGHT_LEVER_RIGHT_SCALE_RIGHT:
                 return null;
             case DRIVE_STATION_RIGHT_LEVER_RIGHT_SCALE_LEFT: // switch only
-                return null;
+            	return null;
             case DRIVE_STATION_RIGHT_LEVER_LEFT_SCALE_RIGHT: // scale only
                 return null;
             case DRIVE_STATION_RIGHT_LEVER_LEFT_SCALE_LEFT: // dont do this
@@ -70,11 +72,14 @@ public class AutonLoader {
 
             // CROSSING BASELINE
             case CROSS_BASELINE_RIGHT:
-                return new CrossBaselineCommand().right(CROSS_BASELINE_Y);
+              //  return new CrossBaselineCommand().right(CROSS_BASELINE_Y);
+            	return new CrossBaseLineNoEncoder().right(); 
             case CROSS_BASELINE_CENTER:
-                return new CrossBaselineCommand().center();
+              //  return new CrossBaselineCommand().center();
+            	return new CrossBaseLineNoEncoder().center(); 
             case CROSS_BASELINE_LEFT:
-                return new CrossBaselineCommand().left(CROSS_BASELINE_Y);
+                //return new CrossBaselineCommand().left(CROSS_BASELINE_Y);
+            	return new CrossBaseLineNoEncoder().left();  
             default:
             case DO_NOTHING:
                 return new DoNothingCommand();

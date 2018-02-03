@@ -52,6 +52,6 @@ public class CrossBaselineCommand extends CommandGroup {
             addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(-1.492, 2.698)));
         }
 
-        return this; // ease of use :)
+        return this; // ease of use :) <--- smiley face
     }
 }
