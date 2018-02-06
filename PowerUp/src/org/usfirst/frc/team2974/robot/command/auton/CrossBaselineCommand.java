@@ -34,7 +34,7 @@ public class CrossBaselineCommand extends CommandGroup {
      */
     public CrossBaselineCommand right(double yMovement) {
         // drive forward x meters
-        addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(0, yMovement)));
+        addSequential(new DriveStraightByTime(yMovement / 3.5)); // FIXME: FIX
         return this;
     }
 

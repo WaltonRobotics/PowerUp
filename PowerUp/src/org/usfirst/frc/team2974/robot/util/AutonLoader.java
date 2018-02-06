@@ -72,14 +72,11 @@ public class AutonLoader {
 
             // CROSSING BASELINE
             case CROSS_BASELINE_RIGHT:
-              //  return new CrossBaselineCommand().right(CROSS_BASELINE_Y);
-            	return new CrossBaseLineNoEncoder().right(); 
+                return new CrossBaselineCommand().right(CROSS_BASELINE_Y);
             case CROSS_BASELINE_CENTER:
-              //  return new CrossBaselineCommand().center();
-            	return new CrossBaseLineNoEncoder().center(); 
+                return new CrossBaselineCommand().center();
             case CROSS_BASELINE_LEFT:
-                //return new CrossBaselineCommand().left(CROSS_BASELINE_Y);
-            	return new CrossBaseLineNoEncoder().left();  
+                return new CrossBaselineCommand().left(CROSS_BASELINE_Y);
             default:
             case DO_NOTHING:
                 return new DoNothingCommand();

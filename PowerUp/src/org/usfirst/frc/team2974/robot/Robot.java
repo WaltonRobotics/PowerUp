@@ -122,11 +122,13 @@ public class Robot extends IterativeRobot {
 
 		String gamePosition = "";
 		gamePosition += Character.toLowerCase(startPosition);
-		gamePosition += makeGamePosition(startPosition, switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
-		gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
+		gamePosition += makeGamePosition(gameData.charAt(0), switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
+		gamePosition += makeGamePosition(gameData.charAt(1), scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
 		gamePosition += '.'; // N for not used :)
 		
-        autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
+		SmartDashboard.putString("Game Position", "c...");
+        autonCommands = GamePosition.CROSS_BASELINE_CENTER.getCommand();
+        SmartDashboard.putData("Auton Command", autonCommands);
         if(autonCommands != null)
         	autonCommands.start();
 		// this is for testing
@@ -154,7 +156,7 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 *
-	 * @param startPosition
+	 * @param position
 	 *            the starting position of the robot
 	 * @param chosenValue
 	 *            the chosen value for either
@@ -162,9 +164,9 @@ public class Robot extends IterativeRobot {
 	 *            if the game entity is on the side with the robot
 	 * @return the character if
 	 */
-	private char makeGamePosition(char startPosition, int chosenValue, boolean onSide) {
+	private char makeGamePosition(char position, int chosenValue, boolean onSide) {
 		if (chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
-			return startPosition;
+			return position;
 		}
 		return '.';
 	}

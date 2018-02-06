@@ -43,8 +43,6 @@ public class DriveCommand extends Command {
 			drivetrain.shiftUp();
 		if (shiftDown.get() || shiftDownAlt.get())
 			drivetrain.shiftDown();
-		System.out.println("Pl: " + -getLeftThrottle() + " Pr: " + -getRightThrottle() + " Sl: " + encoderLeft.getRate()
-				+ " Sr: " + encoderRight.getRate());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

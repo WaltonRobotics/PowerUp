@@ -22,17 +22,20 @@ public class SimpleSpline extends Command {
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
 		this.knots = knots;
+
+		requires(drivetrain);
 	}
 
 	protected void initialize() {
 		drivetrain.reset();
 		drivetrain.addControllerMotions(new Spline(1, 1, ROBOT_WIDTH, startAngle, endAngle, false, knots));
 
-		Robot.drivetrain.startControllerMotion();
+		drivetrain.startControllerMotion();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		System.out.println("executing spline");
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
