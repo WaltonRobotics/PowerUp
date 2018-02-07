@@ -1,8 +1,11 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team2974.robot.Robot;
 import org.waltonrobotics.controller.Point;
+
+import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 /**
  * Command for crossing the baseline.
@@ -34,7 +37,7 @@ public class CrossBaselineCommand extends CommandGroup {
      */
     public CrossBaselineCommand right(double yMovement) {
         // drive forward x meters
-        addSequential(new DriveStraightByTime(yMovement / 3.5)); // FIXME: FIX
+        addSequential(new DriveStraightByDistance(VELOCITY_MAX, ACCELERATION_MAX, yMovement));
         return this;
     }
 
@@ -44,7 +47,7 @@ public class CrossBaselineCommand extends CommandGroup {
      */
     public CrossBaselineCommand center() {
         // either go left or right, depends on switch position
-        if(DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R') {
+        if(Robot.getSwitchPosition() == 'R') {
             // go right
             addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(1.318, 2.698)));
         } else {
@@ -52,6 +55,6 @@ public class CrossBaselineCommand extends CommandGroup {
             addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(-1.492, 2.698)));
         }
 
-        return this; // ease of use :) <--- smiley face
+        return this; // ease of use :) <--- smiley face :)
     }
 }

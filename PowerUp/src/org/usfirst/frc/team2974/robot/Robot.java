@@ -44,6 +44,8 @@ public class Robot extends IterativeRobot {
 	private static final int COULD = 1;
 	private static final int WILL_NOT = 0;
 
+	private static String gameData;
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -69,9 +71,10 @@ public class Robot extends IterativeRobot {
 		startLocation.addObject("Right", 'R');
 		startLocation.addDefault("Center", 'C');
 
-		autonChooserScale = setUpAuton();
-		autonChooserSwitch = setUpAuton();
-		autonChooserVault = setUpAuton();
+//		not used as of 2/6/2018 :)
+//		autonChooserScale = setUpAuton();
+//		autonChooserSwitch = setUpAuton();
+//		autonChooserVault = setUpAuton();
 
 		drivetrain.setEncoderDistancePerPulse();
 		updateSmartDashboard();
@@ -110,25 +113,15 @@ public class Robot extends IterativeRobot {
     		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
 		}
 
-		// last character doesn't matter
-		String gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+		gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
 		char startPosition = startLocation.getSelected();
-		int scaleChosen = autonChooserScale.getSelected();
-		int switchChosen = autonChooserSwitch.getSelected();
-		int vaultChosen = autonChooserVault.getSelected();
+//		int scaleChosen = autonChooserScale.getSelected();
+//		int switchChosen = autonChooserSwitch.getSelected();
+//		int vaultChosen = autonChooserVault.getSelected();
 
-		// TODO: FIXME: AT THIS MOMENT THE VAULT IS NOT TAKEN INTO CONSIDERATION
+        autonCommands = GamePosition.getGamePosition(Character.toLowerCase(startPosition), gameData).getCommand();
 
-		String gamePosition = "";
-		gamePosition += Character.toLowerCase(startPosition);
-		gamePosition += makeGamePosition(gameData.charAt(0), switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
-		gamePosition += makeGamePosition(gameData.charAt(1), scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
-		gamePosition += '.'; // N for not used :)
-		
-		SmartDashboard.putString("Game Position", "c...");
-        autonCommands = GamePosition.CROSS_BASELINE_CENTER.getCommand();
-        SmartDashboard.putData("Auton Command", autonCommands);
         if(autonCommands != null)
         	autonCommands.start();
 		// this is for testing
@@ -137,38 +130,6 @@ public class Robot extends IterativeRobot {
 //		if (autonomousCommand != null)
 //			autonomousCommand.start();
 
-	}
-
-	/**
-	 * Checks if the robot is on the side of the entity
-	 * 
-	 * @param gameData
-	 *            the game data
-	 * @param entityPosition
-	 *            the entity position in the game data
-	 * @param startPosition
-	 *            the robot's starting position
-	 * @return true if they are on the same side, false otherwise
-	 */
-	private boolean onSide(String gameData, int entityPosition, char startPosition) {
-		return gameData.charAt(entityPosition) == startPosition;
-	}
-
-	/**
-	 *
-	 * @param position
-	 *            the starting position of the robot
-	 * @param chosenValue
-	 *            the chosen value for either
-	 * @param onSide
-	 *            if the game entity is on the side with the robot
-	 * @return the character if
-	 */
-	private char makeGamePosition(char position, int chosenValue, boolean onSide) {
-		if (chosenValue == SHOULD || (chosenValue == COULD && onSide)) {
-			return position;
-		}
-		return '.';
 	}
 
 	/**
@@ -199,7 +160,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testInit() {
-
 	}
 
 	/**
@@ -224,5 +184,19 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auton Scale", autonChooserScale);
 		SmartDashboard.putData("Auton Switch", autonChooserSwitch);
 		SmartDashboard.putData("Auton Vault", autonChooserVault);
+	}
+
+	/**
+	 * @return Either 'L' for left position or 'R' for right position.
+	 */
+	public static char getSwitchPosition() {
+		return gameData.charAt(0); // 0 = switch position in string
+	}
+
+	/**
+	 * @return Either 'L' for left position or 'R' for right position.
+	 */
+	public static char getScalePosition() {
+		return gameData.charAt(1); // 1 = scale position in string
 	}
 }

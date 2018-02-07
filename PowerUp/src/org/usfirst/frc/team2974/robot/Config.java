@@ -39,6 +39,9 @@ public final class Config {
         public static final double MIDDLE_Y_SWITCH = 3.4100;
         public static final double CROSS_BASELINE_Y = 4.2748092;
 
+        public static final double VELOCITY_MAX = 2;
+        public static final double ACCELERATION_MAX = 1;
+
         // these points are measured from the center line
         public static final Point STARTING_POSITION_RIGHT = new Point(2.887624, 0.85725);
         public static final Point STARTING_POSITION_CENTER = new Point(0.1238, 0.85725);
