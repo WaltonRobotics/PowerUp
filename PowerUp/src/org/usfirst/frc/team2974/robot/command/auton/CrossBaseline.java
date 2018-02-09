@@ -4,20 +4,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.waltonrobotics.controller.Point;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
-import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
 /**
  * Command for crossing the baseline.
- * Usage is: new CrossBaselineCommand().left();
+ * Usage is: new CrossBaseline().left();
  */
-public class CrossBaselineCommand extends CommandGroup {
+public class CrossBaseline extends CommandGroup {
 
     /**
      * Follow up your constructor with a call to either
      *  left, right, or center to make this command work correctly.
      */
-    public CrossBaselineCommand() {
+    public CrossBaseline() {
         super();
 
         // add sequential later.
@@ -27,7 +26,7 @@ public class CrossBaselineCommand extends CommandGroup {
      * Called when on the left side of the field.
      * @return this
      */
-    public CrossBaselineCommand left(double yMovement) {
+    public CrossBaseline left(double yMovement) {
         return right(yMovement);
     }
 
@@ -35,7 +34,7 @@ public class CrossBaselineCommand extends CommandGroup {
      * Called when on the right side of the field.
      * @return this
      */
-    public CrossBaselineCommand right(double yMovement) {
+    public CrossBaseline right(double yMovement) {
         // drive forward x meters
         addSequential(new DriveStraightByDistance(VELOCITY_MAX, ACCELERATION_MAX, yMovement));
         return this;
@@ -45,14 +44,14 @@ public class CrossBaselineCommand extends CommandGroup {
      * Called when on the center of the field.
      * @return this
      */
-    public CrossBaselineCommand center() {
+    public CrossBaseline center() {
         // either go left or right, depends on switch position
         if(Robot.getSwitchPosition() == 'R') {
             // go right
-            addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(1.318, 2.698)));
+            addSequential(new SimpleSpline(90, 90, C0, C1));
         } else {
             // go left
-            addSequential(new SimpleSpline(90, 90, new Point(0, 0), new Point(-1.492, 2.698)));
+            addSequential(new SimpleSpline(90, 90, C0, C2));
         }
 
         return this; // ease of use :) <--- smiley face :)

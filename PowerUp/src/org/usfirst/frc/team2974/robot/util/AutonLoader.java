@@ -15,29 +15,29 @@ public class AutonLoader {
     public static CommandGroup getAutonCommands(GamePosition gamePosition) {
         switch (gamePosition) {
             case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // dont do this
-                return null;
+                return getAutonCommands(CROSS_BASELINE_LEFT);
             case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT: // scale only
                 return getAutonCommands(DRIVE_STATION_LEFT_SCALE_LEFT);
             case DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT: // switch only
                 return getAutonCommands(DRIVE_STATION_LEFT_SWITCH_LEFT);
             case DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_LEFT:
-                return null;
+                return new DriveSwitchScale().left();
             case DRIVE_STATION_CENTER_SWITCH_RIGHT_SCALE_RIGHT: // never do scale from center
-                return null;
+                return getAutonCommands(DRIVE_STATION_CENTER_SWITCH_RIGHT);
             case DRIVE_STATION_CENTER_SWITCH_RIGHT_SCALE_LEFT: // never do scale from center
-                return null;
+                return getAutonCommands(DRIVE_STATION_CENTER_SWITCH_RIGHT);
             case DRIVE_STATION_CENTER_SWITCH_LEFT_SCALE_RIGHT: // never do scale from center
-                return null;
+                return getAutonCommands(DRIVE_STATION_CENTER_SWITCH_LEFT);
             case DRIVE_STATION_CENTER_SWITCH_LEFT_SCALE_LEFT: // never do scale from center
-                return null;
+                return getAutonCommands(DRIVE_STATION_CENTER_SWITCH_LEFT);
             case DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_RIGHT:
-                return null;
+                return new DriveSwitchScale().right();
             case DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_LEFT: // switch only
             	return getAutonCommands(DRIVE_STATION_RIGHT_SWITCH_RIGHT);
             case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_RIGHT: // scale only
                 return getAutonCommands(DRIVE_STATION_RIGHT_SCALE_RIGHT);
             case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT: // dont do this
-                return null;
+                return getAutonCommands(CROSS_BASELINE_RIGHT);
 
             // SWITCH ONLY
             case DRIVE_STATION_LEFT_SWITCH_RIGHT: // dont do this
@@ -69,11 +69,11 @@ public class AutonLoader {
 
             // CROSSING BASELINE
             case CROSS_BASELINE_RIGHT:
-                return new CrossBaselineCommand().right(CROSS_BASELINE_Y);
+                return new CrossBaseline().right(CROSS_BASELINE_Y);
             case CROSS_BASELINE_CENTER:
-                return new CrossBaselineCommand().center();
+                return new CrossBaseline().center();
             case CROSS_BASELINE_LEFT:
-                return new CrossBaselineCommand().left(CROSS_BASELINE_Y);
+                return new CrossBaseline().left(CROSS_BASELINE_Y);
             default:
             case DO_NOTHING:
                 return new DoNothingCommand();

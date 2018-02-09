@@ -7,7 +7,7 @@ public final class Config {
     private Config() {}
 
     public static final class Hardware {
-        public static final double ROBOT_WIDTH = .70485;
+        public static final double ROBOT_WIDTH = .99314; // with bumpers
         public static final double DISTANCE_PER_PULSE = 0.0005652;
 
         public static final int LEFT_MOTOR_CHANNEL = 0;
@@ -36,15 +36,51 @@ public final class Config {
     public static final class Path {
         public static final String PATH_DIRECTORY = "./paths/";
         public static final String NETWORKTABLE = "SmartDashboard";
-        public static final double MIDDLE_Y_SWITCH = 3.4100;
         public static final double CROSS_BASELINE_Y = 4.2748092;
 
         public static final double VELOCITY_MAX = 2;
         public static final double ACCELERATION_MAX = 1;
 
-        // these points are measured from the center line
-        public static final Point STARTING_POSITION_RIGHT = new Point(2.887624, 0.85725);
-        public static final Point STARTING_POSITION_CENTER = new Point(0.1238, 0.85725);
-        public static final Point STARTING_POSITION_LEFT = new Point(-2.887624, 0.85725);
+        // IMPORTANT: these points are measured from the center line
+        public static final Point R0 = new Point(2.88762, 0.85725, 90);
+        public static final Point R1 = new Point(3.61036, 3.55600, 90);
+        public static final Point R2 = new Point(3.61036, 6.64134, 90);
+        public static final Point R3 = new Point(2.28905, 8.03946, 180);
+        public static final Point R4 = new Point(2.85623, 3.55600, 90);
+        public static final Point R5 = new Point(1.79248, 4.26720, 180);
+        public static final Point R6 = new Point(3.61036, 5.80987, 0);
+        public static final Point R7 = new Point(2.85623, 4.97840, 270); // FIXME(?): does 270 have to be -90?
+        public static final Point R8 = new Point(2.85623, 5.80987, 270);
+        public static final Point R9 = new Point(/* FIXME: NEEDED VALUE */, 5.83509, 270);
+        public static final Point R10 = new Point(0.83147, 5.80987, 0);
+
+        public static final Point C0 = new Point(0.12380, 0.85725, 90);
+        public static final Point C1 = new Point(1.29388, 3.12791, 90); // TODO: check the center points
+        public static final Point C2 = new Point(1.29388, 3.12791, 90);
+
+        // we can do this because every point is measured from the center line.
+        public static final Point L0 = negateX(R0);
+        public static final Point L1 = negateX(R1);
+        public static final Point L2 = negateX(R2);
+        public static final Point L3 = negateX(R3);
+        public static final Point L4 = negateX(R4);
+        public static final Point L5 = negateX(R5);
+        public static final Point L6 = negateX(R6);
+        public static final Point L7 = negateX(R7);
+        public static final Point L8 = negateX(R8);
+        public static final Point L9 = negateX(R9);
+        public static final Point L10 = negateX(R10);
+
+        /**
+         * Used for R -> L points. Easy and fast.
+         * @param p the point to negate its x
+         * @return a new point with the x negated from p
+         */
+        private static Point negateX(Point p) {
+            double angle = p.getAngle();
+            if(angle == 0 || angle == 180) // FIXME: honestly pretty dumb
+                angle = 180 - angle;
+            return new Point(-p.getX(), p.getY(), angle);
+        }
     }
 }

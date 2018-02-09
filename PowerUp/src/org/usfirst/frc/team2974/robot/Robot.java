@@ -24,27 +24,20 @@ public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
 
-	CommandGroup autonCommands;
-	private Command autonomousCommand;
-	
-	private SendableChooser<Command> chooser;
+	private CommandGroup autonCommands;
 
 	private SendableChooser<Boolean> doNothingChooser;
 	private SendableChooser<Character> startLocation;
-	private SendableChooser<Integer> autonChooserScale;
-	private SendableChooser<Integer> autonChooserSwitch;
-	private SendableChooser<Integer> autonChooserVault;
-
-	// these are for the game data
-	private static final int SWITCH_POSITION = 0;
-	private static final int SCALE_POSITION = 1;
+//	private SendableChooser<Integer> autonChooserScale;
+//	private SendableChooser<Integer> autonChooserSwitch;
+//	private SendableChooser<Integer> autonChooserVault;
 
 	// these are for the auton choosers
 	private static final int SHOULD = 2;
 	private static final int COULD = 1;
 	private static final int WILL_NOT = 0;
 
-	private static String gameData;
+	private static String gameData; // for ease of access
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -54,22 +47,15 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 
-		chooser = new SendableChooser<>();
-		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
-		chooser.addObject("Straight 2 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(2, 0)));
-		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
-		SmartDashboard.putData("Auto mode", chooser);
-
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);
 		doNothingChooser.addDefault("Please move!", false);
 		SmartDashboard.putData("Do Nothing", doNothingChooser);
 
 		startLocation = new SendableChooser<>();
-		startLocation.addObject("Left", 'L');
-		startLocation.addObject("Right", 'R');
-		startLocation.addDefault("Center", 'C');
+		startLocation.addObject("Left (1)", 'l');
+		startLocation.addObject("Right (3)", 'r');
+		startLocation.addDefault("Center (2)", 'c');
 
 //		not used as of 2/6/2018 :)
 //		autonChooserScale = setUpAuton();
@@ -83,7 +69,7 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This sets up the sendable choosers for autonomous.
-	 * 
+	 *
 	 * @return new chooser for auton modes
 	 */
 	private SendableChooser<Integer> setUpAuton() {
@@ -109,26 +95,23 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
     	if(doNothingChooser.getSelected()) { // if should do nothing
-    		autonCommands = GamePosition.DO_NOTHING.getCommand();
+			System.out.println(">:( Nothing has been chosen. Scrubs.");
+			autonCommands = GamePosition.DO_NOTHING.getCommand();
     		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
 		}
 
-		gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+		if(gameData == null || gameData.isEmpty())
+			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
 		char startPosition = startLocation.getSelected();
 //		int scaleChosen = autonChooserScale.getSelected();
 //		int switchChosen = autonChooserSwitch.getSelected();
 //		int vaultChosen = autonChooserVault.getSelected();
 
-        autonCommands = GamePosition.getGamePosition(Character.toLowerCase(startPosition), gameData).getCommand();
+        autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 
         if(autonCommands != null)
         	autonCommands.start();
-		// this is for testing
-//		drivetrain.reset();
-//		autonomousCommand = chooser.getSelected();
-//		if (autonomousCommand != null)
-//			autonomousCommand.start();
 
 	}
 
@@ -143,8 +126,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		if (autonCommands != null)
+			autonCommands.cancel();
 		drivetrain.reset();
 		// RobotMap.compressor.start();
 	}
@@ -160,6 +143,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testInit() {
+		// randomize gameData
+		gameData =
+				(Math.random() > .5 ? "L" : "R") + // switch
+				(Math.random() > .5 ? "L" : "R") + // scale
+				(Math.random() > .5 ? "L" : "R"); // doesn't matter
+
+		SmartDashboard.putString("Randomized GameData", gameData);
+
+		autonomousInit();
 	}
 
 	/**
@@ -167,6 +159,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		autonomousPeriodic(); // yes
 	}
 
 	/**
@@ -179,11 +172,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
 
 		// Selectors
-		SmartDashboard.putData("Auto mode", chooser); // for testing
 		SmartDashboard.putData("Start Location", startLocation);
-		SmartDashboard.putData("Auton Scale", autonChooserScale);
-		SmartDashboard.putData("Auton Switch", autonChooserSwitch);
-		SmartDashboard.putData("Auton Vault", autonChooserVault);
+//		SmartDashboard.putData("Auton Scale", autonChooserScale);
+//		SmartDashboard.putData("Auton Switch", autonChooserSwitch);
+//		SmartDashboard.putData("Auton Vault", autonChooserVault);
 	}
 
 	/**
