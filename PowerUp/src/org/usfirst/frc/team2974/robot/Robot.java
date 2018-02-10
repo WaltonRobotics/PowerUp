@@ -2,16 +2,13 @@ package org.usfirst.frc.team2974.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
-import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
-import org.waltonrobotics.controller.Point;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -95,6 +92,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
     	if(doNothingChooser.getSelected()) { // if should do nothing
+			// TODO: make logger later
 			System.out.println(">:( Nothing has been chosen. Scrubs.");
 			autonCommands = GamePosition.DO_NOTHING.getCommand();
     		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
