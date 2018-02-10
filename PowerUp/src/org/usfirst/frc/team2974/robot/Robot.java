@@ -25,14 +25,6 @@ public class Robot extends IterativeRobot {
 
 	private SendableChooser<Boolean> doNothingChooser;
 	private SendableChooser<Character> startLocation;
-//	private SendableChooser<Integer> autonChooserScale;
-//	private SendableChooser<Integer> autonChooserSwitch;
-//	private SendableChooser<Integer> autonChooserVault;
-
-	// these are for the auton choosers
-	private static final int SHOULD = 2;
-	private static final int COULD = 1;
-	private static final int WILL_NOT = 0;
 
 	private static String gameData; // for ease of access
 
@@ -54,28 +46,9 @@ public class Robot extends IterativeRobot {
 		startLocation.addObject("Right (3)", 'r');
 		startLocation.addDefault("Center (2)", 'c');
 
-//		not used as of 2/6/2018 :)
-//		autonChooserScale = setUpAuton();
-//		autonChooserSwitch = setUpAuton();
-//		autonChooserVault = setUpAuton();
-
 		drivetrain.setEncoderDistancePerPulse();
 		updateSmartDashboard();
 		// RobotMap.compressor.stop(); // TODO
-	}
-
-	/**
-	 * This sets up the sendable choosers for autonomous.
-	 *
-	 * @return new chooser for auton modes
-	 */
-	private SendableChooser<Integer> setUpAuton() {
-		SendableChooser<Integer> chooser = new SendableChooser<>();
-		chooser.addObject("Should", SHOULD); // will do this no matter what
-		chooser.addObject("Could", COULD); // will do if and only if it is in your 'area'.
-		chooser.addDefault("Will Not", WILL_NOT); // will never do
-
-		return chooser;
 	}
 
 	@Override
@@ -102,9 +75,6 @@ public class Robot extends IterativeRobot {
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
 		char startPosition = startLocation.getSelected();
-//		int scaleChosen = autonChooserScale.getSelected();
-//		int switchChosen = autonChooserSwitch.getSelected();
-//		int vaultChosen = autonChooserVault.getSelected();
 
 		// TODO: make logger later
 		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
@@ -173,9 +143,6 @@ public class Robot extends IterativeRobot {
 
 		// Selectors
 		SmartDashboard.putData("Start Location", startLocation);
-//		SmartDashboard.putData("Auton Scale", autonChooserScale);
-//		SmartDashboard.putData("Auton Switch", autonChooserSwitch);
-//		SmartDashboard.putData("Auton Vault", autonChooserVault);
 	}
 
 	/**

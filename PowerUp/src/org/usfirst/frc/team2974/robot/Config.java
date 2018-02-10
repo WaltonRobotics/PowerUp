@@ -38,7 +38,8 @@ public final class Config {
     }
 
     public static final class Elevator {
-        public static final double FEET_TO_METERS = .3048; // ease of use for feet values
+        private static final double FEET_TO_METERS = .3048; // ease of use for feet values
+
         public static final double SCALE_INITIAL_HEIGHT = 5 * FEET_TO_METERS;
         public static final double SCALE_MAX_HEIGHT = 6 * FEET_TO_METERS;
 
