@@ -48,10 +48,10 @@ public class CrossBaseline extends CommandGroup {
         // either go left or right, depends on switch position
         if(Robot.getSwitchPosition() == 'R') {
             // go right
-            addSequential(new SimpleSpline(90, 90, C0, C1));
+            addSequential(SimpleSpline.pathFromPointsWithAngle(false, C0, C1));
         } else {
             // go left
-            addSequential(new SimpleSpline(90, 90, C0, C2));
+            addSequential(SimpleSpline.pathFromPointsWithAngle(false, C0, C2));
         }
 
         return this; // ease of use :) <--- smiley face :)

@@ -8,12 +8,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PointTurn extends Command{
 
-	Timer timer = new Timer();
-//	double smartDash = SmartDashboard.getNumber("", 0.0);
-	double time;
-	double timeFinal;
-	String side;
-	
+	private Timer timer = new Timer();
+	private double time;
+	private double timeFinal;
+	private String side;
+
 	public PointTurn(String side, double timeFinal) {
 		this.timeFinal = timeFinal;
 		this.side = side;
@@ -21,10 +20,6 @@ public class PointTurn extends Command{
 	
 	@Override
 	protected void initialize() {
-
-		
-		// TODO Auto-generated method stub
-		super.initialize();
 		timer.start();
 	}
 
@@ -32,10 +27,9 @@ public class PointTurn extends Command{
 	protected void execute() {
 		//sets left wheel to forward, right wheel to backwards
 		
-		if(side == "left") {
+		if(side.equals("left")) {
 			Robot.drivetrain.setSpeeds(1,-1);
-		}
-		else {
+		} else {
 			Robot.drivetrain.setSpeeds(-1, 1);
 		}
 		
@@ -44,14 +38,7 @@ public class PointTurn extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		//takes input from SmartDashboard in the form of a string and a double, for when to finish
-		if (time > timeFinal)  {
-		//if the time from the input goes over the current running time, isFinished is true
-			return true;
-		}
-		// TODO Auto-generated method stub
-		//if not, isFinished is false
-		return false;
+		return time > timeFinal;
 	}
 	@Override
 	protected void end() {

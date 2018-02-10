@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.waltonrobotics.controller.Point;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
@@ -10,29 +9,46 @@ import static org.usfirst.frc.team2974.robot.Config.Path.*;
  */
 public class DriveToSwitch extends CommandGroup {
 
+    private boolean isOptionSelected;
+
     public DriveToSwitch() {
         super();
 
+        isOptionSelected = false;
     }
 
     public DriveToSwitch left() {
-        addSequential(new SimpleSpline(90, 0, L0, L4, L5));
-        // TODO: put the cube in, yo
+        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L0, L4, L5));
+        addSequential(new DropCubeSwitch());
+
+        isOptionSelected = true;
 
         return this;
     }
 
     public DriveToSwitch right() {
-        addSequential(new SimpleSpline(90, 180, R0, R4, R5));
-        // TODO: put the cube in, yo
+        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R0, R4, R5));
+        addSequential(new DropCubeSwitch());
+
+        isOptionSelected = true;
 
         return this;
     }
 
     public DriveToSwitch center() {
         addSequential(new CrossBaseline().center()); // :)
-        // TODO: put the cube in, yo
+        addSequential(new DropCubeSwitch());
+
+        isOptionSelected = true;
 
         return this;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        if(!isOptionSelected)
+            throw new RuntimeException("Left or Right was not called when the command was initialized! This is a programmer error.");
     }
 }

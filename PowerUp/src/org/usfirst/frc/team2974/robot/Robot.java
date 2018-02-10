@@ -108,11 +108,13 @@ public class Robot extends IterativeRobot {
 //		int switchChosen = autonChooserSwitch.getSelected();
 //		int vaultChosen = autonChooserVault.getSelected();
 
+		// TODO: make logger later
+		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
+
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 
         if(autonCommands != null)
         	autonCommands.start();
-
 	}
 
 	/**

@@ -10,23 +10,38 @@ import static org.usfirst.frc.team2974.robot.Config.Path.*;
  */
 public class DriveToScale extends CommandGroup {
 
+    private boolean isOptionSelected; // all drive commands use this, TODO: should make an abstract class for this
+
     public DriveToScale() {
         super();
 
+        isOptionSelected = false;
     }
 
     public DriveToScale left() {
         // FIXME(?): may have to change because it might hit the wall
-        addSequential(new SimpleSpline(90, 0, L0, L1, L2, L3));
-        // TODO: put cube in the thing, yo
+        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L0, L1, L2, L3));
+        addSequential(new DropCubeScale());
+
+        isOptionSelected = true;
 
         return this;
     }
 
     public DriveToScale right() {
-        addSequential(new SimpleSpline(90, 180, R0, R1, R2, R3));
-        // TODO: put cube in the thing, yo
+        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R0, R1, R2, R3));
+        addSequential(new DropCubeScale());
+
+        isOptionSelected = true;
 
         return this;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        if(!isOptionSelected)
+            throw new RuntimeException("Left or Right was not called when the command was initialized! This is a programmer error.");
     }
 }
