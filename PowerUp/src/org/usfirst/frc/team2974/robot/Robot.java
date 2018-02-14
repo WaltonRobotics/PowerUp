@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,6 +21,7 @@ import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
+	public static IntakeOutput intakeOutput;
 
 	private CommandGroup autonCommands;
 
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
+		intakeOutput = new IntakeOutput();
 
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);

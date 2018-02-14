@@ -3,6 +3,7 @@ package org.usfirst.frc.team2974.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 import static org.usfirst.frc.team2974.robot.Config.Input.*;
 
@@ -13,17 +14,29 @@ import static org.usfirst.frc.team2974.robot.Config.Input.*;
 public class OI {
 	public static final Joystick leftJoystick;
 	public static final Joystick rightJoystick;
+	public static final Gamepad gamepad;
+
+	// used with Drivetrain subsystem
 	public static final Button shiftUp;
 	public static final Button shiftDown;
 	public static final Button shiftUpAlt;
 	public static final Button shiftDownAlt;
+
+	// used with IntakeOutput subsystem
+	public static final Button intake;
+	public static final Button output;
 	
 	static {
 		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
 		leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
+		gamepad = new Gamepad(GAMEPAD_PORT);
+
 		shiftUp = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON); //Shifting buttons approved by Mr.B for Noah
 		shiftDown = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON);
 		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT);
 		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
+
+		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
+		output = new JoystickButton(gamepad, OUTPUT_BUTTON);
 	}
 }

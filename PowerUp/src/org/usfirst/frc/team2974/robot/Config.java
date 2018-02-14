@@ -23,6 +23,12 @@ public final class Config {
         public static final int RIGHT_ENCODER_CHANNEL2 = 1;
 
         public static final int SHIFTER_CHANNEL = 0;
+
+        public static final int INTAKE_LEFT_MOTOR_CHANNEL = -1;
+        public static final int INTAKE_RIGHT_MOTOR_CHANNEL = -1;
+
+        public static final int ELEVATOR_LEFT_MOTOR_CHANNEL = -1;
+        public static final int ELEVATOR_RIGHT_MOTOR_CHANNEL = -1;
     }
 
     public static final class Input {
@@ -35,6 +41,9 @@ public final class Config {
 
         public static final int SHIFT_DOWN_BUTTON = 3;
         public static final int SHIFT_DOWN_BUTTON_ALT = 10;
+
+        public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
+        public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
     }
 
     public static final class Elevator {
@@ -44,6 +53,14 @@ public final class Config {
         public static final double SCALE_MAX_HEIGHT = 6 * FEET_TO_METERS;
 
         public static final double SWITCH_HEIGHT = (1 + 6.75 / 12) * FEET_TO_METERS;
+
+//        public static final double BOTTOM =
+//        public static final double TOP =
+
+    }
+
+    public static final class Intake {
+
     }
 
     public static final class Path {
