@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
-import org.waltonrobotics.controller.Point;
+import org.waltonrobotics.MotionLogger;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,10 +24,11 @@ import org.waltonrobotics.controller.Point;
 public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
+	public static MotionLogger motionLogger;
 
 	CommandGroup autonCommands;
 	private Command autonomousCommand;
-	
+
 	private SendableChooser<Command> chooser;
 
 	private SendableChooser<Boolean> doNothingChooser;
@@ -50,24 +52,30 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new Drivetrain();
+		motionLogger = new MotionLogger("/home/lvuser/");
+		drivetrain = new Drivetrain(motionLogger);
 
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Nothing", null);
-		chooser.addObject("Wiggle", new SimpleSpline(0, 0, new Point(0, 0), new Point(.5, .5), new Point(1, 0)));
-		chooser.addObject("Straight 2 m", new SimpleSpline(0, 0, new Point(0, 0), new Point(2, 0)));
-		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Point(0, 0), new Point(1, 1)));
+		chooser.addObject("S Curve", new SimpleSpline(0, 0, new Pose(0, 0), new Pose(1, .5), new Pose(2, 1)));
+		chooser.addObject("Straight 2 m", new SimpleSpline(0, 0, new Pose(0, 0), new Pose(2, 0)));
+		chooser.addObject("Straight 4 m", new SimpleSpline(0, 0, new Pose(0, 0), new Pose(4, 0)));
+		chooser.addObject("Straight 6 m", new SimpleSpline(0, 0, new Pose(0, 0), new Pose(6, 0)));
+		chooser.addObject("Straight 8 m", new SimpleSpline(0, 0, new Pose(0, 0), new Pose(8, 0)));
+		chooser.addObject("Turn Right", new SimpleSpline(0, -90, new Pose(0, 0), new Pose(1, 1)));
+		chooser.addObject("Circle Switch", new SimpleSpline(90, 180, new Pose(0, 0), new Pose(0, 4.9),
+				new Pose(4.9, 4.9), new Pose(4.8, 2), new Pose(.3, 2)));
 		SmartDashboard.putData("Auto mode", chooser);
 
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);
 		doNothingChooser.addDefault("Please move!", false);
 		SmartDashboard.putData("Do Nothing", doNothingChooser);
-		
+
 		startLocation = new SendableChooser<>();
-        startLocation.addObject("Left", 'L');
-        startLocation.addObject("Right", 'R');
-        startLocation.addDefault("Center", 'C');
+		startLocation.addObject("Left", 'L');
+		startLocation.addObject("Right", 'R');
+		startLocation.addDefault("Center", 'C');
 
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Left", 'L');
@@ -100,6 +108,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.reset();
+		motionLogger.writeMotionDataCSV();
 	}
 
 	@Override
@@ -110,9 +119,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-    	if(doNothingChooser.getSelected()) { // if should do nothing
-    		autonCommands = GamePosition.DO_NOTHING.getCommand();
-    		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
+		motionLogger.initialize();
+		if (doNothingChooser.getSelected()) {
+			return;
 		}
 
 		// last character doesn't matter
@@ -130,9 +139,9 @@ public class Robot extends IterativeRobot {
 		gamePosition += makeGamePosition(startPosition, switchChosen, onSide(gameData, SWITCH_POSITION, startPosition));
 		gamePosition += makeGamePosition(startPosition, scaleChosen, onSide(gameData, SCALE_POSITION, startPosition));
 		gamePosition += 'N'; // N for not used :)
-		
-        autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
-//        autonCommands.start();
+
+		// autonCommands = GamePosition.getGamePosition(gamePosition).getCommand();
+		// autonCommands.start();
 		// this is for testing
 		drivetrain.reset();
 		autonomousCommand = chooser.getSelected();
@@ -215,10 +224,8 @@ public class Robot extends IterativeRobot {
 	 * Put things in here you want to update for SmartDashboard.
 	 */
 	private void updateSmartDashboard() {
-		SmartDashboard.putNumber("Left", -RobotMap.encoderLeft.getDistance());
+		SmartDashboard.putNumber("Left", RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
-		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
-		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
 
 		// Selectors
 		SmartDashboard.putData("Auto mode", chooser); // for testing

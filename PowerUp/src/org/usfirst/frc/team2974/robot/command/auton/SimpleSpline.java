@@ -2,12 +2,16 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
-import org.waltonrobotics.controller.Point;
+import org.waltonrobotics.controller.Pose;
 import org.waltonrobotics.motion.Spline;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_WIDTH;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -15,18 +19,18 @@ import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_WIDTH;
 public class SimpleSpline extends Command {
 	private double startAngle;
 	private double endAngle;
-	private Point[] knots;
+	private List<Pose> knots = new ArrayList<>();
 	private Drivetrain drivetrain = Robot.drivetrain;
 
-	public SimpleSpline(double startAngle, double endAngle, Point... knots) {
+	public SimpleSpline(double startAngle, double endAngle, Pose... knots) {
+		Collections.addAll(this.knots, knots);
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
-		this.knots = knots;
 	}
 
 	protected void initialize() {
 		drivetrain.reset();
-		drivetrain.addControllerMotions(new Spline(1, 1, ROBOT_WIDTH, startAngle, endAngle, false, knots));
+		drivetrain.addControllerMotions(new Spline(1, 1, 0, 0, ROBOT_WIDTH, startAngle, endAngle, false, knots));
 
 		Robot.drivetrain.startControllerMotion();
 	}
