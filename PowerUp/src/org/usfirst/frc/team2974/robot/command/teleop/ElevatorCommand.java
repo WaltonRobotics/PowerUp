@@ -15,11 +15,20 @@ public class ElevatorCommand {
 	
 	protected void execute() {
 		
-		if(limitSwitchUp.get() || limitSwitchDown.get()) {
+		if(limitSwitchUp.get()) {
+			while(limitSwitchUp.get()) {
+				elevator.setElevatorMotorSpeeds(-1, -1);
+			}
 			elevator.setElevatorMotorSpeeds(0, 0);
 		}
+		else if(limitSwitchDown.get()) {
+			while(limitSwitchDown.get()) {
+				elevator.setElevatorMotorSpeeds(1, 1);
+			}
+			elevator.setElevatorMotorSpeeds(0, 0);
 		
-		if(elevatorUp.get()) {
+		}
+		else if(elevatorUp.get()) {
 			elevator.setElevatorMotorSpeeds(1, 1);
 		}else if(elevatorDown.get()){
 			elevator.setElevatorMotorSpeeds(-1, -1);
