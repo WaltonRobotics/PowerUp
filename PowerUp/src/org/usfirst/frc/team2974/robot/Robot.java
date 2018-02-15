@@ -9,12 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
-<<<<<<< HEAD
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
-=======
 import org.waltonrobotics.MotionLogger;
 import org.waltonrobotics.controller.Pose;
->>>>>>> SplineStuff
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -84,7 +81,7 @@ public class Robot extends IterativeRobot {
 		if(gameData == null || gameData.isEmpty())
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
-		char startPosition = startLocation.getSelected()
+		char startPosition = startLocation.getSelected();
 
 		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
 
