@@ -15,16 +15,10 @@ public class ElevatorCommand {
 	
 	protected void execute() {
 		
-		if(limitSwitchUp.get()) {
-			while(limitSwitchUp.get()) {
-				elevator.setElevatorMotorSpeeds(-1, -1);
-			}
+		if(limitSwitchUp.get() && elevatorUp.get()) {
 			elevator.setElevatorMotorSpeeds(0, 0);
 		}
-		else if(limitSwitchDown.get()) {
-			while(limitSwitchDown.get()) {
-				elevator.setElevatorMotorSpeeds(1, 1);
-			}
+		else if(limitSwitchDown.get() && elevatorDown.get()) {
 			elevator.setElevatorMotorSpeeds(0, 0);
 		
 		}
