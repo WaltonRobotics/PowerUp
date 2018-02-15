@@ -9,7 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
+<<<<<<< HEAD
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
+=======
+import org.waltonrobotics.MotionLogger;
+import org.waltonrobotics.controller.Pose;
+>>>>>>> SplineStuff
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static IntakeOutput intakeOutput;
 
 	private CommandGroup autonCommands;
+	public static MotionLogger motionLogger;
 
 	private SendableChooser<Boolean> doNothingChooser;
 	private SendableChooser<Character> startLocation;
@@ -36,7 +42,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new Drivetrain();
+		motionLogger = new MotionLogger("/home/lvuser/");
+		drivetrain = new Drivetrain(motionLogger);
 		intakeOutput = new IntakeOutput();
 
 		doNothingChooser = new SendableChooser<>();
@@ -51,12 +58,12 @@ public class Robot extends IterativeRobot {
 
 		drivetrain.setEncoderDistancePerPulse();
 		updateSmartDashboard();
-		// RobotMap.compressor.stop(); // TODO
 	}
 
 	@Override
 	public void disabledInit() {
 		drivetrain.reset();
+		motionLogger.writeMotionDataCSV();
 	}
 
 	@Override
@@ -68,18 +75,17 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
     	if(doNothingChooser.getSelected()) { // if should do nothing
-			// TODO: make logger later
 			System.out.println(">:( Nothing has been chosen. Scrubs.");
 			autonCommands = GamePosition.DO_NOTHING.getCommand();
     		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
 		}
+    	motionLogger.initialize();
 
 		if(gameData == null || gameData.isEmpty())
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 
-		char startPosition = startLocation.getSelected();
+		char startPosition = startLocation.getSelected()
 
-		// TODO: make logger later
 		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
 
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
@@ -102,7 +108,6 @@ public class Robot extends IterativeRobot {
 		if (autonCommands != null)
 			autonCommands.cancel();
 		drivetrain.reset();
-		// RobotMap.compressor.start();
 	}
 
 	/**
@@ -141,8 +146,6 @@ public class Robot extends IterativeRobot {
 	private void updateSmartDashboard() {
 		SmartDashboard.putNumber("Left", RobotMap.encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
-		SmartDashboard.putNumber("Left Raw", RobotMap.encoderLeft.get());
-		SmartDashboard.putNumber("Right Raw", RobotMap.encoderRight.get());
 
 		// Selectors
 		SmartDashboard.putData("Start Location", startLocation);

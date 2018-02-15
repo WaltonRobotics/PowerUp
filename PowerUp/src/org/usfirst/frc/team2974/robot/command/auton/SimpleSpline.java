@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import org.waltonrobotics.controller.Point;
+import org.usfirst.frc.team2974.robot.Robot;
+import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
+import org.waltonrobotics.controller.Pose;
 import org.waltonrobotics.motion.Spline;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,31 +12,30 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_WIDTH;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  *
  */
 public class SimpleSpline extends Command {
 	private double startAngle;
 	private double endAngle;
-	private Point[] knots;
-	private boolean isBackwards;
+	private List<Pose> knots = new ArrayList<>();
 
-	public SimpleSpline(double startAngle, double endAngle, Point... knots) {
-		this(startAngle, endAngle, false, knots);
-	}
-
-	public SimpleSpline(double startAngle, double endAngle, boolean isBackwards, Point... knots) {
+	public SimpleSpline(double startAngle, double endAngle, Pose... knots) {
+		Collections.addAll(this.knots, knots);
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
-		this.knots = knots;
-		this.isBackwards = isBackwards;
 
 		requires(drivetrain);
 	}
 
 	protected void initialize() {
 		drivetrain.reset();
-		drivetrain.addControllerMotions(new Spline(VELOCITY_MAX, ACCELERATION_MAX, ROBOT_WIDTH, startAngle, endAngle, isBackwards, knots));
+		drivetrain.addControllerMotions(
+				new Spline(VELOCITY_MAX, ACCELERATION_MAX, ROBOT_WIDTH, startAngle, endAngle, isBackwards, knots));
 
 		drivetrain.startControllerMotion();
 	}
@@ -63,11 +64,13 @@ public class SimpleSpline extends Command {
 	}
 
 	/**
-	 * TODO: implement
-	 * Creates a SimpleSpline where the first angle is the angle of the first point and
-	 * the final angle is the angle of the last point.
-	 * @param isBackwards will the robot move forwards or backwards
-	 * @param knots the points (with angle) to move through
+	 * TODO: implement Creates a SimpleSpline where the first angle is the angle of
+	 * the first point and the final angle is the angle of the last point.
+	 * 
+	 * @param isBackwards
+	 *            will the robot move forwards or backwards
+	 * @param knots
+	 *            the points (with angle) to move through
 	 * @return a new SimpleSpline command
 	 */
 	public static SimpleSpline pathFromPointsWithAngle(boolean isBackwards, Point... knots) {

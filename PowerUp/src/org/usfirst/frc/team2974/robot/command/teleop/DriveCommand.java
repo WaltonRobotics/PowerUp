@@ -31,19 +31,40 @@ public class DriveCommand extends Command {
 		return rightJoystick.getY();
 
 	}
+    public double getTurn() {
+        if (Math.abs(rightJoystick.getX()) < 0.1) {
+            return 0;
+        }
+        return rightJoystick.getX();
 
-	// Called just before this Command runs the first time
-	protected void initialize() {
-	}
+    }
+    private void cheesyDrive() {
+        double throttle = (-getLeftThrottle() + 1) / 2;
+       double forward = -getRightThrottle();
+        double turn = -getTurn();
+        Robot.drivetrain.setSpeeds(throttle * (forward - turn), throttle * (forward + turn));
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		Robot.drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
-		if (shiftUp.get() || shiftUpAlt.get())
-			drivetrain.shiftUp();
-		if (shiftDown.get() || shiftDownAlt.get())
-			drivetrain.shiftDown();
-	}
+    private void tankDrive() {
+        Robot.drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+        if (Robot.drivetrain.isTankDrive()) {
+            tankDrive();
+        } else {
+            cheesyDrive();
+        }
+        if (shiftUp.get() || shiftUpAlt.get())
+            drivetrain.shiftUp();
+        if (shiftDown.get() || shiftDownAlt.get())
+            drivetrain.shiftDown();
+    }
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
