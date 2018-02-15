@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.waltonrobotics.controller.Point;
+import org.waltonrobotics.controller.Pose;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
@@ -20,7 +20,7 @@ public class DriveToScale extends CommandGroup {
 
     public DriveToScale left() {
         // FIXME(?): may have to change because it might hit the wall
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L0, L1, L2, L3));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L1, L2, L3));
         addSequential(new DropCubeScale());
 
         isOptionSelected = true;
@@ -29,7 +29,7 @@ public class DriveToScale extends CommandGroup {
     }
 
     public DriveToScale right() {
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R0, R1, R2, R3));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R1, R2, R3));
         addSequential(new DropCubeScale());
 
         isOptionSelected = true;
