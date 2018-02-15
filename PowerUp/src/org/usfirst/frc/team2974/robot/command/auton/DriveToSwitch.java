@@ -18,7 +18,7 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch left() {
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L0, L4, L5));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L4, L5));
         addSequential(new DropCubeSwitch());
 
         isOptionSelected = true;
@@ -27,7 +27,7 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch right() {
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R0, R4, R5));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R4, R5));
         addSequential(new DropCubeSwitch());
 
         isOptionSelected = true;

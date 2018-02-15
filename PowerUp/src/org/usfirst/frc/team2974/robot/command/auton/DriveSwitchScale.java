@@ -24,11 +24,11 @@ public class DriveSwitchScale extends CommandGroup {
 
     public DriveSwitchScale left() {
         addSequential(new DriveToSwitch().left()); // should also drop cube in
-        addSequential(SimpleSpline.pathFromPointsWithAngle(true, L5, L7, L8));
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L8, L9));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(true, L5, L7, L8));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L8, L9));
         addSequential(new FindCube());
-        addSequential(SimpleSpline.pathFromPointsWithAngle(true, L9, L10));
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, L10, L6, L2, L3));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(true, L9, L10));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L10, L6, L2, L3));
         addSequential(new DropCubeScale(SCALE_MAX_HEIGHT));
 
         isOptionSelected = true;
@@ -38,11 +38,11 @@ public class DriveSwitchScale extends CommandGroup {
 
     public DriveSwitchScale right() {
         addSequential(new DriveToSwitch().right()); // should also drop cube in
-        addSequential(SimpleSpline.pathFromPointsWithAngle(true, R5, R7, R8));
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R8, R9));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(true, R5, R7, R8));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R8, R9));
         addSequential(new FindCube());
-        addSequential(SimpleSpline.pathFromPointsWithAngle(true, R9, R10));
-        addSequential(SimpleSpline.pathFromPointsWithAngle(false, R10, R6, R2, R3));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(true, R9, R10));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R10, R6, R2, R3));
         addSequential(new DropCubeScale(SCALE_MAX_HEIGHT));
 
         isOptionSelected = true;

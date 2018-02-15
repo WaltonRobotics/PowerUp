@@ -73,7 +73,7 @@ public class SimpleSpline extends Command {
 	 *            the points (with angle) to move through
 	 * @return a new SimpleSpline command
 	 */
-	public static SimpleSpline pathFromPointsWithAngle(boolean isBackwards, Point... knots) {
+	public static SimpleSpline pathFromPosesWithAngle(boolean isBackwards, Pose... knots) {
 		return new SimpleSpline(knots[0].getAngle(), knots[knots.length - 1].getAngle(), isBackwards, knots);
 	}
 }

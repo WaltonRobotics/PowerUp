@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2974.robot;
 
-import org.waltonrobotics.controller.Point;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * This holds many constant values for all parts of the robot.
@@ -72,46 +72,46 @@ public final class Config {
         public static final double ACCELERATION_MAX = 1;
 
         // IMPORTANT: these points are measured from the center line
-        public static final Point R0 = new Point(2.38333, 0.42835, 90);
-        public static final Point R1 = new Point(3.61036, 3.55600, 90);
-        public static final Point R2 = new Point(3.61036, 6.64134, 90);
-        public static final Point R3 = new Point(2.28905, 8.03946, 180);
-        public static final Point R4 = new Point(2.85623, 3.55600, 90);
-        public static final Point R5 = new Point(1.79248, 4.26720, 180);
-        public static final Point R6 = new Point(3.61036, 5.80987, 0);
-        public static final Point R7 = new Point(2.85623, 4.97840, 270); // FIXME(?): does 270 have to be -90?
-        public static final Point R8 = new Point(2.85623, 5.80987, 270);
-        public static final Point R9 = new Point(2.33045, 5.83509, 270);
-        public static final Point R10 = new Point(0.83147, 5.80987, 0);
+        public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
+        public static final Pose R1 = new Pose(3.61036, 3.55600, 90);
+        public static final Pose R2 = new Pose(3.61036, 6.64134, 90);
+        public static final Pose R3 = new Pose(2.28905, 8.03946, 180);
+        public static final Pose R4 = new Pose(2.85623, 3.55600, 90);
+        public static final Pose R5 = new Pose(1.79248, 4.26720, 180);
+        public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
+        public static final Pose R7 = new Pose(2.85623, 4.97840, 270); // FIXME(?): does 270 have to be -90?
+        public static final Pose R8 = new Pose(2.85623, 5.80987, 270);
+        public static final Pose R9 = new Pose(2.33045, 5.83509, 270);
+        public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
 
-        public static final Point C0 = new Point(0.19177, 0.42835, 90);
-        public static final Point C1 = new Point(1.29388, 3.12791, 90); // TODO: check the center points
-        public static final Point C2 = new Point(1.29388, 3.12791, 90);
+        public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
+        public static final Pose C1 = new Pose(1.29388, 3.12791, 90); // TODO: check the center points
+        public static final Pose C2 = new Pose(1.29388, 3.12791, 90);
 
         // we can do this because every point is measured from the center line.
-        public static final Point L0 = negateX(R0);
-        public static final Point L1 = negateX(R1);
-        public static final Point L2 = negateX(R2);
-        public static final Point L3 = negateX(R3);
-        public static final Point L4 = negateX(R4);
-        public static final Point L5 = negateX(R5);
-        public static final Point L6 = negateX(R6);
-        public static final Point L7 = negateX(R7);
-        public static final Point L8 = negateX(R8);
-        public static final Point L9 = negateX(R9);
-        public static final Point L10 = negateX(R10);
+        public static final Pose L0 = negateX(R0);
+        public static final Pose L1 = negateX(R1);
+        public static final Pose L2 = negateX(R2);
+        public static final Pose L3 = negateX(R3);
+        public static final Pose L4 = negateX(R4);
+        public static final Pose L5 = negateX(R5);
+        public static final Pose L6 = negateX(R6);
+        public static final Pose L7 = negateX(R7);
+        public static final Pose L8 = negateX(R8);
+        public static final Pose L9 = negateX(R9);
+        public static final Pose L10 = negateX(R10);
 
         /**
          * Used for R -> L points. Easy and fast.
          * @param p the point to negate its x
          * @return a new point with the x negated from p
          */
-        private static Point negateX(Point p) {
+        private static Pose negateX(Pose p) {
             double angle = Math.toRadians(p.getAngle());
             double newAngle = Math.atan2(Math.sin(angle), -Math.cos(angle));
             if(newAngle < 0)
                 newAngle += 2 * Math.PI;
-            return new Point(-p.getX(), p.getY(), Math.toDegrees(newAngle));
+            return new Pose(-p.getX(), p.getY(), Math.toDegrees(newAngle));
         }
         public static final double MIDDLE_Y_SWITCH = 3.4100;
     }	

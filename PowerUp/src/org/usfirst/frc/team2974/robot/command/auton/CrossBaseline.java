@@ -2,7 +2,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
-import org.waltonrobotics.controller.Point;
+import org.waltonrobotics.controller.Pose;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
@@ -48,10 +48,10 @@ public class CrossBaseline extends CommandGroup {
         // either go left or right, depends on switch position
         if(Robot.getSwitchPosition() == 'R') {
             // go right
-            addSequential(SimpleSpline.pathFromPointsWithAngle(false, C0, C1));
+            addSequential(SimpleSpline.pathFromPosesWithAngle(false, C0, C1));
         } else {
             // go left
-            addSequential(SimpleSpline.pathFromPointsWithAngle(false, C0, C2));
+            addSequential(SimpleSpline.pathFromPosesWithAngle(false, C0, C2));
         }
 
         return this; // ease of use :) <--- smiley face :)
