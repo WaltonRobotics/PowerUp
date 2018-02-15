@@ -29,6 +29,9 @@ public final class Config {
 
         public static final int ELEVATOR_LEFT_MOTOR_CHANNEL = -1;
         public static final int ELEVATOR_RIGHT_MOTOR_CHANNEL = -1;
+        
+        public static final int LIMIT_SWITCH_UP = -1;
+        public static final int LIMIT_SWITCH_DOWN = -1;
     }
 
     public static final class Input {
@@ -44,6 +47,9 @@ public final class Config {
 
         public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
         public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
+        
+        public static final int ELEVATOR_UP = 5;
+        public static final int ELEVATOR_DOWN = 4;
     }
 
     public static final class Elevator {
