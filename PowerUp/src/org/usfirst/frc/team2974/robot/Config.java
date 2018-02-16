@@ -61,6 +61,20 @@ public final class Config {
 //        public static final double BOTTOM =
 //        public static final double TOP =
 
+        public static final double NUDGE_DISTANCE = 1; // in inches
+
+        public static final double INCHES_TO_NU = 1; // TODO: FIXME
+
+        public static final int CRUISE_SPEED = 0; // native sensor units per 100 ms
+        public static final int ACCELERATION = 0; // ^^^ per second
+
+        // motion control constants
+        public static final double KF = 0;
+        public static final double KP = 0;
+        public static final double KI = 0;
+        public static final double KD = 0;
+
+        public static final int TIMEOUT = 1000; // in ms
     }
 
     public static final class Intake {
