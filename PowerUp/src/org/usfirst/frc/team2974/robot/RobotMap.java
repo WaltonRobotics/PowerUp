@@ -28,6 +28,9 @@ public class RobotMap {
 	public static final VictorSPX intakeMotorLeft;
 	public static final VictorSPX intakeMotorRight;
 	
+	public static final DigitalInput limitSwitchUp;
+	public static final DigitalInput limitSwitchDown;
+	
 	static {
 		motorLeft = new Talon(LEFT_MOTOR_CHANNEL);
 		motorRight = new Talon(RIGHT_MOTOR_CHANNEL);
@@ -42,5 +45,7 @@ public class RobotMap {
 
 		intakeMotorLeft = new VictorSPX(INTAKE_LEFT_MOTOR_CHANNEL);
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);
+		
+		
 	}
 }

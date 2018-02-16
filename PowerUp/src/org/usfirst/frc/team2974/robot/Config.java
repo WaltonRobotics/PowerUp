@@ -45,6 +45,9 @@ public final class Config {
 
         public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
         public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
+        
+        public static final int ELEVATOR_UP = 5;
+        public static final int ELEVATOR_DOWN = 4;
     }
 
     public static final class Elevator {

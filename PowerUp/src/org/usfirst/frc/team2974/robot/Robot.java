@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.waltonrobotics.MotionLogger;
 
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
 	public static IntakeOutput intakeOutput;
+	public static Elevator elevator;
 
 	private CommandGroup autonCommands;
 	public static MotionLogger motionLogger;
@@ -41,6 +43,8 @@ public class Robot extends IterativeRobot {
 		motionLogger = new MotionLogger("/home/lvuser/");
 		drivetrain = new Drivetrain(motionLogger);
 		intakeOutput = new IntakeOutput();
+		elevator = new Elevator();
+		
 
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);

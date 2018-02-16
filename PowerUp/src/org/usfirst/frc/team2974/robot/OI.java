@@ -21,6 +21,12 @@ public class OI {
 	public static final Button shiftDown;
 	public static final Button shiftUpAlt;
 	public static final Button shiftDownAlt;
+	
+	//used with Elevator subsystem
+	public static final Button restPosition;
+	public static final Button elevatorUp;
+	public static final Button elevatorDown;
+	
 
 	// used with IntakeOutput subsystem
 	public static final Button intake;
@@ -35,6 +41,10 @@ public class OI {
 		shiftDown = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON);
 		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT);
 		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
+		
+		elevatorUp = new JoystickButton(leftJoystick, ELEVATOR_UP);
+		elevatorDown = new JoystickButton(rightJoystick, ELEVATOR_DOWN);
+		restPosition = new JoystickButton(rightJoystick, ELEVATOR_UP);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);
