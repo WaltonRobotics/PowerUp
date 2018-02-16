@@ -11,24 +11,25 @@ public final class Config {
     private Config() {}
 
     public static final class Hardware {
-        public static final double ROBOT_WIDTH = .70485; // new robot: .99314 with bumpers
-        public static final double DISTANCE_PER_PULSE = 0.0005652; // new robot:
+        public static final double ROBOT_WIDTH = .70485; // new robot: 0.7493 between wheels
+        public static final double DISTANCE_PER_PULSE = 0.0005652; // new robot: .0006494
 
-        public static final int LEFT_MOTOR_CHANNEL = 1;
+        public static final int LEFT_MOTOR_CHANNEL = 1; // pwm
         public static final int LEFT_ENCODER_CHANNEL1 = 0; // for first digital input
         public static final int LEFT_ENCODER_CHANNEL2 = 1; // for second digital input
 
-        public static final int RIGHT_MOTOR_CHANNEL = 0;
-        public static final int RIGHT_ENCODER_CHANNEL1 = 2;
-        public static final int RIGHT_ENCODER_CHANNEL2 = 3;
+        public static final int RIGHT_MOTOR_CHANNEL = 0; // pwm
+        public static final int RIGHT_ENCODER_CHANNEL1 = 2; // digital
+        public static final int RIGHT_ENCODER_CHANNEL2 = 3; // digital
 
-        public static final int SHIFTER_CHANNEL = 0;
+        public static final int SHIFTER_CHANNEL = 0; // pcm
 
-        public static final int INTAKE_LEFT_MOTOR_CHANNEL = -1;
-        public static final int INTAKE_RIGHT_MOTOR_CHANNEL = -1;
+        public static final int INTAKE_LEFT_MOTOR_CHANNEL = 2; // can
+        public static final int INTAKE_RIGHT_MOTOR_CHANNEL = 3; // can
 
-        public static final int ELEVATOR_LEFT_MOTOR_CHANNEL = -1;
-        public static final int ELEVATOR_RIGHT_MOTOR_CHANNEL = -1;
+        public static final int ELEVATOR_MOTOR_CHANNEL = 1; // can
+
+        public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
     }
 
     public static final class Input {
@@ -73,20 +74,20 @@ public final class Config {
 
         // IMPORTANT: these points are measured from the center line
         public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
-        public static final Pose R1 = new Pose(3.61036, 3.55600, 90);
-        public static final Pose R2 = new Pose(3.61036, 6.64134, 90);
+        public static final Pose R1 = new Pose(2.60000, 3.55600, 90);
+        public static final Pose R2 = new Pose(2.60000, 6.64134, 90);
         public static final Pose R3 = new Pose(2.28905, 8.03946, 180);
         public static final Pose R4 = new Pose(2.85623, 3.55600, 90);
         public static final Pose R5 = new Pose(1.79248, 4.26720, 180);
         public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
-        public static final Pose R7 = new Pose(2.85623, 4.97840, 270); // FIXME(?): does 270 have to be -90?
+        public static final Pose R7 = new Pose(2.85623, 4.97840, 270);
         public static final Pose R8 = new Pose(2.85623, 5.80987, 270);
         public static final Pose R9 = new Pose(2.33045, 5.83509, 270);
         public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
 
         public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
-        public static final Pose C1 = new Pose(1.29388, 3.12791, 90); // TODO: check the center points
-        public static final Pose C2 = new Pose(1.29388, 3.12791, 90);
+        public static final Pose C1 = new Pose(1.29388, 3.12791, 90);
+        public static final Pose C2 = new Pose(-1.29388, 3.12791, 90);
 
         // we can do this because every point is measured from the center line.
         public static final Pose L0 = negateX(R0);
@@ -113,7 +114,6 @@ public final class Config {
                 newAngle += 2 * Math.PI;
             return new Pose(-p.getX(), p.getY(), Math.toDegrees(newAngle));
         }
-        public static final double MIDDLE_Y_SWITCH = 3.4100;
     }	
     
     public static final class MotionConstants {

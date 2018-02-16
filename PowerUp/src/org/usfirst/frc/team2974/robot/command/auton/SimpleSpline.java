@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import org.usfirst.frc.team2974.robot.Robot;
-import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.waltonrobotics.controller.Pose;
 import org.waltonrobotics.motion.Spline;
 
@@ -53,7 +51,6 @@ public class SimpleSpline extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println("executing spline");
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -63,6 +60,7 @@ public class SimpleSpline extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		System.out.println("spline done");
 		drivetrain.cancelControllerMotion();
 		drivetrain.clearControllerMotions();
 		drivetrain.setSpeeds(0, 0);

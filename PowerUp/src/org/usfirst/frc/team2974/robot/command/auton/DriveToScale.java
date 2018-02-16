@@ -20,7 +20,8 @@ public class DriveToScale extends CommandGroup {
 
     public DriveToScale left() {
         // FIXME(?): may have to change because it might hit the wall
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L1, L2, L3));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L1, L2));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L2, L3));
         addSequential(new DropCubeScale());
 
         isOptionSelected = true;

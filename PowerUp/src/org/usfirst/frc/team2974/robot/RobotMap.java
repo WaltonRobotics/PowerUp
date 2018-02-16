@@ -23,8 +23,7 @@ public class RobotMap {
 	public static final Compressor compressor;
 	public static final Solenoid pneumaticsShifter;
 
-	public static final TalonSRX elevatorMotorLeft; // changed from CANTalon
-	public static final TalonSRX elevatorMotorRight;
+	public static final TalonSRX elevatorMotor; // changed from CANTalon
 
 	public static final VictorSPX intakeMotorLeft;
 	public static final VictorSPX intakeMotorRight;
@@ -39,8 +38,7 @@ public class RobotMap {
 		compressor = new Compressor();
 		pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
 
-		elevatorMotorLeft = new TalonSRX(ELEVATOR_LEFT_MOTOR_CHANNEL);
-		elevatorMotorRight = new TalonSRX(ELEVATOR_RIGHT_MOTOR_CHANNEL);
+		elevatorMotor = new TalonSRX(ELEVATOR_MOTOR_CHANNEL);
 
 		intakeMotorLeft = new VictorSPX(INTAKE_LEFT_MOTOR_CHANNEL);
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);

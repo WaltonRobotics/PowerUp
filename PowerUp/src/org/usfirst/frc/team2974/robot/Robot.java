@@ -11,7 +11,6 @@ import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.waltonrobotics.MotionLogger;
-import org.waltonrobotics.controller.Pose;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,7 +45,6 @@ public class Robot extends IterativeRobot {
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);
 		doNothingChooser.addDefault("Please move!", false);
-		SmartDashboard.putData("Do Nothing", doNothingChooser);
 
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Left (1)", 'l');
@@ -84,6 +82,7 @@ public class Robot extends IterativeRobot {
 		char startPosition = startLocation.getSelected();
 
 		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
+		System.out.println("Game Position Chosen: " + GamePosition.getGamePosition(startPosition, gameData));
 
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 
@@ -146,6 +145,7 @@ public class Robot extends IterativeRobot {
 
 		// Selectors
 		SmartDashboard.putData("Start Location", startLocation);
+		SmartDashboard.putData("Do Nothing", doNothingChooser);
 	}
 
 	/**
