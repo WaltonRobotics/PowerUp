@@ -11,6 +11,7 @@ import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
+import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
 
 /**
@@ -27,6 +28,8 @@ public class Robot extends IterativeRobot {
 	public static Elevator elevator;
 
 	private CommandGroup autonCommands;
+
+	public static ElevatorLogger elevatorLogger;
 	public static MotionLogger motionLogger;
 
 	private SendableChooser<Boolean> doNothingChooser;
@@ -41,9 +44,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		motionLogger = new MotionLogger("/home/lvuser/");
+		elevatorLogger = new ElevatorLogger("/home/lvuser/");
 		drivetrain = new Drivetrain(motionLogger);
 		intakeOutput = new IntakeOutput();
-		elevator = new Elevator();
+		elevator = new Elevator(elevatorLogger);
 		
 
 		doNothingChooser = new SendableChooser<>();
@@ -63,6 +67,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		drivetrain.reset();
 		motionLogger.writeMotionDataCSV();
+		elevatorLogger.writeMotionDataCSV();
 	}
 
 	@Override
@@ -79,6 +84,7 @@ public class Robot extends IterativeRobot {
     		return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
 		}
     	motionLogger.initialize();
+    	elevatorLogger.initialize();
 
 		if(gameData == null || gameData.isEmpty())
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something

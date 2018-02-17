@@ -4,8 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
+import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.*;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
@@ -17,11 +19,22 @@ import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
  */
 public class Elevator extends Subsystem {
 
+    private ElevatorLogger logger;
 	private boolean isMotionControlled;
+
+    public Elevator(ElevatorLogger logger) {
+        initConstants();
+        this.logger = logger;
+    }
 
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new ElevatorCommand());
+    }
+
+    @Override
+    public void periodic() {
+        logger.addMotionData(new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(), elevatorMotor.get()));
     }
 
     public void initConstants() {
@@ -47,6 +60,19 @@ public class Elevator extends Subsystem {
 
         elevatorMotor.configMotionCruiseVelocity(CRUISE_SPEED, TIMEOUT);
         elevatorMotor.configMotionAcceleration(ACCELERATION, TIMEOUT);
+
+        /* +14 rotations forward when using CTRE Mag encoder */
+        elevatorMotor.configForwardSoftLimitThreshold(+14 * 4096, 10); // TODO: FIX
+        /* -15 rotations reverse when using CTRE Mag encoder */
+        elevatorMotor.configReverseSoftLimitThreshold(-15 * 4096, 10); // TODO: FIX
+
+        elevatorMotor.configForwardSoftLimitEnable(true, 10);
+        elevatorMotor.configReverseSoftLimitEnable(true, 10);
+
+        /* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
+        elevatorMotor.overrideLimitSwitchesEnable(true);
+
+        zeroEncoder();
     }
 
     public void zeroEncoder() {
@@ -57,16 +83,22 @@ public class Elevator extends Subsystem {
         if(isMotionControlled) {
             setTarget(getCurrentPosition() + distance);
         } else {
-            setPower(Math.signum(distance)); // TODO: joystick value
+            setPower(Math.signum(distance));
         }
     }
 
     public void enableControl() {
+        isMotionControlled = true;
         elevatorMotor.set(ControlMode.MotionMagic, elevatorMotor.getSelectedSensorPosition(0));
     }
 
     public void disableControl() {
+        isMotionControlled = false;
         elevatorMotor.set(ControlMode.Disabled, 0);
+    }
+
+    public boolean isMotionControlled() {
+        return isMotionControlled;
     }
 
     /**

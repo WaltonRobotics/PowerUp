@@ -32,7 +32,7 @@ public final class Config {
         public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
     }
 
-    public static final class Input {
+    public static final class Input { // TODO: get from drive team
         public static final int RIGHT_JOYSTICK_PORT = 1;
         public static final int LEFT_JOYSTICK_PORT = 0;
         public static final int GAMEPAD_PORT = 2;
@@ -48,6 +48,8 @@ public final class Config {
         
         public static final int ELEVATOR_UP = 5;
         public static final int ELEVATOR_DOWN = 4;
+        public static final int ELEVATOR_ZERO = 6;
+        public static final int ELEVATOR_STICK_PWM = 0;
     }
 
     public static final class Elevator {

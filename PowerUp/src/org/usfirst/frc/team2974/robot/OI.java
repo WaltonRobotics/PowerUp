@@ -3,7 +3,7 @@ package org.usfirst.frc.team2974.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
+import org.usfirst.frc.team2974.robot.util.ButtonOnce;
 
 import static org.usfirst.frc.team2974.robot.Config.Input.*;
 
@@ -23,7 +23,7 @@ public class OI {
 	public static final Button shiftDownAlt;
 	
 	//used with Elevator subsystem
-	public static final Button restPosition;
+	public static final Button elevatorZero;
 	public static final Button elevatorUp;
 	public static final Button elevatorDown;
 	
@@ -42,9 +42,9 @@ public class OI {
 		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT);
 		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
 		
-		elevatorUp = new JoystickButton(leftJoystick, ELEVATOR_UP);
-		elevatorDown = new JoystickButton(rightJoystick, ELEVATOR_DOWN);
-		restPosition = new JoystickButton(rightJoystick, ELEVATOR_UP);
+		elevatorUp = new ButtonOnce(leftJoystick, ELEVATOR_UP);
+		elevatorDown = new ButtonOnce(rightJoystick, ELEVATOR_DOWN);
+		elevatorZero = new ButtonOnce(rightJoystick, ELEVATOR_UP);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);

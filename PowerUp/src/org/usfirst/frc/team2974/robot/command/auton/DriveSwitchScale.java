@@ -29,7 +29,7 @@ public class DriveSwitchScale extends CommandGroup {
         addSequential(new FindCube());
         addSequential(SimpleSpline.pathFromPosesWithAngle(true, L9, L10));
         addSequential(SimpleSpline.pathFromPosesWithAngle(false, L10, L6, L2, L3));
-        addSequential(new DropCubeScale(SCALE_MAX_HEIGHT));
+        addSequential(new DropCube(SCALE_MAX_HEIGHT));
 
         isOptionSelected = true;
 
@@ -43,7 +43,7 @@ public class DriveSwitchScale extends CommandGroup {
         addSequential(new FindCube());
         addSequential(SimpleSpline.pathFromPosesWithAngle(true, R9, R10));
         addSequential(SimpleSpline.pathFromPosesWithAngle(false, R10, R6, R2, R3));
-        addSequential(new DropCubeScale(SCALE_MAX_HEIGHT));
+        addSequential(new DropCube(SCALE_MAX_HEIGHT));
 
         isOptionSelected = true;
 
