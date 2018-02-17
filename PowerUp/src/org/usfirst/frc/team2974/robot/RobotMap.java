@@ -31,6 +31,8 @@ public class RobotMap {
 
 	public static final DigitalInput elevatorLimitLower;
 	
+	public static final DigitalInput limitIntake;
+	
 	static {
 		motorLeft = new Talon(LEFT_MOTOR_CHANNEL);
 		motorRight = new Talon(RIGHT_MOTOR_CHANNEL);
