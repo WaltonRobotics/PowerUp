@@ -26,6 +26,8 @@ public final class Config {
 
         public static final int INTAKE_LEFT_MOTOR_CHANNEL = 2; // can
         public static final int INTAKE_RIGHT_MOTOR_CHANNEL = 3; // can
+        
+        public static final int INTAKE_LIMIT = 5; // digital
 
         public static final int ELEVATOR_MOTOR_CHANNEL = 1; // can
 
@@ -77,8 +79,10 @@ public final class Config {
         public static final int TIMEOUT = 1000; // in ms
     }
 
-    public static final class Intake {
-
+    public static final class IntakeOutput {
+    	public static final double MAX_POWER = 1;
+    	public static final double LOW_POWER = 0.25; // Test this value
+    	public static final double HOLD_POWER = -0.1; // TEST
     }
 
     public static final class Path {
