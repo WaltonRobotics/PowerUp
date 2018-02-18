@@ -1,15 +1,14 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static org.usfirst.frc.team2974.robot.OI.intake;
 import static org.usfirst.frc.team2974.robot.OI.output;
 import static org.usfirst.frc.team2974.robot.Robot.intakeOutput;
-import static edu.wpi.first.wpilibj.Timer;
 
 /**
- * This command does the intake/output function of the IntakeOutput subsystem.
+ * This command does the intake/output function of the State subsystem.
  */
 public class IntakeCommand extends Command {
 
@@ -17,20 +16,22 @@ public class IntakeCommand extends Command {
         requires(intakeOutput);
     }
     
-    public enum IntakeOutput{
-    	OFF{
+    public enum State {
+    	OFF {
     		public void init(){
     			intakeOutput.off();
+				SmartDashboard.putString("Intake State","OFF");
     		}
     		public State periodic(){
-    			if(output.get()){
+    			if(intake.get()){
     				return IN;
     			}
     			return this;
     		}
     	}, 
-    	IN{
+    	IN {
     		public void init(){
+				SmartDashboard.putString("Intake State","IN");
     			intakeOutput.highIntake();
     			intakeOutput.resetTime();
     		}
@@ -41,9 +42,10 @@ public class IntakeCommand extends Command {
     			return this;
     		}
     	}, 
-    	HOLD{
+    	HOLD {
     		public void init(){
     			intakeOutput.hold();
+				SmartDashboard.putString("Intake State","HOLD");
     		}
     		public State periodic(){
     			if(output.get()){
@@ -52,8 +54,9 @@ public class IntakeCommand extends Command {
     			return this;
     		}
     	}, 
-    	OUT{
+    	OUT {
     		public void init(){
+				SmartDashboard.putString("Intake State","OUT");
     			intakeOutput.highOutput();
     			intakeOutput.resetTime();
     		}
@@ -65,23 +68,27 @@ public class IntakeCommand extends Command {
     		}
     	};
     	
-    	public State periodic(){
-    		return this;
-    	}
-    	public void init(){
-    	}
+    	public abstract State periodic();
+    	public abstract void init();
     }
-    
-    State state = IntakeOutput.OFF;
+
+	private State state = State.OFF;
     
     @Override
     protected void initialize(){
-    	state = IntakeOutput.OFF;
+    	state = State.OFF;
+    	state.init();
     }
 
     @Override
     protected void execute() {
-        
+    	State newState = state.periodic();
+
+    	if(state != newState) {
+    		state = newState;
+    		state.init();
+		}
+
     }
 
     @Override

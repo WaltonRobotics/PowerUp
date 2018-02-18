@@ -6,6 +6,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team2974.robot.Config;
+import org.usfirst.frc.team2974.robot.RobotMap;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
@@ -83,7 +86,7 @@ public class Elevator extends Subsystem {
         if(isMotionControlled) {
             setTarget(getCurrentPosition() + distance);
         } else {
-            setPower(Math.signum(distance));
+            setPower(Math.signum(distance)); // this will not work as intended
         }
     }
 
@@ -110,14 +113,26 @@ public class Elevator extends Subsystem {
     }
 
     /**
+     * Gets the current position of the elevator in native units
+     * @return
+     */
+    public double getCurrentPositionNU() {
+        return elevatorMotor.getSelectedSensorPosition(0);
+    }
+
+    /**
      * Sets the target position from the zero point.
      * @param inches the position is in inches, duh
      */
     public void setTarget(double inches) {
-        elevatorMotor.set(ControlMode.MotionMagic, inches * INCHES_TO_NU);
+        elevatorMotor.set(
+                ControlMode.MotionMagic,
+                Math.max(MAXIMUM_HEIGHT, Math.min(MINUMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
+        );
     }
 
     public void setPower(double percent) {
+        SmartDashboard.putNumber("Elevator Power", percent);
         elevatorMotor.set(ControlMode.PercentOutput, percent);
     }
 }

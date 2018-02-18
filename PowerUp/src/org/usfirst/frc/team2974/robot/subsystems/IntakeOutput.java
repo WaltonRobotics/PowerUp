@@ -1,14 +1,13 @@
 package org.usfirst.frc.team2974.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.usfirst.frc.team2974.robot.Config;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team2974.robot.command.teleop.IntakeCommand;
 
 import static org.usfirst.frc.team2974.robot.RobotMap.intakeMotorLeft;
 import static org.usfirst.frc.team2974.robot.RobotMap.intakeMotorRight;
-import static org.usfirst.frc.team2974.robot.Config.IntakeOutput;
+import static org.usfirst.frc.team2974.robot.Config.IntakeOutput.*;
 
 /**
  * The Intake/Outtake for the power cubes.
@@ -18,7 +17,8 @@ public class IntakeOutput extends Subsystem {
 	private Timer timer;
 	
     public IntakeOutput() {
-        intakeMotorLeft.setInverted(true); // TODO: check
+        intakeMotorLeft.setInverted(true);
+        timer = new Timer();
         timer.start();
     }
 

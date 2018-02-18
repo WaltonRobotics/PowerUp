@@ -20,7 +20,7 @@ public class ElevatorCommand extends Command {
 	@Override
 	protected void execute() {
 		if(!elevator.isMotionControlled()) {
-			elevator.setPower(gamepad.getLeftY());
+			elevator.setPower(-gamepad.getLeftY());
 		} else {
 			if(elevatorUp.get()) {
 				elevator.nudge(NUDGE_DISTANCE);

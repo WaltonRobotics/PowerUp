@@ -14,24 +14,26 @@ public final class Config {
         public static final double ROBOT_WIDTH = .70485; // new robot: 0.7493 between wheels
         public static final double DISTANCE_PER_PULSE = 0.0005652; // new robot: .0006494
 
-        public static final int LEFT_MOTOR_CHANNEL = 1; // pwm
-        public static final int LEFT_ENCODER_CHANNEL1 = 0; // for first digital input
-        public static final int LEFT_ENCODER_CHANNEL2 = 1; // for second digital input
+        public static final int LEFT_MOTOR_CHANNEL = 0; // pwm
+        public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input
+        public static final int LEFT_ENCODER_CHANNEL2 = 3; // for second digital input
 
-        public static final int RIGHT_MOTOR_CHANNEL = 0; // pwm
-        public static final int RIGHT_ENCODER_CHANNEL1 = 2; // digital
-        public static final int RIGHT_ENCODER_CHANNEL2 = 3; // digital
+        public static final int RIGHT_MOTOR_CHANNEL = 1; // pwm
+        public static final int RIGHT_ENCODER_CHANNEL1 = 0; // digital
+        public static final int RIGHT_ENCODER_CHANNEL2 = 1; // digital
 
         public static final int SHIFTER_CHANNEL = 0; // pcm
 
-        public static final int INTAKE_LEFT_MOTOR_CHANNEL = 2; // can
-        public static final int INTAKE_RIGHT_MOTOR_CHANNEL = 3; // can
+        public static final int INTAKE_LEFT_MOTOR_CHANNEL = 4; // can
+        public static final int INTAKE_RIGHT_MOTOR_CHANNEL = 5; // can
         
         public static final int INTAKE_LIMIT = 5; // digital
 
-        public static final int ELEVATOR_MOTOR_CHANNEL = 1; // can
+        public static final int ELEVATOR_MOTOR_CHANNEL = 3; // can
 
         public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
+
+        public static final int COMPRESSOR_CHANNEL = 1; // can
     }
 
     public static final class Input { // TODO: get from drive team
@@ -56,18 +58,17 @@ public final class Config {
 
     public static final class Elevator {
         private static final double FEET_TO_METERS = .3048; // ease of use for feet values
+        public static final double INCHES_TO_NU = 1; // TODO: FIXME
 
-        public static final double SCALE_INITIAL_HEIGHT = 5 * FEET_TO_METERS;
-        public static final double SCALE_MAX_HEIGHT = 6 * FEET_TO_METERS;
+        public static final double SCALE_INITIAL_HEIGHT = 60; // inches
+        public static final double SCALE_MAX_HEIGHT = 72; // inches
 
-        public static final double SWITCH_HEIGHT = (1 + 6.75 / 12) * FEET_TO_METERS;
+        public static final double SWITCH_HEIGHT = 18.75; // inches
 
-//        public static final double BOTTOM =
-//        public static final double TOP =
+        public static final double MINUMUM_HEIGHT = 0; // in nu (native units)
+        public static final double MAXIMUM_HEIGHT = 22500; // in nu
 
         public static final double NUDGE_DISTANCE = 1; // in inches
-
-        public static final double INCHES_TO_NU = 1; // TODO: FIXME
 
         public static final int CRUISE_SPEED = 0; // native sensor units per 100 ms
         public static final int ACCELERATION = 0; // ^^^ per second
@@ -82,8 +83,8 @@ public final class Config {
     }
 
     public static final class IntakeOutput {
-    	public static final double MAX_POWER = 1;
-    	public static final double LOW_POWER = 0.25; // Test this value
+    	public static final double MAX_POWER = -0.75;
+    	public static final double LOW_POWER = -0.25; // Test this value
     	public static final double HOLD_POWER = -0.1; // TEST
     }
 

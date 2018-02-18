@@ -2,6 +2,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+import static org.usfirst.frc.team2974.robot.Config.Elevator.SWITCH_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
 /**
@@ -18,8 +19,9 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch left() {
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L4, L5));
-        addSequential(new DropCubeSwitch());
+        addParallel(SimpleSpline.pathFromPosesWithAngle(false, L0, L4, L5));
+        addParallel(new ElevatorTarget(SWITCH_HEIGHT));
+        addSequential(new DropCube());
 
         isOptionSelected = true;
 
@@ -27,8 +29,9 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch right() {
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R4, R5));
-        addSequential(new DropCubeSwitch());
+        addParallel(SimpleSpline.pathFromPosesWithAngle(false, R0, R4, R5));
+        addParallel(new ElevatorTarget(SWITCH_HEIGHT));
+        addSequential(new DropCube());
 
         isOptionSelected = true;
 
@@ -36,8 +39,9 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch center() {
-        addSequential(new CrossBaseline().center()); // :)
-        addSequential(new DropCubeSwitch());
+        addParallel(new CrossBaseline().center()); // :)
+        addParallel(new ElevatorTarget(SWITCH_HEIGHT));
+        addSequential(new DropCube());
 
         isOptionSelected = true;
 

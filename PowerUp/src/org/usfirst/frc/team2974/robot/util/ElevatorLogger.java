@@ -76,7 +76,8 @@ public class ElevatorLogger {
         if (motionDataList.isEmpty()) {
             return;
         }
-        String fileName = new SimpleDateFormat("Elevator yyyy-MM-dd hh-mm-ss").format(new Date());
+
+        String fileName = "Elevator " + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
         File file = new File(filePath + fileName + ".csv");
 
         StringBuilder sb = new StringBuilder();

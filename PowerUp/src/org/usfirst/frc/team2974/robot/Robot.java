@@ -48,7 +48,6 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain(motionLogger);
 		intakeOutput = new IntakeOutput();
 		elevator = new Elevator(elevatorLogger);
-		
 
 		doNothingChooser = new SendableChooser<>();
 		doNothingChooser.addObject("Do Nothing!", true);
@@ -59,7 +58,9 @@ public class Robot extends IterativeRobot {
 		startLocation.addObject("Right (3)", 'r');
 		startLocation.addDefault("Center (2)", 'c');
 
-		drivetrain.setEncoderDistancePerPulse();
+//		SmartDashboard.putData("Left Encoder", RobotMap.encoderLeft);
+//		SmartDashboard.putData("Right Encoder", RobotMap.encoderRight);
+
 		updateSmartDashboard();
 	}
 
@@ -86,13 +87,11 @@ public class Robot extends IterativeRobot {
     	motionLogger.initialize();
     	elevatorLogger.initialize();
 
-		if(gameData == null || gameData.isEmpty())
+		if(gameData == null || gameData.isEmpty()) {
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+		}
 
 		char startPosition = startLocation.getSelected();
-
-		System.out.println("Start Position: " + startPosition + " Game Data: " + gameData);
-		System.out.println("Game Position Chosen: " + GamePosition.getGamePosition(startPosition, gameData));
 
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 
@@ -156,6 +155,11 @@ public class Robot extends IterativeRobot {
 		// Selectors
 		SmartDashboard.putData("Start Location", startLocation);
 		SmartDashboard.putData("Do Nothing", doNothingChooser);
+
+		// Elevator
+		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
+		SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
+
 	}
 
 	/**
