@@ -57,7 +57,6 @@ public final class Config {
     }
 
     public static final class Elevator {
-        private static final double FEET_TO_METERS = .3048; // ease of use for feet values
         public static final double INCHES_TO_NU = 1; // TODO: FIXME
 
         public static final double SCALE_INITIAL_HEIGHT = 60; // inches
@@ -79,7 +78,7 @@ public final class Config {
         public static final double KI = 0;
         public static final double KD = 0;
 
-        public static final int TIMEOUT = 1000; // in ms
+        public static final int TIMEOUT = 100; // in ms
     }
 
     public static final class IntakeOutput {
@@ -89,8 +88,6 @@ public final class Config {
     }
 
     public static final class Path {
-        public static final String PATH_DIRECTORY = "./paths/";
-        public static final String NETWORKTABLE = "SmartDashboard";
         public static final double CROSS_BASELINE_Y = 4.2748092;
 
         public static final double VELOCITY_MAX = 2;
