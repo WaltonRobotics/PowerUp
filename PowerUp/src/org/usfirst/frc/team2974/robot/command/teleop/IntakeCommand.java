@@ -26,6 +26,9 @@ public class IntakeCommand extends Command {
     			if(intake.get()){
     				return IN;
     			}
+    			else if(output.get()){
+    				return OUT;
+    			}
     			return this;
     		}
     	}, 
@@ -50,6 +53,9 @@ public class IntakeCommand extends Command {
     		public State periodic(){
     			if(output.get()){
     				return OUT;
+    			}
+    			else if(input.get()){
+    				return IN;
     			}
     			return this;
     		}
