@@ -14,16 +14,31 @@ public class ElevatorTarget extends Command {
     public ElevatorTarget(double position) {
         this.position = position;
 
+        if(!elevator.isMotionControlled())
+            elevator.enableControl();
+
         requires(elevator);
     }
 
     @Override
-    public synchronized void start() {
+    protected void initialize() {
+        System.out.println("init TargetElevator");
         elevator.setTarget(position);
     }
 
     @Override
     protected boolean isFinished() {
         return Math.abs(elevator.getCurrentPosition() - position) <= 1;
+    }
+
+    @Override
+    protected void end() {
+        System.out.println("end TargetElevator");
+//        elevator.disableControl();
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
     }
 }

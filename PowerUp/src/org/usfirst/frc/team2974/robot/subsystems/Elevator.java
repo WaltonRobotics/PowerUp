@@ -26,6 +26,10 @@ public class Elevator extends Subsystem {
 
     private double power;
 
+    private boolean zeroing;
+    private boolean zeroed;
+    private Timer timer = new Timer();
+
     public Elevator(ElevatorLogger logger) {
         initConstants();
         this.logger = logger;
@@ -53,19 +57,14 @@ public class Elevator extends Subsystem {
             zeroing = false;
             timer.stop();
             zeroEncoder();
-
         }
-
     }
-
-    private boolean zeroed;
-    private Timer timer = new Timer();
 
     public void initConstants() {
         elevatorMotor.setNeutralMode(NeutralMode.Brake);
         elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
-        elevatorMotor.setSensorPhase(true); // FIXME: make sensor go up as elevator raises
-        elevatorMotor.setInverted(true); // FIXME: make motor go up on positive power
+        elevatorMotor.setSensorPhase(true);
+        elevatorMotor.setInverted(true);
 
         elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
         elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, TIMEOUT);
@@ -87,10 +86,8 @@ public class Elevator extends Subsystem {
 
         zeroed = false;
 
-        /* +14 rotations forward when using CTRE Mag encoder */
-        elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
-        /* -15 rotations reverse when using CTRE Mag encoder */
-        elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10); // TODO: FIX
+        elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10);
+        elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10);
 
         elevatorMotor.configForwardSoftLimitEnable(true, 10);
         elevatorMotor.configReverseSoftLimitEnable(true, 10);
@@ -172,8 +169,7 @@ public class Elevator extends Subsystem {
      * @param inches the position is in inches, duh
      */
     public void setTarget(double inches) {
-//        System.out.println(inches * INCHES_TO_NU);
-//        System.out.println(Math.min(MAXIMUM_HEIGHT, Math.max(MINUMUM_HEIGHT, inches * INCHES_TO_NU)));
+        System.out.println("Target: " + inches);
 
         if (zeroed)
             elevatorMotor.set(
@@ -198,13 +194,10 @@ public class Elevator extends Subsystem {
         return getCurrentPositionNU() <= MINUMUM_HEIGHT;
     }
 
-
-    private boolean zeroing;
-
     public void startZero() {
         if (!zeroed) {
             zeroing = true;
-            zeroEncoder();
+//            zeroEncoder();
             timer.start();
         }
     }

@@ -26,7 +26,7 @@ public final class Config {
 
         public static final int INTAKE_LEFT_MOTOR_CHANNEL = 4; // can
         public static final int INTAKE_RIGHT_MOTOR_CHANNEL = 5; // can
-        
+
         public static final int INTAKE_LIMIT = 5; // digital
 
         public static final int ELEVATOR_MOTOR_CHANNEL = 3; // can
@@ -41,30 +41,31 @@ public final class Config {
 
         // left joystick //
         public static final int SHIFT_UP_BUTTON = 3;
-        public static final int SHIFT_UP_BUTTON_ALT = 11;
+        public static final int SHIFT_UP_BUTTON_ALT = 6;
 
         public static final int SHIFT_DOWN_BUTTON = 2;
-        public static final int SHIFT_DOWN_BUTTON_ALT = 10;
+        public static final int SHIFT_DOWN_BUTTON_ALT = 7;
+
+        public static final int SHIFT_TOOGLE_BUTTON = 1;
 
         // right joystick //
 
         // gamepad //
         public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
         public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
-        
-        public static final int ELEVATOR_NUDGE_UP = 5;
-        public static final int ELEVATOR_NUDGE_DOWN = 4;
-        public static final int ELEVATOR_ZERO = 10;
-        public static final int ELEVATOR_TOGGLE_CONTROL = 1;
+
+        public static final int ELEVATOR_NUDGE_UP = Gamepad.POV.N.angle(); // pov
+        public static final int ELEVATOR_NUDGE_DOWN = Gamepad.POV.S.angle(); // pov
+        public static final int ELEVATOR_ZERO = Gamepad.Button._9.index();
+        public static final int ELEVATOR_TOGGLE_CONTROL = Gamepad.Button._10.index();
     }
 
     public static final class Elevator {
         public static final double INCHES_TO_NU = 775; // TODO: FIXME
 
-        public static final double SCALE_INITIAL_HEIGHT = 60; // inches
-        public static final double SCALE_MAX_HEIGHT = 72; // inches
-
-        public static final double SWITCH_HEIGHT = 18.75; // inches
+        public static final double HIGH_HEIGHT = 72; // inches, this gets the scale
+        public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
+        public static final double LOW_HEIGHT = 0; // inches, the floor
 
         public static final int MINUMUM_HEIGHT = 1000; // in nu (native units)
         public static final int MAXIMUM_HEIGHT = 20000; // in nu
@@ -84,7 +85,7 @@ public final class Config {
     }
 
     public static final class IntakeOutput {
-    	public static final double MAX_POWER = 0.85;
+    	public static final double MAX_POWER = 0.75;
     	public static final double LOW_POWER = 0.25; // Test this value
     	public static final double HOLD_POWER = 0.1; // TEST
     }
@@ -138,8 +139,8 @@ public final class Config {
                 newAngle += 2 * Math.PI;
             return new Pose(-p.getX(), p.getY(), Math.toDegrees(newAngle));
         }
-    }	
-    
+    }
+
     public static final class MotionConstants {
     	public static final double KV = .267;
     	public static final double KAcc = 0;

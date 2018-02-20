@@ -42,8 +42,6 @@ public class Robot extends IterativeRobot {
 
     private static String gameData; // for ease of access
 
-    private CommandGroup splineCommand;
-
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -65,14 +63,8 @@ public class Robot extends IterativeRobot {
         startLocation.addObject("Right (3)", 'r');
         startLocation.addDefault("Center (2)", 'c');
 
-        splineCommand = new CommandGroup();
-        splineCommand.addSequential(SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
-        SmartDashboard.putData("TEST AUTON", splineCommand);
-
-        SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
-
-//		SmartDashboard.putData("Left Encoder", RobotMap.encoderLeft);
-//		SmartDashboard.putData("Right Encoder", RobotMap.encoderRight);
+//        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
+//        SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
         updateSmartDashboard();
     }
@@ -92,7 +84,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        elevator.startZero();
+        elevator.zeroEncoder();
         motionLogger.initialize();
         elevatorLogger.initialize();
 
@@ -102,11 +94,13 @@ public class Robot extends IterativeRobot {
             return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
         }
 
-        if (gameData == null || gameData.isEmpty()) {
+        while(gameData == null || gameData.isEmpty()) {
             gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
         }
 
         char startPosition = startLocation.getSelected();
+
+        System.out.println(GamePosition.getGamePosition(startPosition, gameData));
 
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 

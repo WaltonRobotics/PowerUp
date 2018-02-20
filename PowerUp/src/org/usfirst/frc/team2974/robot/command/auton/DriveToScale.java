@@ -2,7 +2,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-import static org.usfirst.frc.team2974.robot.Config.Elevator.SCALE_MAX_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.HIGH_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
 /**
@@ -10,7 +10,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.*;
  */
 public class DriveToScale extends CommandGroup {
 
-    private boolean isOptionSelected; // all drive commands use this, TODO: should make an abstract class for this
+    private boolean isOptionSelected; // all drive commands use this
 
     public DriveToScale() {
         super();
@@ -19,9 +19,8 @@ public class DriveToScale extends CommandGroup {
     }
 
     public DriveToScale left() {
-        // FIXME(?): may have to change because it might hit the wall
-        addParallel(SimpleSpline.pathFromPosesWithAngle(false, L0, L1, L2, L3));
-        addParallel(new ElevatorTarget(SCALE_MAX_HEIGHT));
+        addParallel(new ElevatorTarget(HIGH_HEIGHT));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L1, L2, L3));
         addSequential(new DropCube());
 
         isOptionSelected = true;
@@ -30,8 +29,8 @@ public class DriveToScale extends CommandGroup {
     }
 
     public DriveToScale right() {
-        addParallel(SimpleSpline.pathFromPosesWithAngle(false, R0, R1, R2, R3));
-        addParallel(new ElevatorTarget(SCALE_MAX_HEIGHT));
+        addParallel(new ElevatorTarget(HIGH_HEIGHT));
+        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R1, R2, R3));
         addSequential(new DropCube());
 
         isOptionSelected = true;

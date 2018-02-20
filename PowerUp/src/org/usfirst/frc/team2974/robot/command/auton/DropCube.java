@@ -15,7 +15,7 @@ public class DropCube extends Command {
     }
 
     @Override
-    public synchronized void start() {
+    protected void initialize() {
         intakeOutput.resetTime();
         intakeOutput.highOutput();
     }

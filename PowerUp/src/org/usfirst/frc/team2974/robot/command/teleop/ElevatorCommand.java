@@ -30,15 +30,10 @@ public class ElevatorCommand extends Command {
             if (elevatorNudgeDown.get() && !elevator.atLowerPosition()) {
                 elevator.nudge(-NUDGE_DISTANCE);
             }
-
-            // TODO: TEST: remove later
-            if (gamepad.getButton(2))
-                elevator.setTarget(5);
-            else if (gamepad.getButton(4))
-                elevator.setTarget(15);
         }
 
         if(elevatorToggleControl.get()) {
+            System.out.println("screeeee toggle pressed!");
             if(elevator.isMotionControlled())
                 elevator.disableControl();
             else

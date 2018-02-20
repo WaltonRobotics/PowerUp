@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team2974.robot.util.ButtonMultiple;
 import org.usfirst.frc.team2974.robot.util.ButtonOnce;
+import org.usfirst.frc.team2974.robot.util.POVButton;
 
 import static org.usfirst.frc.team2974.robot.Config.Input.*;
 
@@ -20,6 +21,7 @@ public class OI {
 	// used with Drivetrain subsystem
 	public static final Button shiftUp;
 	public static final Button shiftDown;
+	public static final Button shiftTrigger;
 //	public static final Button shiftUpAlt; // ButtonMultiple ^^^
 //	public static final Button shiftDownAlt;
 	
@@ -32,7 +34,9 @@ public class OI {
 	// used with IntakeOutput subsystem
 	public static final Button intake;
 	public static final Button output;
-	
+
+
+
 	static {
 		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
 		leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
@@ -40,11 +44,12 @@ public class OI {
 
 		shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON, SHIFT_UP_BUTTON_ALT); // Shifting buttons approved by Mr.B for Noah
 		shiftDown = new ButtonMultiple(leftJoystick, SHIFT_DOWN_BUTTON, SHIFT_DOWN_BUTTON_ALT);
+		shiftTrigger = new JoystickButton(leftJoystick, SHIFT_TOOGLE_BUTTON);
 //		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT); // moved to ButtonMultiple :)
 //		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
 		
-		elevatorNudgeUp = new JoystickButton(gamepad, ELEVATOR_NUDGE_UP);
-		elevatorNudgeDown = new JoystickButton(gamepad, ELEVATOR_NUDGE_DOWN);
+		elevatorNudgeUp = new POVButton(gamepad, ELEVATOR_NUDGE_UP);
+		elevatorNudgeDown = new POVButton(gamepad, ELEVATOR_NUDGE_DOWN);
 		elevatorZero = new ButtonOnce(gamepad, ELEVATOR_ZERO);
 		elevatorToggleControl = new ButtonOnce(gamepad, ELEVATOR_TOGGLE_CONTROL);
 

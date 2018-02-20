@@ -37,7 +37,7 @@ public class IntakeCommand extends Command {
     		}
 
     		public State periodic(){
-    			if(intakeOutput.timeElapsed()){ // OR (!intake.get())
+    			if(!intake.get()) {
     				return HOLD;
     			}
     			return this;
@@ -67,7 +67,7 @@ public class IntakeCommand extends Command {
     		}
 
     		public State periodic(){
-    			if(intakeOutput.timeElapsed()){ // OR (!output.get())
+    			if(!output.get()) {
     				return OFF;
     			}
     			return this;
