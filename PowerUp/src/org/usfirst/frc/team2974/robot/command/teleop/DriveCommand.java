@@ -60,9 +60,10 @@ public class DriveCommand extends Command {
         } else {
             cheesyDrive();
         }
+
         if (shiftUp.get() || shiftUpAlt.get())
             drivetrain.shiftUp();
-        if (shiftDown.get() || shiftDownAlt.get())
+        else if (shiftDown.get() || shiftDownAlt.get())
             drivetrain.shiftDown();
     }
 

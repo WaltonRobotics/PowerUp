@@ -26,8 +26,7 @@ public class Drivetrain extends AbstractDrivetrain {
 		driveMode.addDefault("Tank", true);
 		driveMode.addObject("Cheesy", false);
 		SmartDashboard.putData("Drive Mode", driveMode);
-		
-//		motorLeft.setInverted(true);
+
 		motorRight.setInverted(true);
 
 		setEncoderDistancePerPulse();
@@ -65,15 +64,15 @@ public class Drivetrain extends AbstractDrivetrain {
 	}
 
 	public void shiftDown() {
-//		if (!pneumaticsShifter.get()) {
-//			pneumaticsShifter.set(true);
-//		}
+		if (!pneumaticsShifter.get()) {
+			pneumaticsShifter.set(true);
+		}
 	}
 
 	public void shiftUp() {
-//		if (pneumaticsShifter.get()) {
-//			pneumaticsShifter.set(false);
-//		}
+		if (pneumaticsShifter.get()) {
+			pneumaticsShifter.set(false);
+		}
 	}
 
 	@Override

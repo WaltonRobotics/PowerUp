@@ -8,11 +8,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
+import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
+import org.waltonrobotics.controller.Pose;
+
+import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +42,8 @@ public class Robot extends IterativeRobot {
 
 	private static String gameData; // for ease of access
 
+	private CommandGroup splineCommand;
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -57,6 +64,12 @@ public class Robot extends IterativeRobot {
 		startLocation.addObject("Left (1)", 'l');
 		startLocation.addObject("Right (3)", 'r');
 		startLocation.addDefault("Center (2)", 'c');
+
+		splineCommand = new CommandGroup();
+		splineCommand.addSequential(SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
+		SmartDashboard.putData("TEST AUTON", splineCommand);
+
+		SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
 //		SmartDashboard.putData("Left Encoder", RobotMap.encoderLeft);
 //		SmartDashboard.putData("Right Encoder", RobotMap.encoderRight);

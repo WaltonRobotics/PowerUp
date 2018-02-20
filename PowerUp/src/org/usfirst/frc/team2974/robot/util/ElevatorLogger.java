@@ -16,11 +16,13 @@ public class ElevatorLogger {
         private double time;
         private double positionInches;
         private double positionNU;
+        private double power;
 
-        public ElevatorData(double time, double positionInches, double positionNU) {
+        public ElevatorData(double time, double positionInches, double positionNU, double power) {
             this.time = time;
             this.positionInches = positionInches;
             this.positionNU = positionNU;
+            this.power = power;
         }
 
         public double getTime() {
@@ -33,6 +35,10 @@ public class ElevatorLogger {
 
         public double getPositionNU() {
             return positionNU;
+        }
+
+        public double getPower() {
+            return power;
         }
     }
 
@@ -86,6 +92,8 @@ public class ElevatorLogger {
         sb.append("Position inch");
         sb.append(", ");
         sb.append("Position NU");
+        sb.append(", ");
+        sb.append("Power");
         sb.append('\n');
 
         for (ElevatorData data : motionDataList) {
@@ -94,6 +102,8 @@ public class ElevatorLogger {
             sb.append(data.getPositionInches());
             sb.append(", ");
             sb.append(data.getPositionNU());
+            sb.append(", ");
+            sb.append(data.getPower());
             sb.append('\n');
         }
 

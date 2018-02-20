@@ -7,8 +7,6 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2974.robot.Config;
-import org.usfirst.frc.team2974.robot.RobotMap;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
@@ -25,6 +23,8 @@ public class Elevator extends Subsystem {
     private ElevatorLogger logger;
 	private boolean isMotionControlled;
 
+	private double power;
+
     public Elevator(ElevatorLogger logger) {
         initConstants();
         this.logger = logger;
@@ -37,7 +37,7 @@ public class Elevator extends Subsystem {
 
     @Override
     public void periodic() {
-        logger.addMotionData(new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(), elevatorMotor.get()));
+        logger.addMotionData(new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(), getCurrentPositionNU(), power));
     }
 
     public void initConstants() {
@@ -64,18 +64,18 @@ public class Elevator extends Subsystem {
         elevatorMotor.configMotionCruiseVelocity(CRUISE_SPEED, TIMEOUT);
         elevatorMotor.configMotionAcceleration(ACCELERATION, TIMEOUT);
 
+        zeroEncoder();
+
         /* +14 rotations forward when using CTRE Mag encoder */
-        elevatorMotor.configForwardSoftLimitThreshold(+14 * 4096, 10); // TODO: FIX
+        elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
         /* -15 rotations reverse when using CTRE Mag encoder */
-        elevatorMotor.configReverseSoftLimitThreshold(-15 * 4096, 10); // TODO: FIX
+        elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10); // TODO: FIX
 
         elevatorMotor.configForwardSoftLimitEnable(true, 10);
         elevatorMotor.configReverseSoftLimitEnable(true, 10);
 
         /* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
         elevatorMotor.overrideLimitSwitchesEnable(true);
-
-        zeroEncoder();
     }
 
     public void zeroEncoder() {
@@ -85,8 +85,6 @@ public class Elevator extends Subsystem {
     public void nudge(double distance) {
         if(isMotionControlled) {
             setTarget(getCurrentPosition() + distance);
-        } else {
-            setPower(Math.signum(distance)); // this will not work as intended
         }
     }
 
@@ -132,8 +130,17 @@ public class Elevator extends Subsystem {
     }
 
     public void setPower(double percent) {
+        power = percent;
         SmartDashboard.putNumber("Elevator Power", percent);
         elevatorMotor.set(ControlMode.PercentOutput, percent);
+    }
+
+    public boolean atTopPosition() {
+        return getCurrentPositionNU() >= MAXIMUM_HEIGHT;
+    }
+
+    public boolean atLowerPosition() {
+        return getCurrentPositionNU() <= MINUMUM_HEIGHT;
     }
 }
 

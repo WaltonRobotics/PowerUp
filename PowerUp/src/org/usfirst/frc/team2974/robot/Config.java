@@ -11,8 +11,8 @@ public final class Config {
     private Config() {}
 
     public static final class Hardware {
-        public static final double ROBOT_WIDTH = .70485; // new robot: 0.7493 between wheels
-        public static final double DISTANCE_PER_PULSE = 0.0005652; // new robot: .0006494
+        public static final double ROBOT_WIDTH = .7239; // new robot: 0.7493 between wheels , 28.5 inches between wheels
+        public static final double DISTANCE_PER_PULSE = .000409; // new robot: .00041017
 
         public static final int LEFT_MOTOR_CHANNEL = 0; // pwm
         public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input
@@ -32,8 +32,6 @@ public final class Config {
         public static final int ELEVATOR_MOTOR_CHANNEL = 3; // can
 
         public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
-
-        public static final int COMPRESSOR_CHANNEL = 1; // can
     }
 
     public static final class Input { // TODO: get from drive team
@@ -64,8 +62,8 @@ public final class Config {
 
         public static final double SWITCH_HEIGHT = 18.75; // inches
 
-        public static final double MINUMUM_HEIGHT = 0; // in nu (native units)
-        public static final double MAXIMUM_HEIGHT = 22500; // in nu
+        public static final int MINUMUM_HEIGHT = 1000; // in nu (native units)
+        public static final int MAXIMUM_HEIGHT = 20000; // in nu
 
         public static final double NUDGE_DISTANCE = 1; // in inches
 
@@ -138,7 +136,7 @@ public final class Config {
     }	
     
     public static final class MotionConstants {
-    	public static final double KV = 0.31;
+    	public static final double KV = .267;
     	public static final double KAcc = 0;
     	public static final double KK = 0;
     	public static final double KS = 1;

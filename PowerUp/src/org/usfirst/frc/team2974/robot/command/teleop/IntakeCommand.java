@@ -54,7 +54,7 @@ public class IntakeCommand extends Command {
     			if(output.get()){
     				return OUT;
     			}
-    			else if(input.get()){
+    			else if(intake.get()){
     				return IN;
     			}
     			return this;

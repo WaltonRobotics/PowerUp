@@ -22,11 +22,11 @@ public class ElevatorCommand extends Command {
 		if(!elevator.isMotionControlled()) {
 			elevator.setPower(-gamepad.getLeftY());
 		} else {
-			if(elevatorUp.get()) {
+			if(elevatorUp.get() && !elevator.atTopPosition()) {
 				elevator.nudge(NUDGE_DISTANCE);
 			}
 
-			if (elevatorDown.get()) {
+			if (elevatorDown.get() && !elevator.atLowerPosition()) {
 				elevator.nudge(-NUDGE_DISTANCE);
 			}
 		}
