@@ -35,23 +35,27 @@ public final class Config {
     }
 
     public static final class Input { // TODO: get from drive team
-        public static final int RIGHT_JOYSTICK_PORT = 1;
         public static final int LEFT_JOYSTICK_PORT = 0;
+        public static final int RIGHT_JOYSTICK_PORT = 1;
         public static final int GAMEPAD_PORT = 2;
 
+        // left joystick //
         public static final int SHIFT_UP_BUTTON = 3;
         public static final int SHIFT_UP_BUTTON_ALT = 11;
 
         public static final int SHIFT_DOWN_BUTTON = 2;
         public static final int SHIFT_DOWN_BUTTON_ALT = 10;
 
+        // right joystick //
+
+        // gamepad //
         public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
         public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
         
-        public static final int ELEVATOR_UP = 5;
-        public static final int ELEVATOR_DOWN = 4;
+        public static final int ELEVATOR_NUDGE_UP = 5;
+        public static final int ELEVATOR_NUDGE_DOWN = 4;
         public static final int ELEVATOR_ZERO = 10;
-        public static final int ELEVATOR_STICK_PWM = 0;
+        public static final int ELEVATOR_TOGGLE_CONTROL = 1;
     }
 
     public static final class Elevator {
@@ -88,8 +92,8 @@ public final class Config {
     public static final class Path {
         public static final double CROSS_BASELINE_Y = 4.2748092;
 
-        public static final double VELOCITY_MAX = 2;
-        public static final double ACCELERATION_MAX = 1;
+        public static final double VELOCITY_MAX = 2; // m/s
+        public static final double ACCELERATION_MAX = 1; // m/s^2
 
         // IMPORTANT: these points are measured from the center line
         public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
@@ -128,6 +132,7 @@ public final class Config {
          */
         private static Pose negateX(Pose p) {
             double angle = Math.toRadians(p.getAngle());
+            // the new angle is the original angle but x is negated
             double newAngle = Math.atan2(Math.sin(angle), -Math.cos(angle));
             if(newAngle < 0)
                 newAngle += 2 * Math.PI;

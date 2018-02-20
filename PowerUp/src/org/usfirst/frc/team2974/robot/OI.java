@@ -3,6 +3,7 @@ package org.usfirst.frc.team2974.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team2974.robot.util.ButtonMultiple;
 import org.usfirst.frc.team2974.robot.util.ButtonOnce;
 
 import static org.usfirst.frc.team2974.robot.Config.Input.*;
@@ -19,14 +20,14 @@ public class OI {
 	// used with Drivetrain subsystem
 	public static final Button shiftUp;
 	public static final Button shiftDown;
-	public static final Button shiftUpAlt;
-	public static final Button shiftDownAlt;
+//	public static final Button shiftUpAlt; // ButtonMultiple ^^^
+//	public static final Button shiftDownAlt;
 	
 	//used with Elevator subsystem
 	public static final Button elevatorZero;
-	public static final Button elevatorUp;
-	public static final Button elevatorDown;
-
+	public static final Button elevatorNudgeUp;
+	public static final Button elevatorNudgeDown;
+	public static final Button elevatorToggleControl;
 
 	// used with IntakeOutput subsystem
 	public static final Button intake;
@@ -37,14 +38,15 @@ public class OI {
 		leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
 		gamepad = new Gamepad(GAMEPAD_PORT);
 
-		shiftUp = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON); // Shifting buttons approved by Mr.B for Noah
-		shiftDown = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON);
-		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT);
-		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
+		shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON, SHIFT_UP_BUTTON_ALT); // Shifting buttons approved by Mr.B for Noah
+		shiftDown = new ButtonMultiple(leftJoystick, SHIFT_DOWN_BUTTON, SHIFT_DOWN_BUTTON_ALT);
+//		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT); // moved to ButtonMultiple :)
+//		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
 		
-		elevatorUp = new ButtonOnce(leftJoystick, ELEVATOR_UP);
-		elevatorDown = new ButtonOnce(rightJoystick, ELEVATOR_DOWN);
+		elevatorNudgeUp = new JoystickButton(gamepad, ELEVATOR_NUDGE_UP);
+		elevatorNudgeDown = new JoystickButton(gamepad, ELEVATOR_NUDGE_DOWN);
 		elevatorZero = new ButtonOnce(gamepad, ELEVATOR_ZERO);
+		elevatorToggleControl = new ButtonOnce(gamepad, ELEVATOR_TOGGLE_CONTROL);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);

@@ -11,17 +11,14 @@ import static org.usfirst.frc.team2974.robot.Robot.intakeOutput;
  * This command does the intake/output function of the State subsystem.
  */
 public class IntakeCommand extends Command {
-
-    public IntakeCommand() {
-        requires(intakeOutput);
-    }
     
     public enum State {
     	OFF {
     		public void init(){
+				updateState();
     			intakeOutput.off();
-				SmartDashboard.putString("Intake State","OFF");
     		}
+
     		public State periodic(){
     			if(intake.get()){
     				return IN;
@@ -34,12 +31,13 @@ public class IntakeCommand extends Command {
     	}, 
     	IN {
     		public void init(){
-				SmartDashboard.putString("Intake State","IN");
+				updateState();
     			intakeOutput.highIntake();
     			intakeOutput.resetTime();
     		}
+
     		public State periodic(){
-    			if(intakeOutput.timeElapsed()){
+    			if(intakeOutput.timeElapsed()){ // OR (!intake.get())
     				return HOLD;
     			}
     			return this;
@@ -47,38 +45,48 @@ public class IntakeCommand extends Command {
     	}, 
     	HOLD {
     		public void init(){
+				updateState();
     			intakeOutput.hold();
-				SmartDashboard.putString("Intake State","HOLD");
     		}
+
     		public State periodic(){
     			if(output.get()){
     				return OUT;
-    			}
-    			else if(intake.get()){
+    			} else if(intake.get()){
     				return IN;
     			}
+
     			return this;
     		}
     	}, 
     	OUT {
     		public void init(){
-				SmartDashboard.putString("Intake State","OUT");
+				updateState();
     			intakeOutput.highOutput();
     			intakeOutput.resetTime();
     		}
+
     		public State periodic(){
-    			if(intakeOutput.timeElapsed()){
+    			if(intakeOutput.timeElapsed()){ // OR (!output.get())
     				return OFF;
     			}
     			return this;
     		}
     	};
-    	
+
+    	public void updateState() {
+			SmartDashboard.putString("Intake State", this.name()); // this gets the name easily
+		}
+
+		public abstract void init();
     	public abstract State periodic();
-    	public abstract void init();
     }
 
 	private State state = State.OFF;
+
+	public IntakeCommand() {
+		requires(intakeOutput);
+	}
     
     @Override
     protected void initialize(){
@@ -101,8 +109,14 @@ public class IntakeCommand extends Command {
     protected boolean isFinished() {
         return false;
     }
-    
+
+	@Override
+	protected void end() {
+		intakeOutput.off();
+	}
+
+	@Override
 	protected void interrupted() {
-		isFinished();
+		end();
 	}
 }

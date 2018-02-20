@@ -29,6 +29,7 @@ public class DriveSwitchScale extends CommandGroup {
         addParallel(SimpleSpline.pathFromPosesWithAngle(false, L8, L9));
         addParallel(new ElevatorTarget(MINUMUM_HEIGHT));
         addSequential(new FindCube());
+        // TODO: gather cube too
         addSequential(SimpleSpline.pathFromPosesWithAngle(true, L9, L10));
         addParallel(SimpleSpline.pathFromPosesWithAngle(false, L10, L6, L2, L3));
         addParallel(new ElevatorTarget(SCALE_MAX_HEIGHT));

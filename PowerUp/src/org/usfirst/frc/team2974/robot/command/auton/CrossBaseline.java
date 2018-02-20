@@ -11,12 +11,16 @@ import static org.usfirst.frc.team2974.robot.Config.Path.*;
  */
 public class CrossBaseline extends CommandGroup {
 
+    private boolean isOptionSelected;
+
     /**
      * Follow up your constructor with a call to either
      *  left, right, or center to make this command work correctly.
      */
     public CrossBaseline() {
         super();
+
+        isOptionSelected = false;
 
         // add sequential later.
     }
@@ -34,6 +38,8 @@ public class CrossBaseline extends CommandGroup {
      * @return this
      */
     public CrossBaseline right(double yMovement) {
+        isOptionSelected = true;
+
         // drive forward x meters
         addSequential(new DriveStraightByDistance(VELOCITY_MAX, ACCELERATION_MAX, yMovement));
         return this;
@@ -44,6 +50,8 @@ public class CrossBaseline extends CommandGroup {
      * @return this
      */
     public CrossBaseline center() {
+        isOptionSelected = true;
+
         // either go left or right, depends on switch position
         if(Robot.getSwitchPosition() == 'R') {
             // go right
@@ -54,5 +62,13 @@ public class CrossBaseline extends CommandGroup {
         }
 
         return this; // ease of use :) <--- smiley face :)
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        if(!isOptionSelected)
+            throw new RuntimeException("Left or Right was not called when the command was initialized! This is a programmer error.");
     }
 }

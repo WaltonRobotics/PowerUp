@@ -93,14 +93,14 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         elevator.startZero();
+        motionLogger.initialize();
+        elevatorLogger.initialize();
 
         if (doNothingChooser.getSelected()) { // if should do nothing
             System.out.println(">:( Nothing has been chosen. Scrubs.");
             autonCommands = GamePosition.DO_NOTHING.getCommand();
             return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
         }
-        motionLogger.initialize();
-        elevatorLogger.initialize();
 
         if (gameData == null || gameData.isEmpty()) {
             gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
@@ -125,10 +125,11 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        elevator.startZero();
+//        elevator.startZero(); TODO: check with tim
 
         if (autonCommands != null)
             autonCommands.cancel();
+
         drivetrain.reset();
     }
 
@@ -143,15 +144,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void testInit() {
-        // randomize gameData
-        gameData =
-                (Math.random() > .5 ? "L" : "R") + // switch
-                        (Math.random() > .5 ? "L" : "R") + // scale
-                        (Math.random() > .5 ? "L" : "R"); // doesn't matter
-
-        SmartDashboard.putString("Randomized GameData", gameData);
-
-        autonomousInit();
     }
 
     /**
@@ -159,7 +151,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testPeriodic() {
-        autonomousPeriodic(); // yes
     }
 
     /**
@@ -177,8 +168,20 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
         SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
         SmartDashboard.putNumber("Elevator Error", elevator.getError());
-        SmartDashboard.putBoolean("Elevator isZeroeing", elevator.isZeroing());
+        SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());
         SmartDashboard.putBoolean("Elevator isZeroed", elevator.isZeroed());
+    }
+
+    /**
+     * Used for testing purposes, insert into autonomousInit() when needed
+     */
+    private void randomizeGameData() {
+        // randomize gameData
+        gameData = (Math.random() > .5 ? "L" : "R") + // switch
+                   (Math.random() > .5 ? "L" : "R") + // scale
+                   (Math.random() > .5 ? "L" : "R"); // doesn't matter
+
+        SmartDashboard.putString("Randomized GameData", gameData);
     }
 
     /**

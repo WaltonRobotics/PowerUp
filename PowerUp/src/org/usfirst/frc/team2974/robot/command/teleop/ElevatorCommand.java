@@ -22,15 +22,12 @@ public class ElevatorCommand extends Command {
         if (!elevator.isMotionControlled()) {
             elevator.setPower(-gamepad.getLeftY());
 
-            if (gamepad.getButton(1))
-                elevator.enableControl();
-
         } else {
-            if (elevatorUp.get() && !elevator.atTopPosition()) {
+            if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
                 elevator.nudge(NUDGE_DISTANCE);
             }
 
-            if (elevatorDown.get() && !elevator.atLowerPosition()) {
+            if (elevatorNudgeDown.get() && !elevator.atLowerPosition()) {
                 elevator.nudge(-NUDGE_DISTANCE);
             }
 
@@ -39,9 +36,13 @@ public class ElevatorCommand extends Command {
                 elevator.setTarget(5);
             else if (gamepad.getButton(4))
                 elevator.setTarget(15);
+        }
 
-            if (gamepad.getButton(3))
+        if(elevatorToggleControl.get()) {
+            if(elevator.isMotionControlled())
                 elevator.disableControl();
+            else
+                elevator.enableControl();
         }
 
         if (elevatorZero.get()) {
