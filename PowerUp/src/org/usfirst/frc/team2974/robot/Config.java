@@ -67,11 +67,11 @@ public final class Config {
 
         public static final double NUDGE_DISTANCE = 1; // in inches
 
-        public static final int CRUISE_SPEED = 0; // native sensor units per 100 ms
-        public static final int ACCELERATION = 0; // ^^^ per second
+        public static final int CRUISE_SPEED = 1000; // native sensor units per 100 ms
+        public static final int ACCELERATION = 1000; // ^^^ per second
 
         // motion control constants
-        public static final double KF = 0;
+        public static final double KF = 0.4661;
         public static final double KP = 0;
         public static final double KI = 0;
         public static final double KD = 0;
