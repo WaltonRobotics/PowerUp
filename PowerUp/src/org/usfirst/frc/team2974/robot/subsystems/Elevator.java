@@ -64,7 +64,7 @@ public class Elevator extends Subsystem {
     public void initConstants() {
         elevatorMotor.setNeutralMode(NeutralMode.Brake);
         elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
-        elevatorMotor.setSensorPhase(false);
+        elevatorMotor.setSensorPhase(true);
         elevatorMotor.setInverted(false);
 
         elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
