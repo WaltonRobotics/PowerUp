@@ -30,12 +30,13 @@ public class OI {
 	public static final Button elevatorNudgeUp;
 	public static final Button elevatorNudgeDown;
 	public static final Button elevatorToggleControl;
+	public static final Button elevatorHigh;
+	public static final Button elevatorMedium;
+	public static final Button elevatorLow;
 
 	// used with IntakeOutput subsystem
 	public static final Button intake;
 	public static final Button output;
-
-
 
 	static {
 		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
@@ -52,6 +53,9 @@ public class OI {
 		elevatorNudgeDown = new POVButton(gamepad, ELEVATOR_NUDGE_DOWN);
 		elevatorZero = new ButtonOnce(gamepad, ELEVATOR_ZERO);
 		elevatorToggleControl = new ButtonOnce(gamepad, ELEVATOR_TOGGLE_CONTROL);
+		elevatorHigh = new ButtonOnce(gamepad, ELEVATOR_HIGH);
+		elevatorMedium = new ButtonOnce(gamepad, ELEVATOR_MEDIUM);
+		elevatorLow = new ButtonOnce(gamepad, ELEVATOR_LOW);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);

@@ -58,6 +58,10 @@ public final class Config {
         public static final int ELEVATOR_NUDGE_DOWN = Gamepad.POV.S.angle(); // pov
         public static final int ELEVATOR_ZERO = Gamepad.Button._9.index();
         public static final int ELEVATOR_TOGGLE_CONTROL = Gamepad.Button._10.index();
+
+        public static final int ELEVATOR_HIGH = Gamepad.Button._4.index();
+        public static final int ELEVATOR_MEDIUM = Gamepad.Button._3.index();
+        public static final int ELEVATOR_LOW = Gamepad.Button._2.index();
     }
 
     public static final class Elevator {

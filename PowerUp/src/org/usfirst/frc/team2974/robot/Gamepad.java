@@ -38,7 +38,7 @@ public class Gamepad extends Joystick {
      * @return the motorRight thumb stick x value between -1 and 1
      */
     public double getRightX() {
-        return getRawAxis(4);
+        return getRawAxis(2);
     }
 
     /**
@@ -47,25 +47,6 @@ public class Gamepad extends Joystick {
      * @return the motorRight thumb stick y value between -1 and 1
      */
     public double getRightY() {
-        return getRawAxis(3);
-        // return getRawAxis(5);
-    }
-
-    /**
-     * 0 is not pressed and 1 is completely pressed
-     *
-     * @return the leftJoystick trigger value between 0 and 1
-     */
-    public double getLeftTrigger() {
-        return getRawAxis(2);
-    }
-
-    /**
-     * 0 is not pressed and 1 is completely pressed
-     *
-     * @return the motorRight trigger value between 0 and 1
-     */
-    public double getRightTrigger() {
         return getRawAxis(3);
     }
 

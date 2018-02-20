@@ -22,7 +22,6 @@ public class ElevatorTarget extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("init TargetElevator");
         elevator.setTarget(position);
     }
 
@@ -33,7 +32,6 @@ public class ElevatorTarget extends Command {
 
     @Override
     protected void end() {
-        System.out.println("end TargetElevator");
 //        elevator.disableControl();
     }
 

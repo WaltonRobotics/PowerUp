@@ -57,6 +57,7 @@ public class Elevator extends Subsystem {
             zeroing = false;
             timer.stop();
             zeroEncoder();
+            enableControl();
         }
     }
 

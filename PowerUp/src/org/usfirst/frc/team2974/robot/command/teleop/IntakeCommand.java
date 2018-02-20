@@ -33,37 +33,19 @@ public class IntakeCommand extends Command {
     		public void init(){
 				updateState();
     			intakeOutput.highIntake();
-    			intakeOutput.resetTime();
     		}
 
     		public State periodic(){
     			if(!intake.get()) {
-    				return HOLD;
+    				return OFF;
     			}
     			return this;
     		}
-    	}, 
-    	HOLD {
-    		public void init(){
-				updateState();
-    			intakeOutput.hold();
-    		}
-
-    		public State periodic(){
-    			if(output.get()){
-    				return OUT;
-    			} else if(intake.get()){
-    				return IN;
-    			}
-
-    			return this;
-    		}
-    	}, 
+    	},
     	OUT {
     		public void init(){
 				updateState();
     			intakeOutput.highOutput();
-    			intakeOutput.resetTime();
     		}
 
     		public State periodic(){

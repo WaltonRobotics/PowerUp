@@ -59,9 +59,9 @@ public class Robot extends IterativeRobot {
         doNothingChooser.addDefault("Please move!", false);
 
         startLocation = new SendableChooser<>();
-        startLocation.addObject("Left (1)", 'l');
-        startLocation.addObject("Right (3)", 'r');
-        startLocation.addDefault("Center (2)", 'c');
+        startLocation.addObject("Left", 'l');
+        startLocation.addObject("Right", 'r');
+        startLocation.addDefault("Center", 'c');
 
 //        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
 //        SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
+        gameData = null;
         drivetrain.reset();
         motionLogger.writeMotionDataCSV();
         elevatorLogger.writeMotionDataCSV();
@@ -84,9 +85,10 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        elevator.zeroEncoder();
+        elevator.startZero();
         motionLogger.initialize();
         elevatorLogger.initialize();
+        drivetrain.shiftDown();
 
         if (doNothingChooser.getSelected()) { // if should do nothing
             System.out.println(">:( Nothing has been chosen. Scrubs.");
@@ -100,6 +102,8 @@ public class Robot extends IterativeRobot {
 
         char startPosition = startLocation.getSelected();
 
+        System.out.println(startPosition);
+        System.out.println(gameData);
         System.out.println(GamePosition.getGamePosition(startPosition, gameData));
 
         autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
@@ -124,6 +128,7 @@ public class Robot extends IterativeRobot {
         if (autonCommands != null)
             autonCommands.cancel();
 
+        drivetrain.shiftUp(); // start in high gear
         drivetrain.reset();
     }
 

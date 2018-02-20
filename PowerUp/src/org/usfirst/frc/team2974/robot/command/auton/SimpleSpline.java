@@ -77,7 +77,7 @@ public class SimpleSpline extends Command {
 	}
 
 	/**
-	 * TODO: implement Creates a SimpleSpline where the first angle is the angle of
+	 * Creates a SimpleSpline where the first angle is the angle of
 	 * the first point and the final angle is the angle of the last point.
 	 *
 	 * @param isBackwards
