@@ -18,6 +18,7 @@ import org.waltonrobotics.controller.Pose;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
+import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -169,6 +170,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Elevator Error", elevator.getError());
         SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());
         SmartDashboard.putBoolean("Elevator isZeroed", elevator.isZeroed());
+        SmartDashboard.putString("Elevator power mode", elevatorMotor.getControlMode().name());
     }
 
     /**
