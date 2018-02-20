@@ -1,12 +1,9 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-import org.usfirst.frc.team2974.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 import static org.usfirst.frc.team2974.robot.OI.*;
-import static org.usfirst.frc.team2974.robot.RobotMap.*;
 
 /**
  *
@@ -40,13 +37,14 @@ public class DriveCommand extends Command {
     }
     private void cheesyDrive() {
         double throttle = (-getLeftThrottle() + 1) / 2;
-       double forward = -getRightThrottle();
+        double forward = -getRightThrottle();
         double turn = -getTurn();
-        Robot.drivetrain.setSpeeds(throttle * (forward - turn), throttle * (forward + turn));
+
+        drivetrain.setSpeeds(throttle * (forward - turn), throttle * (forward + turn));
     }
 
     private void tankDrive() {
-        Robot.drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
+        drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
     }
 
     // Called just before this Command runs the first time
@@ -55,15 +53,15 @@ public class DriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (Robot.drivetrain.isTankDrive()) {
+        if (drivetrain.isTankDrive()) {
             tankDrive();
         } else {
             cheesyDrive();
         }
 
-        if (shiftUp.get() || shiftUpAlt.get())
+        if (shiftUp.get()) //|| shiftUpAlt.get())
             drivetrain.shiftUp();
-        else if (shiftDown.get() || shiftDownAlt.get())
+        else if (shiftDown.get()) // || shiftDownAlt.get())
             drivetrain.shiftDown();
     }
 
@@ -74,6 +72,7 @@ public class DriveCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+	    drivetrain.setSpeeds(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
