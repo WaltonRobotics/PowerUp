@@ -26,7 +26,7 @@ public class OI {
 	public static final Button elevatorZero;
 	public static final Button elevatorUp;
 	public static final Button elevatorDown;
-	
+
 
 	// used with IntakeOutput subsystem
 	public static final Button intake;
@@ -44,7 +44,7 @@ public class OI {
 		
 		elevatorUp = new ButtonOnce(leftJoystick, ELEVATOR_UP);
 		elevatorDown = new ButtonOnce(rightJoystick, ELEVATOR_DOWN);
-		elevatorZero = new ButtonOnce(rightJoystick, ELEVATOR_UP);
+		elevatorZero = new ButtonOnce(gamepad, ELEVATOR_ZERO);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);

@@ -11,23 +11,31 @@ import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.*;
+import static org.usfirst.frc.team2974.robot.RobotMap.elevatorLimitLower;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 
 /**
  * The elevator subsystem, which raises and lowers the intake/outtake
- *
+ * <p>
  * TODO: finish me
  */
 public class Elevator extends Subsystem {
 
     private ElevatorLogger logger;
-	private boolean isMotionControlled;
+    private boolean isMotionControlled;
 
-	private double power;
+    private double power;
 
     public Elevator(ElevatorLogger logger) {
         initConstants();
         this.logger = logger;
+    }
+
+    public double getError() {
+        if (isMotionControlled)
+            return elevatorMotor.getClosedLoopError(0);
+        else
+            return 0;
     }
 
     @Override
@@ -38,7 +46,20 @@ public class Elevator extends Subsystem {
     @Override
     public void periodic() {
         logger.addMotionData(new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(), getCurrentPositionNU(), power));
+
+        if (zeroing)
+            setPower(-0.1);
+        if (!elevatorLimitLower.get() || timer.hasPeriodPassed(2.0 /*TODO tune time to be as small as possible*/)) {
+            zeroing = false;
+            timer.stop();
+            zeroEncoder();
+
+        }
+
     }
+
+    private boolean zeroed;
+    private Timer timer = new Timer();
 
     public void initConstants() {
         elevatorMotor.setNeutralMode(NeutralMode.Brake);
@@ -64,7 +85,7 @@ public class Elevator extends Subsystem {
         elevatorMotor.configMotionCruiseVelocity(CRUISE_SPEED, TIMEOUT);
         elevatorMotor.configMotionAcceleration(ACCELERATION, TIMEOUT);
 
-        zeroEncoder();
+        zeroed = false;
 
         /* +14 rotations forward when using CTRE Mag encoder */
         elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
@@ -76,26 +97,51 @@ public class Elevator extends Subsystem {
 
         /* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
         elevatorMotor.overrideLimitSwitchesEnable(true);
+
+
     }
 
     public void zeroEncoder() {
         elevatorMotor.setSelectedSensorPosition(0, 0, TIMEOUT); // TODO: figure out later
+
+        /* +14 rotations forward when using CTRE Mag encoder */
+        elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
+        /* -15 rotations reverse when using CTRE Mag encoder */
+        elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10); // TODO: FIX
+
+        elevatorMotor.configForwardSoftLimitEnable(true, 10);
+        elevatorMotor.configReverseSoftLimitEnable(true, 10);
+
+        /* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
+        elevatorMotor.overrideLimitSwitchesEnable(true);
+
+        zeroed = true;
     }
 
     public void nudge(double distance) {
-        if(isMotionControlled) {
+        if (isMotionControlled && zeroed) {
             setTarget(getCurrentPosition() + distance);
         }
     }
 
     public void enableControl() {
-        isMotionControlled = true;
-        elevatorMotor.set(ControlMode.MotionMagic, elevatorMotor.getSelectedSensorPosition(0));
+        if (zeroed) {
+            isMotionControlled = true;
+            elevatorMotor.set(ControlMode.MotionMagic, elevatorMotor.getSelectedSensorPosition(0));
+        }
     }
 
     public void disableControl() {
         isMotionControlled = false;
         elevatorMotor.set(ControlMode.Disabled, 0);
+    }
+
+    public boolean isZeroed() {
+        return zeroed;
+    }
+
+    public boolean isZeroing() {
+        return zeroing;
     }
 
     public boolean isMotionControlled() {
@@ -104,6 +150,7 @@ public class Elevator extends Subsystem {
 
     /**
      * Gets the current position of the elevator in inches.
+     *
      * @return
      */
     public double getCurrentPosition() {
@@ -112,6 +159,7 @@ public class Elevator extends Subsystem {
 
     /**
      * Gets the current position of the elevator in native units
+     *
      * @return
      */
     public double getCurrentPositionNU() {
@@ -120,16 +168,23 @@ public class Elevator extends Subsystem {
 
     /**
      * Sets the target position from the zero point.
+     *
      * @param inches the position is in inches, duh
      */
     public void setTarget(double inches) {
-        elevatorMotor.set(
-                ControlMode.MotionMagic,
-                Math.max(MAXIMUM_HEIGHT, Math.min(MINUMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
-        );
+//        System.out.println(inches * INCHES_TO_NU);
+//        System.out.println(Math.min(MAXIMUM_HEIGHT, Math.max(MINUMUM_HEIGHT, inches * INCHES_TO_NU)));
+
+        if (zeroed)
+            elevatorMotor.set(
+                    ControlMode.MotionMagic,
+                    Math.min(MAXIMUM_HEIGHT, Math.max(MINUMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
+            );
     }
 
     public void setPower(double percent) {
+        percent = Math.min(.75, Math.max(-.75, percent)); // throttle power in
+
         power = percent;
         SmartDashboard.putNumber("Elevator Power", percent);
         elevatorMotor.set(ControlMode.PercentOutput, percent);
@@ -141,6 +196,17 @@ public class Elevator extends Subsystem {
 
     public boolean atLowerPosition() {
         return getCurrentPositionNU() <= MINUMUM_HEIGHT;
+    }
+
+
+    private boolean zeroing;
+
+    public void startZero() {
+        if (!zeroed) {
+            zeroing = true;
+            zeroEncoder();
+            timer.start();
+        }
     }
 }
 

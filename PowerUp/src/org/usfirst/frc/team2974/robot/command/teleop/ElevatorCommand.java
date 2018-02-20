@@ -8,37 +8,50 @@ import static org.usfirst.frc.team2974.robot.Robot.elevator;
 
 public class ElevatorCommand extends Command {
 
-	public ElevatorCommand() {
-		requires(elevator);
-	}
+    public ElevatorCommand() {
+        requires(elevator);
+    }
 
-	@Override
-	protected void initialize() {
-		elevator.disableControl();
-	}
+    @Override
+    protected void initialize() {
+        elevator.disableControl();
+    }
 
-	@Override
-	protected void execute() {
-		if(!elevator.isMotionControlled()) {
-			elevator.setPower(-gamepad.getLeftY());
-		} else {
-			if(elevatorUp.get() && !elevator.atTopPosition()) {
-				elevator.nudge(NUDGE_DISTANCE);
-			}
+    @Override
+    protected void execute() {
+        if (!elevator.isMotionControlled()) {
+            elevator.setPower(-gamepad.getLeftY());
 
-			if (elevatorDown.get() && !elevator.atLowerPosition()) {
-				elevator.nudge(-NUDGE_DISTANCE);
-			}
-		}
+            if (gamepad.getButton(1))
+                elevator.enableControl();
 
-		if(elevatorZero.get()) {
-			elevator.zeroEncoder();
-		}
-	}
+        } else {
+            if (elevatorUp.get() && !elevator.atTopPosition()) {
+                elevator.nudge(NUDGE_DISTANCE);
+            }
 
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
+            if (elevatorDown.get() && !elevator.atLowerPosition()) {
+                elevator.nudge(-NUDGE_DISTANCE);
+            }
+
+            // TODO: TEST: remove later
+            if (gamepad.getButton(2))
+                elevator.setTarget(5);
+            else if (gamepad.getButton(4))
+                elevator.setTarget(15);
+
+            if (gamepad.getButton(3))
+                elevator.disableControl();
+        }
+
+        if (elevatorZero.get()) {
+            elevator.startZero();
+        }
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
 }

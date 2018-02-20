@@ -17,7 +17,7 @@ public class IntakeOutput extends Subsystem {
 	private Timer timer;
 	
     public IntakeOutput() {
-        intakeMotorLeft.setInverted(true);
+        intakeMotorRight.setInverted(true);
         timer = new Timer();
         timer.start();
     }

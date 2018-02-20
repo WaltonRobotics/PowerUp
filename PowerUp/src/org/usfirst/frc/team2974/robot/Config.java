@@ -39,10 +39,10 @@ public final class Config {
         public static final int LEFT_JOYSTICK_PORT = 0;
         public static final int GAMEPAD_PORT = 2;
 
-        public static final int SHIFT_UP_BUTTON = 2;
+        public static final int SHIFT_UP_BUTTON = 3;
         public static final int SHIFT_UP_BUTTON_ALT = 11;
 
-        public static final int SHIFT_DOWN_BUTTON = 3;
+        public static final int SHIFT_DOWN_BUTTON = 2;
         public static final int SHIFT_DOWN_BUTTON_ALT = 10;
 
         public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
@@ -50,12 +50,12 @@ public final class Config {
         
         public static final int ELEVATOR_UP = 5;
         public static final int ELEVATOR_DOWN = 4;
-        public static final int ELEVATOR_ZERO = 6;
+        public static final int ELEVATOR_ZERO = 10;
         public static final int ELEVATOR_STICK_PWM = 0;
     }
 
     public static final class Elevator {
-        public static final double INCHES_TO_NU = 1; // TODO: FIXME
+        public static final double INCHES_TO_NU = 775; // TODO: FIXME
 
         public static final double SCALE_INITIAL_HEIGHT = 60; // inches
         public static final double SCALE_MAX_HEIGHT = 72; // inches
@@ -67,22 +67,22 @@ public final class Config {
 
         public static final double NUDGE_DISTANCE = 1; // in inches
 
-        public static final int CRUISE_SPEED = 0; // native sensor units per 100 ms
-        public static final int ACCELERATION = 0; // ^^^ per second
+        public static final int CRUISE_SPEED = 1500; // native sensor units per 100 ms
+        public static final int ACCELERATION = 1500; // ^^^ per second
 
         // motion control constants
-        public static final double KF = 0;
-        public static final double KP = 0;
-        public static final double KI = 0;
+        public static final double KF = 0.4661;
+        public static final double KP = 1;
+        public static final double KI = 0.001;
         public static final double KD = 0;
 
         public static final int TIMEOUT = 100; // in ms
     }
 
     public static final class IntakeOutput {
-    	public static final double MAX_POWER = -0.75;
-    	public static final double LOW_POWER = -0.25; // Test this value
-    	public static final double HOLD_POWER = -0.1; // TEST
+    	public static final double MAX_POWER = 0.85;
+    	public static final double LOW_POWER = 0.25; // Test this value
+    	public static final double HOLD_POWER = 0.1; // TEST
     }
 
     public static final class Path {
