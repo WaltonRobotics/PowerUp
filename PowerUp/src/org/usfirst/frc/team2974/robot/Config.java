@@ -12,7 +12,7 @@ public final class Config {
 
     public static final class Hardware {
         public static final double ROBOT_WIDTH = .7239; // new robot: 0.7493 between wheels , 28.5 inches between wheels
-        public static final double DISTANCE_PER_PULSE = .000409; // new robot: .00041017
+        public static final double DISTANCE_PER_PULSE = .0002045; // practice bot (ARGGGGGGG): .000409
 
         public static final int LEFT_MOTOR_CHANNEL = 0; // pwm
         public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input
