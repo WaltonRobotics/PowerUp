@@ -1,66 +1,80 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-import static org.usfirst.frc.team2974.robot.Config.Elevator.*;
-import static org.usfirst.frc.team2974.robot.OI.*;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.HIGH_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.NUDGE_DISTANCE;
+import static org.usfirst.frc.team2974.robot.OI.elevatorHigh;
+import static org.usfirst.frc.team2974.robot.OI.elevatorLow;
+import static org.usfirst.frc.team2974.robot.OI.elevatorMedium;
+import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeDown;
+import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeUp;
+import static org.usfirst.frc.team2974.robot.OI.elevatorToggleControl;
+import static org.usfirst.frc.team2974.robot.OI.elevatorZero;
+import static org.usfirst.frc.team2974.robot.OI.gamepad;
 import static org.usfirst.frc.team2974.robot.Robot.elevator;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorCommand extends Command {
 
-    public ElevatorCommand() {
-        requires(elevator);
-    }
+	private final double TOLERANCE = .1;
 
-    @Override
-    protected void initialize() {
-        elevator.enableControl();
-    }
+	public ElevatorCommand() {
+		requires(elevator);
+	}
 
-    @Override
-    protected void execute() {
-        if (!elevator.isMotionControlled()) {
-            if(Math.abs(gamepad.getLeftY()) > .3)
-                elevator.setPower(-gamepad.getLeftY());
-            else if(Math.abs(gamepad.getRightY()) > .3)
-                elevator.setPower(-gamepad.getRightY());
+	@Override
+	protected void initialize() {
+		elevator.enableControl();
+	}
 
-        } else {
-            double leftY = -gamepad.getLeftY();
-            double rightY = -gamepad.getRightY();
-            if ((elevatorNudgeUp.get() || leftY > .3 ||  rightY > .3) && !elevator.atTopPosition()) {
-                elevator.nudge(NUDGE_DISTANCE);
-            }
+	@Override
+	protected void execute() {
+		if (!elevator.isMotionControlled()) {
+			if (Math.abs(gamepad.getLeftY()) > TOLERANCE) {
+				elevator.setPower(-gamepad.getLeftY());
+			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
+				elevator.setPower(-gamepad.getRightY());
+			} else {
+				elevator.setPower(0);
+			}
 
-            if ((elevatorNudgeDown.get() || leftY < -.3 || rightY < -.3) && !elevator.atLowerPosition()) {
-                elevator.nudge(-NUDGE_DISTANCE);
-            }
+		} else {
+			if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
+				elevator.nudge(NUDGE_DISTANCE);
+			}
 
-            if(elevatorHigh.get()) {
-                elevator.setTarget(HIGH_HEIGHT);
-            } else if(elevatorMedium.get()) {
-                elevator.setTarget(MEDIUM_HEIGHT);
-            } else if(elevatorLow.get()) {
-                elevator.setTarget(LOW_HEIGHT);
-            }
-        }
+			if (elevatorNudgeDown.get() && !elevator.atLowerPosition()) {
+				elevator.nudge(-NUDGE_DISTANCE);
+			}
 
-        if(elevatorToggleControl.get()) {
-            System.out.println("screeeee toggle pressed!");
-            if(elevator.isMotionControlled())
-                elevator.disableControl();
-            else
-                elevator.enableControl();
-        }
+			if (elevatorHigh.get()) {
+				elevator.setTarget(HIGH_HEIGHT);
+			} else if (elevatorMedium.get()) {
+				elevator.setTarget(MEDIUM_HEIGHT);
+			} else if (elevatorLow.get()) {
+				elevator.setTarget(LOW_HEIGHT);
+			}
+		}
 
-        if (elevatorZero.get()) {
-            elevator.startZero();
-        }
-    }
+		if (elevatorToggleControl.get()) {
+			System.out.println("screeeee toggle pressed!");
+			if (elevator.isMotionControlled()) {
+				elevator.disableControl();
+			} else {
+				elevator.enableControl();
+			}
+		}
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+		if (elevatorZero.get()) {
+			elevator.startZero();
+		}
+	}
+
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 
 }
