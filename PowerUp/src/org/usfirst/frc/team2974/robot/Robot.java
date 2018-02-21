@@ -129,6 +129,7 @@ public class Robot extends IterativeRobot {
         if (autonCommands != null)
             autonCommands.cancel();
 
+        elevator.enableControl();
         drivetrain.shiftUp(); // start in high gear
         drivetrain.reset();
     }
@@ -171,6 +172,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());
         SmartDashboard.putBoolean("Elevator isZeroed", elevator.isZeroed());
         SmartDashboard.putString("Elevator power mode", elevatorMotor.getControlMode().name());
+        SmartDashboard.putBoolean("Elevator elevator mode", elevator.isMotionControlled());
     }
 
     /**

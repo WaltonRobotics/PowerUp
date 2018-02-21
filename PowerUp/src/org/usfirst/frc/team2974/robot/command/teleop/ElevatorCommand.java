@@ -31,8 +31,11 @@ public class ElevatorCommand extends Command {
 
 	@Override
 	protected void execute() {
+//		System.out.println(elevator.isMotionControlled());
 		if (!elevator.isMotionControlled()) {
-			if (Math.abs(gamepad.getLeftY()) > TOLERANCE) {
+//			System.out.println("Joystick input receiving");
+//			System.out.println("Abs get Y " + Math.abs(gamepad.getLeftY()));
+			if (Math.abs(gamepad.getLeftY()) /*TODO look at why getLeftY return 0*/ > TOLERANCE) {
 				elevator.setPower(-gamepad.getLeftY());
 			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
 				elevator.setPower(-gamepad.getRightY());
@@ -41,6 +44,8 @@ public class ElevatorCommand extends Command {
 			}
 
 		} else {
+//			System.out.println("Getting button inputs");
+
 			if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
 				elevator.nudge(NUDGE_DISTANCE);
 			}
@@ -59,7 +64,7 @@ public class ElevatorCommand extends Command {
 		}
 
 		if (elevatorToggleControl.get()) {
-			System.out.println("screeeee toggle pressed!");
+//			System.out.println("screeeee toggle pressed!");
 			if (elevator.isMotionControlled()) {
 				elevator.disableControl();
 			} else {
