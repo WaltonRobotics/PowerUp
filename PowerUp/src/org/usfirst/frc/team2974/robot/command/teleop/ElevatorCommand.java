@@ -20,19 +20,19 @@ public class ElevatorCommand extends Command {
     @Override
     protected void execute() {
         if (!elevator.isMotionControlled()) {
-            if(Math.abs(gamepad.getLeftY()) > .3)
+            if(Math.abs(gamepad.getLeftY()) > .1)
                 elevator.setPower(-gamepad.getLeftY());
-            else if(Math.abs(gamepad.getRightY()) > .3)
+            else if(Math.abs(gamepad.getRightY()) > .1)
                 elevator.setPower(-gamepad.getRightY());
+            else
+                elevator.setPower(0);
 
         } else {
-            double leftY = -gamepad.getLeftY();
-            double rightY = -gamepad.getRightY();
-            if ((elevatorNudgeUp.get() || leftY > .3 ||  rightY > .3) && !elevator.atTopPosition()) {
+            if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
                 elevator.nudge(NUDGE_DISTANCE);
             }
 
-            if ((elevatorNudgeDown.get() || leftY < -.3 || rightY < -.3) && !elevator.atLowerPosition()) {
+            if (elevatorNudgeDown.get() && !elevator.atLowerPosition()) {
                 elevator.nudge(-NUDGE_DISTANCE);
             }
 

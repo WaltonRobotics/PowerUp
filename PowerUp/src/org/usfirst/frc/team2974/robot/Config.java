@@ -11,7 +11,8 @@ public final class Config {
     private Config() {}
 
     public static final class Hardware {
-        public static final double ROBOT_WIDTH = .7239; // new robot: 0.7493 between wheels , 28.5 inches between wheels
+        // 29 3/4 practice & 28 1/2 comp
+        public static final double ROBOT_WIDTH = .7800; // new robot: 0.7493 between wheels , 28.5 inches between wheels, comp bot: .7239
         public static final double DISTANCE_PER_PULSE = .000409; // new robot: .00041017
 
         public static final int LEFT_MOTOR_CHANNEL = 0; // pwm
@@ -97,7 +98,7 @@ public final class Config {
     public static final class Path {
         public static final double CROSS_BASELINE_Y = 4.2748092;
 
-        public static final double VELOCITY_MAX = 2; // m/s
+        public static final double VELOCITY_MAX = 1.5; // m/s
         public static final double ACCELERATION_MAX = 1; // m/s^2
 
         // IMPORTANT: these points are measured from the center line
