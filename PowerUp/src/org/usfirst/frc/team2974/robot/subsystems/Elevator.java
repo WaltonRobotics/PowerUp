@@ -51,13 +51,16 @@ public class Elevator extends Subsystem {
     public void periodic() {
         logger.addMotionData(new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(), getCurrentPositionNU(), power));
 
-        if (zeroing)
-            setPower(-0.1);
-        if (!elevatorLimitLower.get() || timer.hasPeriodPassed(2.0 /*TODO tune time to be as small as possible*/)) {
-            zeroing = false;
-            timer.stop();
-            zeroEncoder();
-            enableControl();
+        if(!zeroed) {
+            if (zeroing) {
+                setPower(-0.1);
+            } else if (!elevatorLimitLower.get() || timer.hasPeriodPassed(2.0 /*TODO tune time to be as small as possible*/)) {
+                zeroing = false;
+                timer.reset();
+                timer.stop();
+                zeroEncoder();
+                enableControl();
+            }
         }
     }
 
@@ -95,8 +98,6 @@ public class Elevator extends Subsystem {
 
         /* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
         elevatorMotor.overrideLimitSwitchesEnable(true);
-
-
     }
 
     public void zeroEncoder() {
@@ -172,11 +173,12 @@ public class Elevator extends Subsystem {
     public void setTarget(double inches) {
         System.out.println("Target: " + inches);
 
-        if (zeroed)
+        if (zeroed) {
             elevatorMotor.set(
                     ControlMode.MotionMagic,
                     Math.min(MAXIMUM_HEIGHT, Math.max(MINUMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
             );
+        }
     }
 
     public void setPower(double percent) {

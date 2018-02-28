@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2974.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -12,6 +11,7 @@ import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
+import org.usfirst.frc.team2974.robot.util.AutonLoader;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
 import org.waltonrobotics.controller.Pose;
@@ -63,7 +63,11 @@ public class Robot extends IterativeRobot {
         startLocation.addObject("Right", 'r');
         startLocation.addDefault("Center", 'c');
 
-        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(4, 2, 0)));
+        SmartDashboard.putNumber("Intake Max Power", .75); // initial value TODO: remove after found great value
+
+        System.out.println(new DigitalInput(9).get());
+
+//        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(4, 2, 0)));
 //        SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
         updateSmartDashboard();
@@ -96,9 +100,17 @@ public class Robot extends IterativeRobot {
             return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
         }
 
+        Timer timer = new Timer();
+        timer.start();
         while(gameData == null || gameData.isEmpty()) {
             gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+            if(timer.hasPeriodPassed(5)) {
+                System.out.println("5 seconds elapsed while trying to get game data. Crossing baseline!");
+                gameData = "...";
+                break;
+            }
         }
+        timer.stop();
 
         char startPosition = startLocation.getSelected();
 
