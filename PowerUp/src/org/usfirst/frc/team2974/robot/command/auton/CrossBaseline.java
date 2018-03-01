@@ -2,7 +2,6 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
-import org.waltonrobotics.controller.Pose;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
@@ -42,7 +41,7 @@ public class CrossBaseline extends CommandGroup {
         isOptionSelected = true;
 
         // drive forward x meters
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, yMovement, 90)));
+        addSequential(new DriveStraightByDistance(VELOCITY_MAX, ACCELERATION_MAX, yMovement));
         return this;
     }
 

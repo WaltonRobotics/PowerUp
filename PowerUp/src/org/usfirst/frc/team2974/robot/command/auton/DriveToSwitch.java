@@ -19,7 +19,7 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch left() {
-        addSequential(new ElevatorTarget(MEDIUM_HEIGHT));
+        addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
         addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L4, L5));
         addSequential(new DropCube());
 
@@ -29,7 +29,7 @@ public class DriveToSwitch extends CommandGroup {
     }
 
     public DriveToSwitch right() {
-        addSequential(new ElevatorTarget(MEDIUM_HEIGHT));
+        addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
         addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R4, R5));
         addSequential(new DropCube());
 

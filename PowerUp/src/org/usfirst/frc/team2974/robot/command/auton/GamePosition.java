@@ -58,7 +58,7 @@ public enum GamePosition {
 
     /**
      * @param startPos the starting position of the robot, 'l', 'r' or 'c'.
-     * @param gameData the match game data, MUST HAVE DATA (i.e. not null)
+     * @param gameData the match game data
      * @return the correct game position
      */
     public static GamePosition getGamePosition(char startPos, String gameData) {
