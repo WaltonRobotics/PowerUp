@@ -142,6 +142,7 @@ public class Robot extends IterativeRobot {
         if (autonCommands != null)
             autonCommands.cancel();
 
+        drivetrain.cancelControllerMotion();
         elevator.enableControl();
         drivetrain.shiftUp(); // start in high gear
         drivetrain.reset();
