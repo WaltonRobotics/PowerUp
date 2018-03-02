@@ -147,9 +147,11 @@ public final class Config {
 		public static final Pose R9 = new Pose(2.33045, 5.83509, 270);
 		public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
 
-		public static final Pose C0 = new Pose(0.19177, 0.42835 , 90);
-		public static final Pose C1 = new Pose(1.29388, 3.12791, 90);
-		public static final Pose C2 = new Pose(-1.29388, 3.12791, 90);
+		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
+		public static final Pose C1 = new Pose(1.29388/*testing values 1.29388*/,
+			3.22791/*testing values*/  /*previous 3.12791*/, 90);
+		public static final Pose C2 = new Pose(-1.29388/*testing values -1.29388*/,
+			3.22791 /*testing values*/  /*previous 3.12791 */, 90);
 
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
