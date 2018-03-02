@@ -16,8 +16,6 @@ import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
 import org.waltonrobotics.controller.Pose;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
-import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 
 /**
@@ -40,7 +38,9 @@ public class Robot extends IterativeRobot {
 
     private SendableChooser<Boolean> doNothingChooser;
     private SendableChooser<Character> startLocation;
+//    private static SendableChooser<Config.Robot> robotChooser = new SendableChooser<>();
 
+    private static Config.Robot currentRobot;
     private static String gameData; // for ease of access
 
     /**
@@ -49,6 +49,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        if (RobotMap.robotIdentifier.get())
+            currentRobot = Config.Robot.COMPETITION;
+        else
+            currentRobot = Config.Robot.PRACTICE;
+
         motionLogger = new MotionLogger("/home/lvuser/");
         elevatorLogger = new ElevatorLogger("/home/lvuser/");
         drivetrain = new Drivetrain(motionLogger);
@@ -64,10 +69,18 @@ public class Robot extends IterativeRobot {
         startLocation.addObject("Right", 'r');
         startLocation.addDefault("Center", 'c');
 
+//        robotChooser.addObject("Practice", Config.Robot.PRACTICE);
+//        robotChooser.addDefault("Competition", Config.Robot.COMPETITION);
+
+
 //        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
         SmartDashboard.putData("6m drive straight", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
         updateSmartDashboard();
+    }
+
+    public static Config.Robot getChoosenRobot() {
+        return currentRobot;
     }
 
     @Override

@@ -1,17 +1,20 @@
 package org.usfirst.frc.team2974.robot.subsystems;
 
-import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
-import org.waltonrobotics.AbstractDrivetrain;
-import org.waltonrobotics.MotionLogger;
-import org.waltonrobotics.controller.RobotPair;
+import static org.usfirst.frc.team2974.robot.RobotMap.encoderLeft;
+import static org.usfirst.frc.team2974.robot.RobotMap.encoderRight;
+import static org.usfirst.frc.team2974.robot.RobotMap.motorLeft;
+import static org.usfirst.frc.team2974.robot.RobotMap.motorRight;
+import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team2974.robot.Config.Hardware.DISTANCE_PER_PULSE;
-import static org.usfirst.frc.team2974.robot.RobotMap.*;
 import org.usfirst.frc.team2974.robot.Config.MotionConstants;
+import org.usfirst.frc.team2974.robot.Robot;
+import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
+import org.waltonrobotics.AbstractDrivetrain;
+import org.waltonrobotics.MotionLogger;
+import org.waltonrobotics.controller.RobotPair;
 
 /**
  *
@@ -34,7 +37,13 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public RobotPair getWheelPositions() {
-		return new RobotPair(encoderLeft.getDistance(), encoderRight.getDistance(), Timer.getFPGATimestamp());
+		return new RobotPair(encoderLeft.getDistance(), encoderRight.getDistance(),
+			Timer.getFPGATimestamp());
+	}
+
+	@Override
+	public double getRobotWidth() {
+		return Robot.getChoosenRobot().getRobotWidth();
 	}
 
 	@Override
@@ -51,8 +60,10 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public void setEncoderDistancePerPulse() {
-		encoderLeft.setDistancePerPulse(DISTANCE_PER_PULSE);
-		encoderRight.setDistancePerPulse(DISTANCE_PER_PULSE);
+		double distancePerPulse = Robot.getChoosenRobot().getDistancePerPulse();
+
+		encoderLeft.setDistancePerPulse(distancePerPulse);
+		encoderRight.setDistancePerPulse(distancePerPulse);
 		encoderRight.setReverseDirection(true);
 		motorRight.setInverted(true);
 	}
@@ -94,12 +105,12 @@ public class Drivetrain extends AbstractDrivetrain {
 	public double getKS() {
 		return MotionConstants.KS;
 	}
-	
+
 	@Override
 	public double getKAng() {
 		return MotionConstants.KAng;
 	}
-	
+
 	@Override
 	public double getKL() {
 		return MotionConstants.KL;

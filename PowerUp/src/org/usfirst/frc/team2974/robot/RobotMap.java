@@ -17,6 +17,7 @@ import static org.usfirst.frc.team2974.robot.Config.Hardware.*;
 public class RobotMap {
 	public static final Talon motorLeft;
 	public static final Talon motorRight;
+	public static final DigitalInput robotIdentifier; //true for compbot false for practice
 
 	public static final Encoder encoderLeft;
 	public static final Encoder encoderRight;
@@ -48,5 +49,7 @@ public class RobotMap {
 
 		intakeMotorLeft = new VictorSPX(INTAKE_LEFT_MOTOR_CHANNEL);
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);
+
+		robotIdentifier = new DigitalInput(9);
 	}
 }

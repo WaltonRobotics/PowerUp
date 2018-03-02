@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
-import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_WIDTH;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +43,7 @@ public class SimpleSpline extends Command {
 	protected void initialize() {
 		drivetrain.reset();
 		drivetrain.addControllerMotions(
-				new Spline(vMax, aMax, 0,0, ROBOT_WIDTH, startAngle, endAngle, isBackwards, knots));
+				new Spline(vMax, aMax, 0,0, startAngle, endAngle, isBackwards, knots));
 
 		drivetrain.startControllerMotion();
 	}

@@ -20,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
@@ -79,7 +80,7 @@ public class Elevator extends Subsystem {
 		elevatorMotor.setNeutralMode(NeutralMode.Brake);
 		elevatorMotor
 			.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
-		elevatorMotor.setSensorPhase(true);
+		elevatorMotor.setSensorPhase(Robot.getChoosenRobot().getSensorPhase()); // true for competition bot // false for practice
 		elevatorMotor.setInverted(false);
 
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
