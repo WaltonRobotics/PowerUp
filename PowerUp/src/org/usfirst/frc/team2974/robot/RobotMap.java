@@ -50,6 +50,6 @@ public class RobotMap {
 		intakeMotorLeft = new VictorSPX(INTAKE_LEFT_MOTOR_CHANNEL);
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);
 
-		robotIdentifier = new DigitalInput(9);
+		robotIdentifier = new DigitalInput(ROBOT_IDENTIFIER_CHANNEL);
 	}
 }

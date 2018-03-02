@@ -62,6 +62,8 @@ public final class Config {
 		public static final int ELEVATOR_MOTOR_CHANNEL = 3; // can
 
 		public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
+
+		public static final int ROBOT_IDENTIFIER_CHANNEL = 9;
 	}
 
 	public static final class Input { // TODO: get from drive team
