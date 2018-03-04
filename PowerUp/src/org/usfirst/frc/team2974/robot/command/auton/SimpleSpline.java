@@ -45,7 +45,7 @@ public class SimpleSpline extends Command {
 		drivetrain.addControllerMotions(
 				new Spline(vMax, aMax, 0,0, startAngle, endAngle, isBackwards, knots));
 
-		drivetrain.startControllerMotion();
+//		drivetrain.startControllerMotion();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -60,8 +60,8 @@ public class SimpleSpline extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		System.out.println("spline done");
-		drivetrain.cancelControllerMotion();
-		drivetrain.clearControllerMotions();
+//		drivetrain.cancelControllerMotion();
+//		drivetrain.clearControllerMotions();
 		drivetrain.setSpeeds(0, 0);
 	}
 

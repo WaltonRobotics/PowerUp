@@ -26,7 +26,7 @@ public class ElevatorCommand extends Command {
 
 	@Override
 	protected void initialize() {
-		elevator.enableControl();
+		elevator.disableControl();
 	}
 
 	@Override

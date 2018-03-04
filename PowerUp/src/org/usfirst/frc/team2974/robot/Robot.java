@@ -85,6 +85,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
+        drivetrain.cancelControllerMotion();
         gameData = null;
         drivetrain.reset();
         motionLogger.writeMotionDataCSV();
@@ -99,10 +100,12 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        drivetrain.startControllerMotion();
         elevator.startZero();
         motionLogger.initialize();
         elevatorLogger.initialize();
-        drivetrain.shiftDown();
+//        drivetrain.shiftDown();
+        drivetrain.shiftUp();
 
         if (doNothingChooser.getSelected()) { // if should do nothing
             System.out.println(">:( Nothing has been chosen. Scrubs.");
@@ -144,7 +147,7 @@ public class Robot extends IterativeRobot {
 
         drivetrain.cancelControllerMotion();
         elevator.enableControl();
-        drivetrain.shiftUp(); // start in high gear
+        drivetrain.shiftDown(); // start in high gear
         drivetrain.reset();
     }
 
