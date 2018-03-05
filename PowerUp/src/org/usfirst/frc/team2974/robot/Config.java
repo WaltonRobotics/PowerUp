@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2974.robot;
 
+import org.usfirst.frc.team2974.robot.Gamepad.Button;
+import org.usfirst.frc.team2974.robot.Gamepad.POV;
 import org.waltonrobotics.controller.Pose;
 
 /**
@@ -12,7 +14,7 @@ public final class Config {
 	}
 
 	public enum Robot {
-		PRACTICE(.7800, .000409, false), COMPETITION(.7239, .0002045, true);
+		PRACTICE(0.7800, 0.000409, false), COMPETITION(0.7239, 0.0002045, true);
 
 
 		private final double robotWidth;
@@ -41,9 +43,6 @@ public final class Config {
 
 	public static final class Hardware {
 
-//		public static final double ROBOT_WIDTH = .78; // new robot: 0.7493 between wheels , 28.5 inches between wheels
-//		public static final double DISTANCE_PER_PULSE = .000409; // practice bot (ARGGGGGGG): .000409 //compbot = .0002045
-
 		public static final int LEFT_MOTOR_CHANNEL = 0; // pwm
 		public static final int LEFT_ENCODER_CHANNEL1 = 2; // for first digital input
 		public static final int LEFT_ENCODER_CHANNEL2 = 3; // for second digital input
@@ -64,6 +63,9 @@ public final class Config {
 		public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
 
 		public static final int ROBOT_IDENTIFIER_CHANNEL = 9;
+
+		private Hardware() {
+		}
 	}
 
 	public static final class Input { // TODO: get from drive team
@@ -79,33 +81,37 @@ public final class Config {
 		public static final int SHIFT_DOWN_BUTTON = 2;
 		public static final int SHIFT_DOWN_BUTTON_ALT = 7;
 
-		public static final int SHIFT_TOOGLE_BUTTON = 1;
+		public static final int SHIFT_TOGGLE_BUTTON = 1;
 
 		// right joystick //
 
 		// gamepad //
-		public static final int INTAKE_BUTTON = Gamepad.Button.RIGHT_TRIGGER.index();
-		public static final int OUTPUT_BUTTON = Gamepad.Button.LEFT_TRIGGER.index();
+		public static final int INTAKE_BUTTON = Button.RIGHT_TRIGGER.index();
+		public static final int OUTPUT_BUTTON = Button.LEFT_TRIGGER.index();
 
-		public static final int ELEVATOR_NUDGE_UP = Gamepad.POV.N.angle(); // pov
-		public static final int ELEVATOR_NUDGE_DOWN = Gamepad.POV.S.angle(); // pov
-		public static final int ELEVATOR_ZERO = Gamepad.Button._9.index();
-		public static final int ELEVATOR_TOGGLE_CONTROL = Gamepad.Button._10.index();
+		public static final int ELEVATOR_NUDGE_UP = POV.N.angle(); // pov
+		public static final int ELEVATOR_NUDGE_DOWN = POV.S.angle(); // pov
+		public static final int ELEVATOR_ZERO = Button._9.index();
+		public static final int ELEVATOR_TOGGLE_CONTROL = Button._10.index();
 
-		public static final int ELEVATOR_HIGH = Gamepad.Button._4.index();
-		public static final int ELEVATOR_MEDIUM = Gamepad.Button._3.index();
-		public static final int ELEVATOR_LOW = Gamepad.Button._2.index();
+		public static final int ELEVATOR_HIGH = Button._4.index();
+		public static final int ELEVATOR_MEDIUM = Button._3.index();
+		public static final int ELEVATOR_LOW = Button._2.index();
+
+		private Input() {
+		}
 	}
 
 	public static final class Elevator {
 
+		public static final double TOLERANCE = 0.1;
 		public static final double INCHES_TO_NU = 775; // TODO: FIXME
 
 		public static final double HIGH_HEIGHT = 72; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
 		public static final double LOW_HEIGHT = 0; // inches, the floor
 
-		public static final int MINUMUM_HEIGHT = 1000; // in nu (native units)
+		public static final int MINIMUM_HEIGHT = 1000; // in nu (native units)
 		public static final int MAXIMUM_HEIGHT = 20000; // in nu
 
 		public static final double NUDGE_DISTANCE = 1; // in inches
@@ -120,6 +126,9 @@ public final class Config {
 		public static final double KD = 0;
 
 		public static final int TIMEOUT = 100; // in ms
+
+		private Elevator() {
+		}
 	}
 
 	public static final class IntakeOutput {
@@ -127,6 +136,9 @@ public final class Config {
 		public static final double MAX_POWER = 0.75;
 		public static final double LOW_POWER = 0.25; // Test this value
 		public static final double HOLD_POWER = 0.1; // TEST
+
+		private IntakeOutput() {
+		}
 	}
 
 	public static final class Path {
@@ -168,6 +180,9 @@ public final class Config {
 		public static final Pose L9 = negateX(R9);
 		public static final Pose L10 = negateX(R10);
 
+		private Path() {
+		}
+
 		/**
 		 * Used for R -> L points. Easy and fast.
 		 *
@@ -177,7 +192,7 @@ public final class Config {
 		private static Pose negateX(Pose p) {
 			double angle = Math.toRadians(p.getAngle());
 			// the new angle is the original angle but x is negated
-			double newAngle = Math.atan2(Math.sin(angle), -Math.cos(angle));
+			double newAngle = StrictMath.atan2(StrictMath.sin(angle), -StrictMath.cos(angle));
 			if (newAngle < 0) {
 				newAngle += 2 * Math.PI;
 			}
@@ -187,11 +202,17 @@ public final class Config {
 
 	public static final class MotionConstants {
 
-		public static final double KV = .267;
+		public static final double KV = 0.267;
 		public static final double KAcc = 0;
 		public static final double KK = 0;
 		public static final double KS = 1;
-		public static final double KAng = 0.5;
-		public static final double KL = 1;
+		public static final double KAng = 1;
+		public static final double KL = 2;
+
+		public static final double IL = 0.01;
+		public static final double IAng = 0.01;
+
+		private MotionConstants() {
+		}
 	}
 }

@@ -8,16 +8,16 @@ import org.usfirst.frc.team2974.robot.Gamepad;
  */
 public class POVButton extends Button {
 
-    private final Gamepad gamepad;
-    private final int angle;
+	private final Gamepad gamepad;
+	private final int angle;
 
-    public POVButton(Gamepad gamepad, int angle) {
-        this.gamepad = gamepad;
-        this.angle = angle;
-    }
+	public POVButton(Gamepad gamepad, int angle) {
+		this.gamepad = gamepad;
+		this.angle = angle;
+	}
 
-    @Override
-    public boolean get() {
-        return gamepad.getPOV() == angle;
-    }
+	@Override
+	public boolean get() {
+		return gamepad.getPOV() == angle;
+	}
 }

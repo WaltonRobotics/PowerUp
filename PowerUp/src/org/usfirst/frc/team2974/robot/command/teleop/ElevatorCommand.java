@@ -4,6 +4,7 @@ import static org.usfirst.frc.team2974.robot.Config.Elevator.HIGH_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.NUDGE_DISTANCE;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.TOLERANCE;
 import static org.usfirst.frc.team2974.robot.OI.elevatorHigh;
 import static org.usfirst.frc.team2974.robot.OI.elevatorLow;
 import static org.usfirst.frc.team2974.robot.OI.elevatorMedium;
@@ -18,7 +19,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorCommand extends Command {
 
-	private final double TOLERANCE = .1;
 
 	public ElevatorCommand() {
 		requires(elevator);
@@ -32,18 +32,7 @@ public class ElevatorCommand extends Command {
 	@Override
 	protected void execute() {
 //		System.out.println(elevator.isMotionControlled());
-		if (!elevator.isMotionControlled()) {
-//			System.out.println("Joystick input receiving");
-//			System.out.println("Abs get Y " + Math.abs(gamepad.getLeftY()));
-			if (Math.abs(gamepad.getLeftY()) /*TODO look at why getLeftY return 0*/ > TOLERANCE) {
-				elevator.setPower(-gamepad.getLeftY());
-			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
-				elevator.setPower(-gamepad.getRightY());
-			} else {
-				elevator.setPower(0);
-			}
-
-		} else {
+		if (elevator.isMotionControlled()) {
 //			System.out.println("Getting button inputs");
 
 			if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
@@ -61,10 +50,20 @@ public class ElevatorCommand extends Command {
 			} else if (elevatorLow.get()) {
 				elevator.setTarget(LOW_HEIGHT);
 			}
+		} else {
+//			System.out.println("Joystick input receiving");
+//			System.out.println("Abs get Y " + Math.abs(gamepad.getLeftY()));
+			if (Math.abs(gamepad.getLeftY()) /*TODO look at why getLeftY return 0*/ > TOLERANCE) {
+				elevator.setPower(-gamepad.getLeftY());
+			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
+				elevator.setPower(-gamepad.getRightY());
+			} else {
+				elevator.setPower(0);
+			}
+
 		}
 
 		if (elevatorToggleControl.get()) {
-//			System.out.println("screeeee toggle pressed!");
 			if (elevator.isMotionControlled()) {
 				elevator.disableControl();
 			} else {

@@ -8,24 +8,24 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class ButtonOnce extends JoystickButton {
 
-    private boolean down;
+	private boolean down;
 
-    public ButtonOnce(GenericHID hid, int channel) {
-        super(hid, channel);
-        down = false;
-    }
+	public ButtonOnce(GenericHID hid, int channel) {
+		super(hid, channel);
+		down = false;
+	}
 
-    @Override
-    public boolean get() {
-        if(super.get()) {
-            if(!down) {
-                down = true;
-                return true;
-            }
-        } else {
-            down = false;
-        }
+	@Override
+	public boolean get() {
+		if (super.get()) {
+			if (!down) {
+				down = true;
+				return true;
+			}
+		} else {
+			down = false;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

@@ -1,59 +1,37 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
-import static org.usfirst.frc.team2974.robot.Config.Path.*;
+import static org.usfirst.frc.team2974.robot.Config.Path.L0;
+import static org.usfirst.frc.team2974.robot.Config.Path.L4;
+import static org.usfirst.frc.team2974.robot.Config.Path.L5;
+import static org.usfirst.frc.team2974.robot.Config.Path.R0;
+import static org.usfirst.frc.team2974.robot.Config.Path.R4;
+import static org.usfirst.frc.team2974.robot.Config.Path.R5;
+
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import org.usfirst.frc.team2974.robot.util.AutonUtil;
 
 /**
  * Drives to the switch from the chosen (left(), right(), center()) starting position.
  */
-public class DriveToSwitch extends CommandGroup {
+public class DriveToSwitch extends AutonOption {
 
-    private boolean isOptionSelected;
+	public DriveToSwitch left() {
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L4, L5);
+	}
 
-    public DriveToSwitch() {
-        super();
+	public DriveToSwitch right() {
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R4, R5);
+	}
 
-        isOptionSelected = false;
-    }
+	public DriveToSwitch center() {
+		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
+		addSequential(new CrossBaseline().center()); // :)
+		addSequential(new WaitCommand(0.5));
+		addSequential(new DropCube());
 
-    public DriveToSwitch left() {
-        addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, L0, L4, L5));
-        addSequential(new DropCube());
+		setOptionSelected(true);
 
-        isOptionSelected = true;
-
-        return this;
-    }
-
-    public DriveToSwitch right() {
-        addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-        addSequential(SimpleSpline.pathFromPosesWithAngle(false, R0, R4, R5));
-        addSequential(new DropCube());
-
-        isOptionSelected = true;
-
-        return this;
-    }
-
-    public DriveToSwitch center() {
-        addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-        addSequential(new CrossBaseline().center()); // :)
-        addSequential(new DropCube());
-
-        isOptionSelected = true;
-
-        return this;
-    }
-
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-
-        if(!isOptionSelected)
-            throw new RuntimeException("Left or Right was not called when the command was initialized! This is a programmer error.");
-    }
+		return this;
+	}
 }

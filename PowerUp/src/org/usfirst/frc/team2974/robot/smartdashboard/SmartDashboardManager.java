@@ -37,12 +37,12 @@ public final class SmartDashboardManager {
 
 	/**
 	 * <p>Creates a SmartDashboard Property that will update automatically when the update method of
-	 * SmartDashboardManager is called.</p> <p> <p>
+	 * SmartDashboardManager is called.</p>
 	 * Example: <pre>{@code
 	 *   addBind("Left Motor Power", 0, () -> SubsystemManager.getSubsystem(Drivetrain.class).getLeftMotorPower());
 	 *   }</pre>
-	 * </p> <p> If the supplier is null the property is effectively static, unless another supplier
-	 * is added later.
+	 * </p> If the supplier is null the property is effectively static, unless another supplier is
+	 * added later.</p>
 	 *
 	 * @param key SmartDashboard key
 	 * @param defaultValue Default value that SmartDashboard will returns if it cannot find the
@@ -124,7 +124,7 @@ public final class SmartDashboardManager {
 	 * @return returns the PROPERTIES list
 	 */
 	public static List<SmartDashboardProperty> getProperties() {
-		return Collections.unmodifiableList(SmartDashboardManager.PROPERTIES);
+		return Collections.unmodifiableList(PROPERTIES);
 	}
 
 	/**
@@ -134,18 +134,16 @@ public final class SmartDashboardManager {
 	 * @param key the key of the property
 	 * @return the SmartDashboard property with the specified key if it is found
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> SmartDashboardProperty<T> getProperty(String key) {
-		Optional<SmartDashboardProperty> smartDashboardProperty = SmartDashboardManager.PROPERTIES
+		Optional<SmartDashboardProperty> smartDashboardProperty = PROPERTIES
 			.stream()
 			.filter(p -> p.getKey()
 				.equals(key)) // gts the properties with the same key as the one searching for
 			.findFirst();  /// gets the first SmartDashboard property
 
-		if (smartDashboardProperty.isPresent()) { // if there is a SmartDashboard property
-			return smartDashboardProperty.get(); // returns the SmartDashboard property
-		}
-		return null;
+		// if there is a SmartDashboard property
+		// returns the SmartDashboard property
+		return smartDashboardProperty.orElse(null);
 
 //		throw new RobotRuntimeException("Property " + key
 //			+ " does not exist. Did you forget to add it?"); // if it did not find the SmartDashboard property throw error

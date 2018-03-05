@@ -8,7 +8,7 @@ import static org.usfirst.frc.team2974.robot.Config.Elevator.KF;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KI;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KP;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MINUMUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.TIMEOUT;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorLimitLower;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
@@ -23,20 +23,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
+import org.usfirst.frc.team2974.robot.util.ElevatorLogger.ElevatorData;
 
 /**
  * The elevator subsystem, which raises and lowers the intake/outtake <p> TODO: finish me
  */
 public class Elevator extends Subsystem {
 
-	private ElevatorLogger logger;
+	private final ElevatorLogger logger;
+	private final Timer timer = new Timer();
 	private boolean isMotionControlled;
-
 	private double power;
-
 	private boolean zeroing;
 	private boolean zeroed;
-	private Timer timer = new Timer();
 
 	public Elevator(ElevatorLogger logger) {
 		zeroing = true;
@@ -45,11 +44,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public double getError() {
-		if (isMotionControlled) {
-			return elevatorMotor.getClosedLoopError(0);
-		} else {
-			return 0;
-		}
+		return isMotionControlled ? elevatorMotor.getClosedLoopError(0) : 0;
 	}
 
 	@Override
@@ -60,7 +55,7 @@ public class Elevator extends Subsystem {
 	@Override
 	public void periodic() {
 		logger.addMotionData(
-			new ElevatorLogger.ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(),
+			new ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(),
 				getCurrentPositionNU(), power));
 
 		if (zeroing) {
@@ -80,7 +75,8 @@ public class Elevator extends Subsystem {
 		elevatorMotor.setNeutralMode(NeutralMode.Brake);
 		elevatorMotor
 			.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
-		elevatorMotor.setSensorPhase(Robot.getChoosenRobot().getSensorPhase()); // true for competition bot // false for practice
+		elevatorMotor.setSensorPhase(Robot.getChoosenRobot()
+			.getSensorPhase()); // true for competition bot // false for practice
 		elevatorMotor.setInverted(false);
 
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
@@ -104,7 +100,7 @@ public class Elevator extends Subsystem {
 		zeroed = false;
 
 		elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10);
-		elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10);
+		elevatorMotor.configReverseSoftLimitThreshold(MINIMUM_HEIGHT, 10);
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(false, 10);
@@ -121,7 +117,7 @@ public class Elevator extends Subsystem {
 		/* +14 rotations forward when using CTRE Mag encoder */
 		elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
 		/* -15 rotations reverse when using CTRE Mag encoder */
-		elevatorMotor.configReverseSoftLimitThreshold(MINUMUM_HEIGHT, 10); // TODO: FIX
+		elevatorMotor.configReverseSoftLimitThreshold(MINIMUM_HEIGHT, 10); // TODO: FIX
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(true, 10);
@@ -188,13 +184,13 @@ public class Elevator extends Subsystem {
 			elevatorMotor.set(
 				ControlMode.MotionMagic,
 				Math.min(MAXIMUM_HEIGHT,
-					Math.max(MINUMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
+					Math.max(MINIMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
 			);
 		}
 	}
 
 	public void setPower(double percent) {
-		percent = Math.min(.75, Math.max(-.75, percent)); // throttle power in
+		percent = Math.min(0.75, Math.max(-0.75, percent)); // throttle power in
 
 		power = percent;
 		SmartDashboard.putNumber("Elevator Power", percent);
@@ -208,7 +204,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean atLowerPosition() {
-		return getCurrentPositionNU() <= MINUMUM_HEIGHT;
+		return getCurrentPositionNU() <= MINIMUM_HEIGHT;
 	}
 
 	public void startZero() {

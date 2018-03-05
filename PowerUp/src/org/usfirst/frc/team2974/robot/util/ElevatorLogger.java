@@ -12,110 +12,109 @@ import java.util.LinkedList;
  */
 public class ElevatorLogger {
 
-    public static class ElevatorData {
-        private double time;
-        private double positionInches;
-        private double positionNU;
-        private double power;
+	private final LinkedList<ElevatorData> motionDataList;
+	private final String filePath;
 
-        public ElevatorData(double time, double positionInches, double positionNU, double power) {
-            this.time = time;
-            this.positionInches = positionInches;
-            this.positionNU = positionNU;
-            this.power = power;
-        }
+	/**
+	 * Call this in robotInit() before making the drivetrain
+	 *
+	 * @param filePath - Where do you want to save the logs? To save to the roboRIO, use base
+	 * directory "/home/lvuser/". To save to a thumb drive, use winSCP or similar program to find
+	 * the right filepath
+	 */
+	public ElevatorLogger(String filePath) {
+		motionDataList = new LinkedList<>();
+		this.filePath = filePath;
+	}
 
-        public double getTime() {
-            return time;
-        }
+	/**
+	 * This is called in the MotionController to add MotionData to the motionDataList that
+	 * MotionLogger has
+	 */
+	public void addMotionData(ElevatorData dataAdd) {
+		motionDataList.add(dataAdd);
+	}
 
-        public double getPositionInches() {
-            return positionInches;
-        }
+	/**
+	 * Call this in autonomousInit() to clear the motionDataList
+	 */
+	public void initialize() {
+		motionDataList.clear();
+	}
 
-        public double getPositionNU() {
-            return positionNU;
-        }
+	/**
+	 * Call this in disabledInit() to send the motionDataList to a .csv file.
+	 */
+	public void writeMotionDataCSV() {
+		if (motionDataList.isEmpty()) {
+			return;
+		}
 
-        public double getPower() {
-            return power;
-        }
-    }
+		String fileName =
+			"Elevator " + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
+		File file = new File(filePath + fileName + ".csv");
 
-    private final LinkedList<ElevatorData> motionDataList;
-    private final String filePath;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Time");
+		sb.append(", ");
+		sb.append("Position inch");
+		sb.append(", ");
+		sb.append("Position NU");
+		sb.append(", ");
+		sb.append("Power");
+		sb.append('\n');
 
-    /**
-     * Call this in robotInit() before making the drivetrain
-     *
-     * @param filePath
-     *            - Where do you want to save the logs? To save to the roboRIO, use
-     *            base directory "/home/lvuser/". To save to a thumb drive, use
-     *            winSCP or similar program to find the right filepath
-     */
-    public ElevatorLogger(String filePath) {
-        motionDataList = new LinkedList<>();
-        this.filePath = filePath;
-    }
+		for (ElevatorData data : motionDataList) {
+			sb.append(data.getTime());
+			sb.append(", ");
+			sb.append(data.getPositionInches());
+			sb.append(", ");
+			sb.append(data.getPositionNU());
+			sb.append(", ");
+			sb.append(data.getPower());
+			sb.append('\n');
+		}
 
-    /**
-     * This is called in the MotionController to add MotionData to the
-     * motionDataList that MotionLogger has
-     *
-     * @param dataAdd
-     */
-    public void addMotionData(ElevatorData dataAdd) {
-        motionDataList.add(dataAdd);
-    }
+		try (PrintWriter pw = new PrintWriter(file)) {
+			System.out.println("File " + fileName + " has been made!");
+			pw.write(sb.toString());
+			pw.flush();
+		} catch (FileNotFoundException e) {
+			System.out.println("There is no file at " + file);
+			e.printStackTrace();
+		}
 
-    /**
-     * Call this in autonomousInit() to clear the motionDataList
-     */
-    public void initialize() {
-        motionDataList.clear();
-    }
+		motionDataList.clear();
+	}
 
-    /**
-     * Call this in disabledInit() to send the motionDataList to a .csv file.
-     */
-    public void writeMotionDataCSV() {
-        if (motionDataList.isEmpty()) {
-            return;
-        }
+	public static class ElevatorData {
 
-        String fileName = "Elevator " + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
-        File file = new File(filePath + fileName + ".csv");
+		private final double time;
+		private final double positionInches;
+		private final double positionNU;
+		private final double power;
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Time");
-        sb.append(", ");
-        sb.append("Position inch");
-        sb.append(", ");
-        sb.append("Position NU");
-        sb.append(", ");
-        sb.append("Power");
-        sb.append('\n');
+		public ElevatorData(double time, double positionInches, double positionNU, double power) {
+			this.time = time;
+			this.positionInches = positionInches;
+			this.positionNU = positionNU;
+			this.power = power;
+		}
 
-        for (ElevatorData data : motionDataList) {
-            sb.append(data.getTime());
-            sb.append(", ");
-            sb.append(data.getPositionInches());
-            sb.append(", ");
-            sb.append(data.getPositionNU());
-            sb.append(", ");
-            sb.append(data.getPower());
-            sb.append('\n');
-        }
+		public double getTime() {
+			return time;
+		}
 
-        try(PrintWriter pw = new PrintWriter(file)) {
-            System.out.println("File " + fileName + " has been made!");
-            pw.write(sb.toString());
-            pw.flush();
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no file at " + file);
-            e.printStackTrace();
-        }
+		public double getPositionInches() {
+			return positionInches;
+		}
 
-        motionDataList.clear();
-    }
+		public double getPositionNU() {
+			return positionNU;
+		}
+
+		public double getPower() {
+			return power;
+		}
+	}
 }

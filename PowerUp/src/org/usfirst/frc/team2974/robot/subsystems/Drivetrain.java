@@ -21,7 +21,7 @@ import org.waltonrobotics.controller.RobotPair;
  */
 public class Drivetrain extends AbstractDrivetrain {
 
-	private SendableChooser<Boolean> driveMode;
+	private final SendableChooser<Boolean> driveMode;
 
 	public Drivetrain(MotionLogger motionLogger) {
 		super(motionLogger);
@@ -75,15 +75,11 @@ public class Drivetrain extends AbstractDrivetrain {
 	}
 
 	public void shiftDown() {
-		if (!pneumaticsShifter.get()) {
-			pneumaticsShifter.set(true);
-		}
+		pneumaticsShifter.set(true);
 	}
 
 	public void shiftUp() {
-		if (pneumaticsShifter.get()) {
-			pneumaticsShifter.set(false);
-		}
+		pneumaticsShifter.set(false);
 	}
 
 	@Override
@@ -114,6 +110,16 @@ public class Drivetrain extends AbstractDrivetrain {
 	@Override
 	public double getKL() {
 		return MotionConstants.KL;
+	}
+
+	@Override
+	public double getILag() {
+		return MotionConstants.IL;
+	}
+
+	@Override
+	public double getIAng() {
+		return MotionConstants.IAng;
 	}
 
 	public boolean isTankDrive() {

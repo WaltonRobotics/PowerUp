@@ -1,20 +1,33 @@
 package org.usfirst.frc.team2974.robot;
 
-import com.ctre.CANTalon;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.ELEVATOR_LIMIT_LOWER_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.ELEVATOR_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.INTAKE_LEFT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.INTAKE_RIGHT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_ENCODER_CHANNEL1;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_ENCODER_CHANNEL2;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_ENCODER_CHANNEL1;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_ENCODER_CHANNEL2;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_IDENTIFIER_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.SHIFTER_CHANNEL;
+
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.*;
-
-import static org.usfirst.frc.team2974.robot.Config.Hardware.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * The RobotMap is a mapping from the ports sensors and actuators are wired into to a variable name.
+ * This provides flexibility changing wiring, makes checking the wiring easier and significantly
+ * reduces the number of magic numbers floating around.
  */
-public class RobotMap {
+public final class RobotMap {
+
 	public static final Talon motorLeft;
 	public static final Talon motorRight;
 	public static final DigitalInput robotIdentifier; //true for compbot false for practice
@@ -38,8 +51,10 @@ public class RobotMap {
 		motorLeft = new Talon(LEFT_MOTOR_CHANNEL);
 		motorRight = new Talon(RIGHT_MOTOR_CHANNEL);
 
-		encoderRight = new Encoder(new DigitalInput(RIGHT_ENCODER_CHANNEL1), new DigitalInput(RIGHT_ENCODER_CHANNEL2));
-		encoderLeft = new Encoder(new DigitalInput(LEFT_ENCODER_CHANNEL1), new DigitalInput(LEFT_ENCODER_CHANNEL2));
+		encoderRight = new Encoder(new DigitalInput(RIGHT_ENCODER_CHANNEL1),
+			new DigitalInput(RIGHT_ENCODER_CHANNEL2));
+		encoderLeft = new Encoder(new DigitalInput(LEFT_ENCODER_CHANNEL1),
+			new DigitalInput(LEFT_ENCODER_CHANNEL2));
 
 		compressor = new Compressor();
 		pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
@@ -51,5 +66,8 @@ public class RobotMap {
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);
 
 		robotIdentifier = new DigitalInput(ROBOT_IDENTIFIER_CHANNEL);
+	}
+
+	private RobotMap() {
 	}
 }

@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DoNothingCommand extends CommandGroup {
 
-    public DoNothingCommand() {
-        super();
-        System.out.println("We used the DoNothingCommand command. (╯°□°）╯︵ ┻━┻");
-    }
+	public DoNothingCommand() {
+		System.out.println("We used the DoNothingCommand command. (╯°□°）╯︵ ┻━┻");
+	}
 }

@@ -1,10 +1,11 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import static org.usfirst.frc.team2974.robot.Config.Path.CROSS_BASELINE_Y;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.*;
-
 public class CrossBaseLineNoEncoder extends CommandGroup {
+
 	public double finalTime = 2; // TODO fix this
 
 	public CrossBaseLineNoEncoder left() {
