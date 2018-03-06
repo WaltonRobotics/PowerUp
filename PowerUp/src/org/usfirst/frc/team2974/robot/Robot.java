@@ -10,13 +10,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
-import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
-import org.waltonrobotics.controller.Pose;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,7 +33,6 @@ public class Robot extends IterativeRobot {
 	private static String gameData; // for ease of access
 	private CommandGroup autonCommands;
 	//    private static SendableChooser<Config.Robot> robotChooser = new SendableChooser<>();
-	private SendableChooser<Boolean> doNothingChooser;
 	private SendableChooser<Character> startLocation;
 
 	public static Config.Robot getChoosenRobot() {
@@ -71,11 +68,8 @@ public class Robot extends IterativeRobot {
 		intakeOutput = new IntakeOutput();
 		elevator = new Elevator(elevatorLogger);
 
-		doNothingChooser = new SendableChooser<>();
-		doNothingChooser.addObject("Do Nothing!", true);
-		doNothingChooser.addDefault("Please move!", false);
-
 		startLocation = new SendableChooser<>();
+		startLocation.addObject("Do Nothing", ' ');
 		startLocation.addObject("Left", 'l');
 		startLocation.addObject("Right", 'r');
 		startLocation.addDefault("Center", 'c');
@@ -84,8 +78,8 @@ public class Robot extends IterativeRobot {
 //        robotChooser.addDefault("Competition", Config.Robot.COMPETITION);
 
 //        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
-		SmartDashboard.putData("6m drive straight",
-			SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
+//		SmartDashboard.putData("6m drive straight",
+//			SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
 		updateSmartDashboard();
 	}
@@ -96,7 +90,7 @@ public class Robot extends IterativeRobot {
 		gameData = null;
 		drivetrain.reset();
 		motionLogger.writeMotionDataCSV();
-		elevatorLogger.writeMotionDataCSV();
+//		elevatorLogger.writeMotionDataCSV();
 	}
 
 	@Override
@@ -107,6 +101,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+//		drivetrain.cancelControllerMotion();
 		drivetrain.startControllerMotion();
 		elevator.startZero();
 		motionLogger.initialize();
@@ -114,17 +109,26 @@ public class Robot extends IterativeRobot {
 //        drivetrain.shiftDown();
 		drivetrain.shiftUp();
 
-		if (doNothingChooser.getSelected()) { // if should do nothing
-			System.out.println(">:( Nothing has been chosen. Scrubs.");
-			autonCommands = GamePosition.DO_NOTHING.getCommand();
-			return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
-		}
+//		if (doNothingChooser.getSelected()) { // if should do nothing
+//			System.out.println(">:( Nothing has been chosen. Scrubs.");
+//			autonCommands = GamePosition.DO_NOTHING.getCommand();
+//			return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
+//		}
 
 		while ((gameData == null) || gameData.isEmpty()) {
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
 		}
 
 		char startPosition = startLocation.getSelected();
+
+		if (startPosition == ' ') { // if should do nothing
+			System.out.println(">:( Nothing has been chosen. Scrubs.");
+			autonCommands = GamePosition.DO_NOTHING.getCommand();
+			return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
+		}
+
+		//TODO remove this when we have the elevator able to reach the scale
+		gameData = gameData.substring(0, 1) + "..";
 
 		System.out.println(startPosition);
 		System.out.println(gameData);
@@ -155,7 +159,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		drivetrain.cancelControllerMotion();
-		elevator.enableControl();
+		elevator.disableControl();
 		drivetrain.shiftUp(); // start in high gear
 		drivetrain.reset();
 	}
@@ -188,8 +192,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 
 		// Selectors
-		SmartDashboard.putData("Start Location", startLocation);
-		SmartDashboard.putData("Do Nothing", doNothingChooser);
+		SmartDashboard.putData("Drive Team/Start Location", startLocation);
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());

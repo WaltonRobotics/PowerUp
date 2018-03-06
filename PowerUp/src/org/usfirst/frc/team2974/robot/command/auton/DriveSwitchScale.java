@@ -31,7 +31,7 @@ public class DriveSwitchScale extends AutonOption {
 		addSequential(SimpleSpline.pathFromPosesWithAngle(true, L5, L7, L8));
 		addParallel(new ElevatorTarget(LOW_HEIGHT));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, L8, L9));
-		addSequential(new FindCube());
+		addSequential(new FindCube().left());
 		// TODO: gather cube too
 		addSequential(SimpleSpline.pathFromPosesWithAngle(true, L9, L10));
 		addParallel(new ElevatorTarget(HIGH_HEIGHT));
@@ -54,7 +54,7 @@ public class DriveSwitchScale extends AutonOption {
 		addSequential(SimpleSpline.pathFromPosesWithAngle(true, R5, R7, R8));
 		addParallel(new ElevatorTarget(LOW_HEIGHT));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, R8, R9));
-		addSequential(new FindCube());
+		addSequential(new FindCube().right());
 		addSequential(SimpleSpline.pathFromPosesWithAngle(true, R9, R10));
 		addParallel(new ElevatorTarget(HIGH_HEIGHT));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, R10, R6, R2, R3));

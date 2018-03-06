@@ -8,6 +8,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * Command for crossing the baseline. Usage is: new CrossBaseline().left();
@@ -45,7 +46,10 @@ public class CrossBaseline extends CommandGroup {
 		isOptionSelected = true;
 
 		// drive forward x meters
-		addSequential(new DriveStraightByDistance(VELOCITY_MAX, ACCELERATION_MAX, yMovement));
+
+		addSequential(SimpleSpline
+			.pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, false, new Pose(0, 0, 90),
+				new Pose(0, yMovement, 90)));
 		return this;
 	}
 

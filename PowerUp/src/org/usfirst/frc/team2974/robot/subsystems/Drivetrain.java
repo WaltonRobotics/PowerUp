@@ -28,7 +28,7 @@ public class Drivetrain extends AbstractDrivetrain {
 		driveMode = new SendableChooser<>();
 		driveMode.addDefault("Tank", true);
 		driveMode.addObject("Cheesy", false);
-		SmartDashboard.putData("Drive Mode", driveMode);
+		SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
 
 		motorRight.setInverted(true);
 

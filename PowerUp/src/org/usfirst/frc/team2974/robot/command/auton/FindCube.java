@@ -1,17 +1,22 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 /**
  * Finds the power cube and positions itself so it is in front of it.
  *
  * TODO: make the class function
  */
-public class FindCube extends Command {
+public class FindCube extends AutonOption {
 
-	@Override
-	protected boolean isFinished() {
-		return true;
+	public FindCube right() {
+		return this;
 	}
 
+	public FindCube left() {
+		return this;
+	}
+
+	@Override
+	public AutonOption center() {
+		return this;
+	}
 }

@@ -14,7 +14,7 @@ public final class Config {
 	}
 
 	public enum Robot {
-		PRACTICE(0.7800, 0.000409, false), COMPETITION(0.7239, 0.0002045, true);
+		PRACTICE(0.7800, 0.000409, false), COMPETITION(0.7800, 0.0002045, true);
 
 
 		private final double robotWidth;
@@ -105,7 +105,7 @@ public final class Config {
 	public static final class Elevator {
 
 		public static final double TOLERANCE = 0.1;
-		public static final double INCHES_TO_NU = 775; // TODO: FIXME
+		public static final double INCHES_TO_NU = 775; // TODO: improve number to improve accuracy
 
 		public static final double HIGH_HEIGHT = 72; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
@@ -116,7 +116,7 @@ public final class Config {
 
 		public static final double NUDGE_DISTANCE = 1; // in inches
 
-		public static final int CRUISE_SPEED = 2000; // native sensor units per 100 ms
+		public static final int CRUISE_SPEED = 2500; // native sensor units per 100 ms
 		public static final int ACCELERATION = 2000; // ^^^ per second
 
 		// motion control constants
@@ -162,10 +162,8 @@ public final class Config {
 		public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
 
 		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
-		public static final Pose C1 = new Pose(1.29388/*testing values 1.29388*/,
-			3.22791/*testing values*/  /*previous 3.12791*/, 90);
-		public static final Pose C2 = new Pose(-1.29388/*testing values -1.29388*/,
-			3.22791 /*testing values*/  /*previous 3.12791 */, 90);
+		public static final Pose C1 = new Pose(1.59388, 3.12791, 90);
+		public static final Pose C2 = new Pose(-1.59388, 3.12791, 90);
 
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
