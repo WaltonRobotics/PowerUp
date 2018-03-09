@@ -147,8 +147,8 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 2; // m/s
-		public static final double ACCELERATION_MAX = 1; // m/s^2
+		public static final double VELOCITY_MAX = 3; // m/s
+		public static final double ACCELERATION_MAX = 2; // m/s^2
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
