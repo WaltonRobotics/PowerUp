@@ -12,6 +12,7 @@ import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_ENCODER_CHANN
 import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_MOTOR_CHANNEL;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.ROBOT_IDENTIFIER_CHANNEL;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.SHIFTER_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.PLANE_BREAK;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -37,6 +38,8 @@ public final class RobotMap {
 
 	public static final Compressor compressor;
 	public static final Solenoid pneumaticsShifter;
+	
+	public static final Solenoid planeBreaker;
 
 	public static final WPI_TalonSRX elevatorMotor; // changed from CANTalon
 
@@ -58,6 +61,8 @@ public final class RobotMap {
 
 		compressor = new Compressor();
 		pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
+		
+		planeBreaker = new Solenoid(PLANE_BREAK);
 
 		elevatorMotor = new WPI_TalonSRX(ELEVATOR_MOTOR_CHANNEL);
 		elevatorLimitLower = new DigitalInput(ELEVATOR_LIMIT_LOWER_CHANNEL);

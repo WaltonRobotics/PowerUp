@@ -13,6 +13,7 @@ import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
+import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
 
@@ -26,6 +27,7 @@ public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
 	public static IntakeOutput intakeOutput;
+	public static PlaneBreaker planeBreaker;
 	public static Elevator elevator;
 	public static ElevatorLogger elevatorLogger;
 	public static MotionLogger motionLogger;
@@ -66,6 +68,7 @@ public class Robot extends IterativeRobot {
 		elevatorLogger = new ElevatorLogger("/home/lvuser/");
 		drivetrain = new Drivetrain(motionLogger);
 		intakeOutput = new IntakeOutput();
+		planeBreaker = new PlaneBreaker();
 		elevator = new Elevator(elevatorLogger);
 
 		startLocation = new SendableChooser<>();
@@ -108,6 +111,7 @@ public class Robot extends IterativeRobot {
 		elevatorLogger.initialize();
 //        drivetrain.shiftDown();
 		drivetrain.shiftUp();
+		planeBreaker.moveUp();
 
 //		if (doNothingChooser.getSelected()) { // if should do nothing
 //			System.out.println(">:( Nothing has been chosen. Scrubs.");

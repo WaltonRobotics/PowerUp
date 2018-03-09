@@ -63,6 +63,8 @@ public final class Config {
 		public static final int ELEVATOR_LIMIT_LOWER_CHANNEL = 4; // digital
 
 		public static final int ROBOT_IDENTIFIER_CHANNEL = 9;
+		
+		public static final int PLANE_BREAK = 1; //pcm
 
 		private Hardware() {
 		}
