@@ -16,9 +16,9 @@ public final class AutonUtil {
 		Pose... splinePoints) {
 		auton.addParallel(new ElevatorTarget(elevatorHeight));
 		auton.addSequential(SimpleSpline.pathFromPosesWithAngle(false, splinePoints));
-		auton.addSequential(new WaitCommand(1));
+		auton.addSequential(new WaitCommand(0.5));
 		auton.addSequential(new DropCube());
-
+		auton.addSequential(new ElevatorTarget(0.0))
 		auton.setOptionSelected(true);
 
 		return auton;
