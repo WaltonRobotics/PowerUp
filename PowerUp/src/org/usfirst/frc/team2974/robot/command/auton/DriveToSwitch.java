@@ -2,11 +2,17 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.L0;
+import static org.usfirst.frc.team2974.robot.Config.Path.L1;
+import static org.usfirst.frc.team2974.robot.Config.Path.L10;
 import static org.usfirst.frc.team2974.robot.Config.Path.L4;
 import static org.usfirst.frc.team2974.robot.Config.Path.L5;
+import static org.usfirst.frc.team2974.robot.Config.Path.L9;
 import static org.usfirst.frc.team2974.robot.Config.Path.R0;
+import static org.usfirst.frc.team2974.robot.Config.Path.R1;
+import static org.usfirst.frc.team2974.robot.Config.Path.R10;
 import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
+import static org.usfirst.frc.team2974.robot.Config.Path.R9;
 
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
@@ -33,5 +39,15 @@ public class DriveToSwitch extends AutonOption {
 		setOptionSelected(true);
 
 		return this;
+	}
+
+	public DriveToSwitch startRightEndLeft() {
+		//test these points
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, L10, L9);
+	}
+
+	public DriveToSwitch startLeftEndRight() {
+		//test these points
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L1, R10, R9);
 	}
 }

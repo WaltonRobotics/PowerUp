@@ -56,7 +56,7 @@ public class AutonLoader {
 
 			// SWITCH ONLY
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT: // don't do this
-				return getAutonCommands(CROSS_BASELINE_LEFT);
+				return new DriveToSwitch().startLeftEndRight();
 			case DRIVE_STATION_LEFT_SWITCH_LEFT:
 				return new DriveToSwitch().left();
 			case DRIVE_STATION_CENTER_SWITCH_RIGHT:
@@ -66,7 +66,7 @@ public class AutonLoader {
 			case DRIVE_STATION_RIGHT_SWITCH_RIGHT:
 				return new DriveToSwitch().right();
 			case DRIVE_STATION_RIGHT_SWITCH_LEFT: // don't do this
-				return getAutonCommands(CROSS_BASELINE_RIGHT);
+				return new DriveToSwitch().startRightEndLeft();
 
 			// SCALE ONLY
 			case DRIVE_STATION_LEFT_SCALE_RIGHT: // don't do this
