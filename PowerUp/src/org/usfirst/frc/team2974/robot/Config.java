@@ -135,7 +135,7 @@ public final class Config {
 
 	public static final class IntakeOutput {
 
-		public static final double MAX_POWER = 0.75;
+		public static final double MAX_POWER = 0.85; //TESTING THIS VALUE DURING DALTON
 		public static final double LOW_POWER = 0.25; // Test this value
 		public static final double HOLD_POWER = 0.1; // TEST
 

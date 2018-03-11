@@ -190,7 +190,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void setPower(double percent) {
-		percent = Math.min(0.75, Math.max(-0.75, percent)); // throttle power in
+//		percent = Math.min(0.75, Math.max(-0.75, percent)); // throttle power in
 
 		power = percent;
 		SmartDashboard.putNumber("Elevator Power", percent);

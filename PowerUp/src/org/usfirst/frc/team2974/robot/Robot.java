@@ -166,6 +166,7 @@ public class Robot extends IterativeRobot {
 		elevator.disableControl();
 		drivetrain.shiftUp(); // start in high gear
 		drivetrain.reset();
+		planeBreaker.moveUp();
 	}
 
 	/**
