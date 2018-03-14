@@ -135,7 +135,7 @@ public final class Config {
 
 	public static final class IntakeOutput {
 
-		public static final double MAX_POWER = 0.75;
+		public static final double MAX_POWER = 0.85;
 		public static final double LOW_POWER = 0.25; // Test this value
 		public static final double HOLD_POWER = 0.1; // TEST
 
@@ -147,8 +147,8 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 2; // m/s
-		public static final double ACCELERATION_MAX = 1; // m/s^2
+		public static final double VELOCITY_MAX = 3; // m/s
+		public static final double ACCELERATION_MAX = 2; // m/s^2
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
@@ -166,6 +166,7 @@ public final class Config {
 		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
 		public static final Pose C1 = new Pose(1.59388, 3.12791, 90);
 		public static final Pose C2 = new Pose(-1.59388, 3.12791, 90);
+		public static final Pose C4 = new Pose(0.0, 1.4478, 90);
 
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
