@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.L0;
 import static org.usfirst.frc.team2974.robot.Config.Path.L1;
 import static org.usfirst.frc.team2974.robot.Config.Path.L10;
@@ -35,7 +36,13 @@ public class DriveToSwitch extends AutonOption {
 		addSequential(new CrossBaseline().center()); // :)
 		addSequential(new WaitCommand(0.5));
 		addSequential(new DropCube());
-
+		
+		addParallel(new ElevatorTarget(LOW_HEIGHT)); // Lowers elevator and backs up
+		addSequential(new CrossBaseline().backUp());
+		
+		addParallel(new IntakeCube()); //runs intake and moves forward
+		addSequential(new CrossBaseline().toPyramid());
+		
 		setOptionSelected(true);
 
 		return this;

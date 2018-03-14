@@ -166,8 +166,9 @@ public final class Config {
 		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
 		public static final Pose C1 = new Pose(1.59388, 3.12791, 90);
 		public static final Pose C2 = new Pose(-1.59388, 3.12791, 90);
-		public static final Pose C4 = new Pose(0.0, 1.4478, 90);
-
+		public static final Pose C4 = new Pose(0.0, 1.4478, 90); // before pyramid
+		public static final Pose C5 = new Pose(0.0, 2.5146, 90); // at pyramid
+		
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
 		public static final Pose L1 = negateX(R1);
@@ -206,9 +207,9 @@ public final class Config {
 		public static final double KV = 0.267;
 		public static final double KAcc = 0;
 		public static final double KK = 0;
-		public static final double KS = 1;
-		public static final double KAng = 1;
-		public static final double KL = 2;
+		public static final double KS = 0;//1
+		public static final double KAng = 0;//1
+		public static final double KL = 0; //2
 
 		public static final double IL = 0.01;
 		public static final double IAng = 0.01;
