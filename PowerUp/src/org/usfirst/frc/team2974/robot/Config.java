@@ -158,10 +158,10 @@ public final class Config {
 		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
 		public static final Pose R5 = new Pose(1.79248, 4.26720, StrictMath.toRadians(180));
 		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
-		public static final Pose R7 = new Pose(2.85623, 4.97840, StrictMath.toRadians(270));
+		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
-		public static final Pose R9 = new Pose(2.33045, 5.83509, StrictMath.toRadians(270));
-		public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
+		public static final Pose R9 = new Pose(2.33045, 5.93509, StrictMath.toRadians(270));
+		public static final Pose R10 = new Pose(0.83147, 5.90987, 0);
 
 		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
 		public static final Pose C1 = new Pose(1.59388, 3.12791, StrictMath.toRadians(90));

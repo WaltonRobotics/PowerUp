@@ -32,8 +32,8 @@ public class AutonLoader {
 		drivetrain.startControllerMotion(gamePosition.getPosition());
 
 		switch (gamePosition) {
-			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // don't do this
-				return getAutonCommands(CROSS_BASELINE_LEFT);
+			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // behind switch auton
+				return new DriveToSwitch().startLeftEndRight();
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT: // scale only
 				return getAutonCommands(DRIVE_STATION_LEFT_SCALE_LEFT);
 			case DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT: // switch only
@@ -54,8 +54,8 @@ public class AutonLoader {
 				return getAutonCommands(DRIVE_STATION_RIGHT_SWITCH_RIGHT);
 			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_RIGHT: // scale only
 				return getAutonCommands(DRIVE_STATION_RIGHT_SCALE_RIGHT);
-			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT: // don't do this
-				return getAutonCommands(CROSS_BASELINE_RIGHT);
+			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT: // Behind switch auton
+				return new DriveToSwitch().startRightEndLeft();
 
 			// SWITCH ONLY
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT: // don't do this

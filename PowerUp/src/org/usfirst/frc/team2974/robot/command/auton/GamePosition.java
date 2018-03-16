@@ -76,13 +76,13 @@ public enum GamePosition {
 		if (startPos == 'c') {
 			editData[1] = '.'; // no scale
 		} else {
-			if (Character.toUpperCase(startPos) != editData[0]) {
-				editData[0] = '.';
-			}
-
-			if (Character.toUpperCase(startPos) != editData[1]) {
-				editData[1] = '.';
-			}
+//			if (Character.toUpperCase(startPos) != editData[0]) {
+//				editData[0] = '.';
+//			}
+//
+//			if (Character.toUpperCase(startPos) != editData[1]) {
+//				editData[1] = '.';
+//			}
 		}
 
 //        editData[2] = '.'; // not needed but why not

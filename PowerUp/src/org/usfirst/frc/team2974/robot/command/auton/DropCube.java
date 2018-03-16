@@ -31,6 +31,6 @@ public class DropCube extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return intakeOutput.timeElapsed();
+		return intakeOutput.timeElapsed(1.0);
 	}
 }

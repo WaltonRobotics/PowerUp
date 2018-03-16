@@ -98,12 +98,10 @@ public class CrossBaseline extends CommandGroup {
 		if (Robot.getSwitchPosition() == 'R') {
 			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C1));
-//			addSequential(new WaitCommand(1));
 			addSequential(new DropCube());
 		} else {
 			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C2));
-//			addSequential(new WaitCommand(1));
 			addSequential(new DropCube());
 		}
 
