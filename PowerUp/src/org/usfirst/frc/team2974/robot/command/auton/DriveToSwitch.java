@@ -8,14 +8,12 @@ import static org.usfirst.frc.team2974.robot.Config.Path.L10;
 import static org.usfirst.frc.team2974.robot.Config.Path.L4;
 import static org.usfirst.frc.team2974.robot.Config.Path.L5;
 import static org.usfirst.frc.team2974.robot.Config.Path.L7;
-import static org.usfirst.frc.team2974.robot.Config.Path.L9;
 import static org.usfirst.frc.team2974.robot.Config.Path.R0;
 import static org.usfirst.frc.team2974.robot.Config.Path.R1;
 import static org.usfirst.frc.team2974.robot.Config.Path.R10;
 import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
 import static org.usfirst.frc.team2974.robot.Config.Path.R7;
-import static org.usfirst.frc.team2974.robot.Config.Path.R9;
 
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
 
@@ -40,15 +38,15 @@ public class DriveToSwitch extends AutonOption {
 
 		addParallel(new ElevatorTarget(LOW_HEIGHT)); // Lowers elevator and backs up
 		addSequential(new CrossBaseline().backUp());
-		
+
 		//FIXME Intaking cube does not work
 		addParallel(new IntakeCube()); //runs intake and moves forward
 		addSequential(new CrossBaseline().toPyramid());
-		
+
 		addSequential(new CrossBaseline().fromPyramid()); //moves back from pyramid
-		
+
 		addSequential(new CrossBaseline().returnToSwitch()); //splines to correct side of switch
-		
+
 		setOptionSelected(true);
 
 		return this;
