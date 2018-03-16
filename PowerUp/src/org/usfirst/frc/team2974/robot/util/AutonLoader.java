@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.util;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.CROSS_BASELINE_Y;
+import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_CENTER;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_LEFT;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_RIGHT;
@@ -28,6 +29,8 @@ public class AutonLoader {
 	}
 
 	public static CommandGroup getAutonCommands(GamePosition gamePosition) {
+		drivetrain.startControllerMotion(gamePosition.getPosition());
+
 		switch (gamePosition) {
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // don't do this
 				return getAutonCommands(CROSS_BASELINE_LEFT);
@@ -93,5 +96,6 @@ public class AutonLoader {
 			case DO_NOTHING:
 				return new DoNothingCommand();
 		}
+
 	}
 }

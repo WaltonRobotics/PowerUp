@@ -62,7 +62,7 @@ public class IntakeOutput extends Subsystem {
 	}
 
 	public boolean timeElapsed() {
-		return timer.hasPeriodPassed(2);
+		return timer.hasPeriodPassed(1);
 	}
 
 	public void resetTime() {

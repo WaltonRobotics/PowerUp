@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.C0;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
@@ -50,8 +51,9 @@ public class CrossBaseline extends CommandGroup {
 		// drive forward x meters
 
 		addSequential(SimpleSpline
-			.pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, false, new Pose(0, 0, 90),
-				new Pose(0, yMovement, 90)));
+			.pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, false,
+				new Pose(0, 0, StrictMath.toRadians(90)),
+				new Pose(0, yMovement, StrictMath.toRadians(90))));
 		return this;
 	}
 
@@ -74,27 +76,56 @@ public class CrossBaseline extends CommandGroup {
 
 		return this; // ease of use :) <--- smiley face :)
 	}
-	
-	public CrossBaseline backUp(){
+
+	public CrossBaseline backUp() {
 		isOptionSelected = true;
 
 		// From both left and right, splines to the center
-		if(Robot.getSwitchPosition() == 'R'){
+		if (Robot.getSwitchPosition() == 'R') {
 			addSequential(SimpleSpline.pathFromPosesWithAngle(true, C1, C4));
-		}
-		else{
+		} else {
 			addSequential(SimpleSpline.pathFromPosesWithAngle(true, C2, C4));
 		}
-		
+
 		return this;
 	}
-	
-	public CrossBaseline toPyramid(){
+
+
+	public CrossBaseline returnToSwitch() {
 		isOptionSelected = true;
-		
+
+		// From both left and right, splines to the center
+		if (Robot.getSwitchPosition() == 'R') {
+			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C1));
+//			addSequential(new WaitCommand(1));
+			addSequential(new DropCube());
+		} else {
+			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C2));
+//			addSequential(new WaitCommand(1));
+			addSequential(new DropCube());
+		}
+
+		return this;
+	}
+
+
+	public CrossBaseline toPyramid() {
+		isOptionSelected = true;
+
 		//moves forward to the pyramid to pick up a cube
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
-		
+
+		return this;
+	}
+
+	public CrossBaseline fromPyramid() {
+		isOptionSelected = true;
+
+		//moves forward to the pyramid to pick up a cube
+		addSequential(SimpleSpline.pathFromPosesWithAngle(true, C5, C4));
+
 		return this;
 	}
 

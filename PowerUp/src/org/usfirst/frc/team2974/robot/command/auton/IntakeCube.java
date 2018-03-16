@@ -16,7 +16,7 @@ public class IntakeCube extends Command {
 	@Override
 	protected void initialize() {
 		intakeOutput.resetTime();
-		intakeOutput.highOutput();
+		intakeOutput.highIntake();
 	}
 
 	@Override

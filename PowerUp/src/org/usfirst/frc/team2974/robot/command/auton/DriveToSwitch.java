@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.L0;
 import static org.usfirst.frc.team2974.robot.Config.Path.L1;
 import static org.usfirst.frc.team2974.robot.Config.Path.L10;
@@ -15,7 +15,6 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
 import static org.usfirst.frc.team2974.robot.Config.Path.R9;
 
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
 
 /**
@@ -34,15 +33,17 @@ public class DriveToSwitch extends AutonOption {
 	public DriveToSwitch center() {
 		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		addSequential(new CrossBaseline().center()); // :)
-		addSequential(new WaitCommand(0.5));
+//		addSequential(new WaitCommand(0.5));
 		addSequential(new DropCube());
-		
+
 		addParallel(new ElevatorTarget(LOW_HEIGHT)); // Lowers elevator and backs up
 		addSequential(new CrossBaseline().backUp());
-		
-		addParallel(new IntakeCube()); //runs intake and moves forward
+
 		addSequential(new CrossBaseline().toPyramid());
-		
+		//FIXME Intaking cube does not work
+		addParallel(new IntakeCube()); //runs intake and moves forward
+		addSequential(new CrossBaseline().fromPyramid());
+		addSequential(new CrossBaseline().returnToSwitch());
 		setOptionSelected(true);
 
 		return this;

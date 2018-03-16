@@ -60,7 +60,7 @@ public class SimpleSpline extends Command {
 	}
 
 	protected void initialize() {
-		drivetrain.reset();
+//		drivetrain.reset();
 		drivetrain.addControllerMotions(
 			new Spline(vMax, aMax, 0, 0, startAngle, endAngle, isBackwards, knots));
 

@@ -151,24 +151,25 @@ public final class Config {
 		public static final double ACCELERATION_MAX = 2; // m/s^2
 
 		// IMPORTANT: these points are measured from the center line
-		public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
-		public static final Pose R1 = new Pose(2.60000, 3.55600, 90);
-		public static final Pose R2 = new Pose(2.60000, 6.64134, 90);
-		public static final Pose R3 = new Pose(2.28905, 8.03946, 180);
-		public static final Pose R4 = new Pose(2.85623, 3.55600, 90);
-		public static final Pose R5 = new Pose(1.79248, 4.26720, 180);
-		public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
-		public static final Pose R7 = new Pose(2.85623, 4.97840, 270);
-		public static final Pose R8 = new Pose(2.85623, 5.80987, 270);
-		public static final Pose R9 = new Pose(2.33045, 5.83509, 270);
+		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
+		public static final Pose R1 = new Pose(2.60000, 3.55600, StrictMath.toRadians(90));
+		public static final Pose R2 = new Pose(2.60000, 6.64134, StrictMath.toRadians(90));
+		public static final Pose R3 = new Pose(2.28905, 8.03946, StrictMath.toRadians(180));
+		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
+		public static final Pose R5 = new Pose(1.79248, 4.26720, StrictMath.toRadians(180));
+		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
+		public static final Pose R7 = new Pose(2.85623, 4.97840, StrictMath.toRadians(270));
+		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
+		public static final Pose R9 = new Pose(2.33045, 5.83509, StrictMath.toRadians(270));
 		public static final Pose R10 = new Pose(0.83147, 5.80987, 0);
 
-		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
-		public static final Pose C1 = new Pose(1.59388, 3.12791, 90);
-		public static final Pose C2 = new Pose(-1.59388, 3.12791, 90);
-		public static final Pose C4 = new Pose(0.0, 1.4478, 90); // before pyramid
-		public static final Pose C5 = new Pose(0.0, 2.5146, 90); // at pyramid
-		
+		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
+		public static final Pose C1 = new Pose(1.59388, 3.12791, StrictMath.toRadians(90));
+		public static final Pose C2 = new Pose(-1.59388, 3.12791, StrictMath.toRadians(90));
+		public static final Pose C4 = new Pose(0.0, 1.0478 /*1.4478*/,
+			StrictMath.toRadians(90)); // before pyramid
+		public static final Pose C5 = new Pose(0.0, 2.5146, StrictMath.toRadians(90)); // at pyramid
+
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
 		public static final Pose L1 = negateX(R1);
@@ -204,12 +205,13 @@ public final class Config {
 
 	public static final class MotionConstants {
 
-		public static final double KV = 0.267;
-		public static final double KAcc = 0;
-		public static final double KK = 0;
-		public static final double KS = 0;//1
-		public static final double KAng = 0;//1
-		public static final double KL = 0; //2
+		public static final double KV = 0.194350; // 0.267
+		public static final double KAcc = 0.067555; //0
+		public static final double KK = 0.193466; // 0
+
+		public static final double KS = 2;//1
+		public static final double KAng = 1;//1
+		public static final double KL = 2; //2
 
 		public static final double IL = 0.01;
 		public static final double IAng = 0.01;

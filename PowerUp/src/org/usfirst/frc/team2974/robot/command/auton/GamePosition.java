@@ -1,7 +1,12 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import static org.usfirst.frc.team2974.robot.Config.Path.C0;
+import static org.usfirst.frc.team2974.robot.Config.Path.L0;
+import static org.usfirst.frc.team2974.robot.Config.Path.R0;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.util.AutonLoader;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * This enum is meant to represent all possible autonomous.
@@ -12,42 +17,48 @@ import org.usfirst.frc.team2974.robot.util.AutonLoader;
 public enum GamePosition {
 	// TODO: make these names smaller and better
 
-	DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT("lRR."), DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT(
-		"lRL."),
-	DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT("lLR."), DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_LEFT(
-		"lLL."),
+	DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT("lRR.",
+		L0), DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT(
+		"lRL.", L0),
+	DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT("lLR.",
+		L0), DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_LEFT(
+		"lLL.", L0),
 
 	DRIVE_STATION_CENTER_SWITCH_RIGHT_SCALE_RIGHT(
-		"cRR."), DRIVE_STATION_CENTER_SWITCH_RIGHT_SCALE_LEFT("cRL."),
+		"cRR.", C0), DRIVE_STATION_CENTER_SWITCH_RIGHT_SCALE_LEFT("cRL.", C0),
 	DRIVE_STATION_CENTER_SWITCH_LEFT_SCALE_RIGHT(
-		"cLR."), DRIVE_STATION_CENTER_SWITCH_LEFT_SCALE_LEFT("cLL."),
+		"cLR.", C0), DRIVE_STATION_CENTER_SWITCH_LEFT_SCALE_LEFT("cLL.", C0),
 
 	DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_RIGHT(
-		"rRR."), DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_LEFT("rRL."),
-	DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_RIGHT("rLR."), DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT(
-		"rLL."),
+		"rRR.", R0), DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_LEFT("rRL.", R0),
+	DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_RIGHT("rLR.",
+		R0), DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT(
+		"rLL.", R0),
 
-	DRIVE_STATION_LEFT_SWITCH_RIGHT("lR.."), DRIVE_STATION_LEFT_SWITCH_LEFT("lL.."),
-	DRIVE_STATION_CENTER_SWITCH_RIGHT("cR.."), DRIVE_STATION_CENTER_SWITCH_LEFT("cL.."),
-	DRIVE_STATION_RIGHT_SWITCH_RIGHT("rR.."), DRIVE_STATION_RIGHT_SWITCH_LEFT("rL.."),
+	DRIVE_STATION_LEFT_SWITCH_RIGHT("lR..", L0), DRIVE_STATION_LEFT_SWITCH_LEFT("lL..", L0),
+	DRIVE_STATION_CENTER_SWITCH_RIGHT("cR..", C0), DRIVE_STATION_CENTER_SWITCH_LEFT("cL..", C0),
+	DRIVE_STATION_RIGHT_SWITCH_RIGHT("rR..", R0), DRIVE_STATION_RIGHT_SWITCH_LEFT("rL..", R0),
 
-	DRIVE_STATION_LEFT_SCALE_RIGHT("l.R."), DRIVE_STATION_LEFT_SCALE_LEFT("l.L."),
-	DRIVE_STATION_CENTER_SCALE_RIGHT("c.R."), DRIVE_STATION_CENTER_SCALE_LEFT("c.L."),
-	DRIVE_STATION_RIGHT_SCALE_RIGHT("r.R."), DRIVE_STATION_RIGHT_SCALE_LEFT("r.L."),
+	DRIVE_STATION_LEFT_SCALE_RIGHT("l.R.", L0), DRIVE_STATION_LEFT_SCALE_LEFT("l.L.", L0),
+	DRIVE_STATION_CENTER_SCALE_RIGHT("c.R.", C0), DRIVE_STATION_CENTER_SCALE_LEFT("c.L.", C0),
+	DRIVE_STATION_RIGHT_SCALE_RIGHT("r.R.", R0), DRIVE_STATION_RIGHT_SCALE_LEFT("r.L.", R0),
 
-	CROSS_BASELINE_LEFT("l..."), CROSS_BASELINE_CENTER("c..."), CROSS_BASELINE_RIGHT("r..."),
+	CROSS_BASELINE_LEFT("l...", L0), CROSS_BASELINE_CENTER("c...", C0), CROSS_BASELINE_RIGHT("r...",
+		R0),
 
-	DO_NOTHING("....");
+	DO_NOTHING("....", C0);
 
 	private final String position;
+	private final Pose startPosition;
 
-	GamePosition(String position) {
+	GamePosition(String position, Pose startPosition) {
 		this.position = position;
+		this.startPosition = startPosition;
 	}
 
 	private static GamePosition getGamePosition(String string) {
 		for (GamePosition gamePosition : values()) {
-			if (string.matches(gamePosition.getPosition())) {
+			if (string.matches(gamePosition.getStartPosition())) {
 				return gamePosition;
 			}
 		}
@@ -127,7 +138,11 @@ public enum GamePosition {
 		}
 	}
 
-	public String getPosition() {
+	public Pose getPosition() {
+		return startPosition;
+	}
+
+	public String getStartPosition() {
 		return position;
 	}
 

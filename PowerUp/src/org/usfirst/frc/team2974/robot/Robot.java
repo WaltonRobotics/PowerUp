@@ -104,8 +104,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-//		drivetrain.cancelControllerMotion();
-		drivetrain.startControllerMotion();
+		drivetrain.cancelControllerMotion();
+//		drivetrain.startControllerMotion();
 		elevator.startZero();
 		motionLogger.initialize();
 		elevatorLogger.initialize();
