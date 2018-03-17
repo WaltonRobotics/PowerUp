@@ -7,9 +7,11 @@ import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
 import static org.usfirst.frc.team2974.robot.Config.Path.C4;
 import static org.usfirst.frc.team2974.robot.Config.Path.C5;
+import static org.usfirst.frc.team2974.robot.Config.Path.C6;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.waltonrobotics.controller.Pose;
 
@@ -97,11 +99,13 @@ public class CrossBaseline extends CommandGroup {
 		// From both left and right, splines to the center
 		if (Robot.getSwitchPosition() == 'R') {
 			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C1));
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C6, C1));
+			addSequential(new WaitCommand(1));
 			addSequential(new DropCube());
 		} else {
 			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C2));
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C6, C2));
+			addSequential(new WaitCommand(1));
 			addSequential(new DropCube());
 		}
 
@@ -120,9 +124,11 @@ public class CrossBaseline extends CommandGroup {
 
 	public CrossBaseline fromPyramid() {
 		isOptionSelected = true;
+		addParallel(
+			new IntakeCube()); //FIXME for some reason this command is not run //runs intake and moves forward
 
 		//moves forward to the pyramid to pick up a cube
-		addSequential(SimpleSpline.pathFromPosesWithAngle(true, C5, C4));
+		addSequential(SimpleSpline.pathFromPosesWithAngle(true, C5, C6));
 
 		return this;
 	}

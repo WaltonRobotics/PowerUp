@@ -40,11 +40,9 @@ public class DriveToSwitch extends AutonOption {
 		addSequential(new CrossBaseline().backUp());
 
 		//FIXME Intaking cube does not work
-		addParallel(new IntakeCube()); //runs intake and moves forward
 		addSequential(new CrossBaseline().toPyramid());
 
 		addSequential(new CrossBaseline().fromPyramid()); //moves back from pyramid
-
 		addSequential(new CrossBaseline().returnToSwitch()); //splines to correct side of switch
 
 		setOptionSelected(true);

@@ -71,6 +71,9 @@ public class Robot extends IterativeRobot {
 		planeBreaker = new PlaneBreaker();
 		elevator = new Elevator(elevatorLogger);
 
+//
+//		SmartDashboard.putData("Intake", new IntakeCube());
+//		SmartDashboard.putData("Drop Cube", new DropCube());
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Do Nothing", ' ');
 		startLocation.addObject("Left", 'l');

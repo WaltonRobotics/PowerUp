@@ -166,9 +166,12 @@ public final class Config {
 		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
 		public static final Pose C1 = new Pose(1.59388, 3.12791, StrictMath.toRadians(90));
 		public static final Pose C2 = new Pose(-1.59388, 3.12791, StrictMath.toRadians(90));
-		public static final Pose C4 = new Pose(0.0, 1.0478 /*1.4478*/,
+		public static final Pose C4 = new Pose(0.0, .9478 /*1.4478*/,
 			StrictMath.toRadians(90)); // before pyramid
 		public static final Pose C5 = new Pose(0.0, 2.5146, StrictMath.toRadians(90)); // at pyramid
+		public static final Pose C6 = new Pose(0.0, 1.5478 /*1.4478*/,
+			StrictMath.toRadians(
+				90)); // after getting the second cube. does not go as far back as when going to the pyramid
 
 		// we can do this because every point is measured from the center line.
 		public static final Pose L0 = negateX(R0);
@@ -193,13 +196,13 @@ public final class Config {
 		 * @return a new point with the x negated from p
 		 */
 		private static Pose negateX(Pose p) {
-			double angle = Math.toRadians(p.getAngle());
+			double angle = p.getAngle();
 			// the new angle is the original angle but x is negated
 			double newAngle = StrictMath.atan2(StrictMath.sin(angle), -StrictMath.cos(angle));
 			if (newAngle < 0) {
 				newAngle += 2 * Math.PI;
 			}
-			return new Pose(-p.getX(), p.getY(), Math.toDegrees(newAngle));
+			return new Pose(-p.getX(), p.getY(), newAngle);
 		}
 	}
 
