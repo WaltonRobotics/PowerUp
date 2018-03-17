@@ -147,8 +147,8 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 3; // m/s
-		public static final double ACCELERATION_MAX = 2; // m/s^2
+		public static final double VELOCITY_MAX = 4.5; //3 m/s
+		public static final double ACCELERATION_MAX = 3; //2 m/s^2
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
@@ -164,12 +164,14 @@ public final class Config {
 		public static final Pose R10 = new Pose(0.83147, 5.90987, 0);
 
 		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
-		public static final Pose C1 = new Pose(1.59388, 3.12791, StrictMath.toRadians(90));
-		public static final Pose C2 = new Pose(-1.59388, 3.12791, StrictMath.toRadians(90));
-		public static final Pose C4 = new Pose(0.0, .9478 /*1.4478*/,
+		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/,
+			StrictMath.toRadians(90));
+		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/,
+			StrictMath.toRadians(90));
+		public static final Pose C4 = new Pose(0.0, .8478 /*1.4478*/,
 			StrictMath.toRadians(90)); // before pyramid
 		public static final Pose C5 = new Pose(0.0, 2.5146, StrictMath.toRadians(90)); // at pyramid
-		public static final Pose C6 = new Pose(0.0, 1.5478 /*1.4478*/,
+		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/,
 			StrictMath.toRadians(
 				90)); // after getting the second cube. does not go as far back as when going to the pyramid
 
