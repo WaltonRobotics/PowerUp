@@ -116,6 +116,13 @@ public class CrossBaseline extends CommandGroup {
 	public CrossBaseline toPyramid() {
 		isOptionSelected = true;
 
+		CommandGroup temp = new CommandGroup();
+		temp.addSequential(new WaitCommand(3));
+		temp.addSequential(new IntakeCube());
+
+		//FIXME for some reason this command is not run
+		addParallel(temp); //runs intake and moves forward
+
 		//moves forward to the pyramid to pick up a cube
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
 
@@ -124,8 +131,6 @@ public class CrossBaseline extends CommandGroup {
 
 	public CrossBaseline fromPyramid() {
 		isOptionSelected = true;
-		addParallel(
-			new IntakeCube()); //FIXME for some reason this command is not run //runs intake and moves forward
 
 		//moves forward to the pyramid to pick up a cube
 		addSequential(SimpleSpline.pathFromPosesWithAngle(true, C5, C6));
