@@ -16,11 +16,10 @@ import org.usfirst.frc.team2974.robot.command.teleop.IntakeCommand;
  */
 public class IntakeOutput extends Subsystem {
 
-	private final Timer timer;
+	private final Timer timer = new Timer();
 
 	public IntakeOutput() {
 		intakeMotorRight.setInverted(true);
-		timer = new Timer();
 		timer.start();
 	}
 
@@ -32,7 +31,7 @@ public class IntakeOutput extends Subsystem {
 	/**
 	 * Sets the motor powers.
 	 */
-	private void setMotorPowers(double left, double right) {
+	private synchronized void setMotorPowers(double left, double right) {
 		intakeMotorLeft.set(ControlMode.PercentOutput, left);
 		intakeMotorRight.set(ControlMode.PercentOutput, right);
 	}
@@ -65,7 +64,7 @@ public class IntakeOutput extends Subsystem {
 		return timer.hasPeriodPassed(2.0);
 	}
 
-	public void resetTime() {
+	public synchronized void resetTime() {
 		timer.reset();
 	}
 
