@@ -10,27 +10,29 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeCube extends Command {
 
 	public IntakeCube() {
-		requires(intakeOutput);
 	}
 
 	@Override
 	protected void initialize() {
 		intakeOutput.resetTime();
 		intakeOutput.highIntake();
+//		System.out.println("Intake cube intialize");
 	}
 
 	@Override
 	protected void end() {
 		intakeOutput.off();
+//		System.out.println("intake cube end");
 	}
 
 	@Override
 	protected void interrupted() {
+//		System.out.println("Intake cube interupted");
 		end();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return intakeOutput.timeElapsed(3.0);
+		return intakeOutput.timeElapsed(1.0);
 	}
 }
