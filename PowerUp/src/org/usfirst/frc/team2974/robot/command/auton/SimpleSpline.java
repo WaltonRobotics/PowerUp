@@ -19,6 +19,8 @@ public class SimpleSpline extends Command {
 	private final double startAngle;
 	private final double endAngle;
 	private final boolean isBackwards;
+	private final double startScale;
+	private final double endScale;
 	private final List<Pose> knots;
 	private final double vMax;
 	private final double aMax;
@@ -29,7 +31,9 @@ public class SimpleSpline extends Command {
 	}
 
 	public SimpleSpline(double maxVelocity, double maxAcceleration, double startAngle,
-		double endAngle, boolean isBackwards, Pose... knots) {
+		double endAngle, boolean isBackwards, double startScale, double endScale, Pose... knots) {
+		this.startScale = startScale;
+		this.endScale = endScale;
 		this.knots = new ArrayList<>(knots.length);
 		Collections.addAll(this.knots, knots);
 		this.startAngle = startAngle;
@@ -40,6 +44,12 @@ public class SimpleSpline extends Command {
 
 		requires(drivetrain);
 	}
+
+	public SimpleSpline(double maxVelocity, double maxAcceleration, double startAngle,
+		double endAngle, boolean isBackwards, Pose... knots) {
+		this(maxVelocity, maxAcceleration, startAngle, endAngle, isBackwards, 1, 1, knots);
+	}
+
 
 	public static SimpleSpline pathFromPosesWithAngle(boolean isBackwards, Pose... knots) {
 		return pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, isBackwards, knots);
@@ -59,10 +69,24 @@ public class SimpleSpline extends Command {
 			knots[knots.length - 1].getAngle(), isBackwards, knots);
 	}
 
+	public static SimpleSpline pathFromPosesWithAngleAndScale(double maxVelocity,
+		double maxAcceleration,
+		boolean isBackwards, double startScale, double endScale, Pose... knots) {
+		return new SimpleSpline(maxVelocity, maxAcceleration, knots[0].getAngle(),
+			knots[knots.length - 1].getAngle(), isBackwards, startScale, endScale, knots);
+	}
+
+	public static SimpleSpline pathFromPosesWithAngleAndScale(
+		boolean isBackwards, double startScale, double endScale, Pose... knots) {
+		return pathFromPosesWithAngleAndScale(VELOCITY_MAX, ACCELERATION_MAX, isBackwards,
+			startScale, endScale, knots);
+	}
+
 	protected void initialize() {
 //		drivetrain.reset();
 		drivetrain.addControllerMotions(
-			new Spline(vMax, aMax, 0, 0, startAngle, endAngle, isBackwards, knots));
+			new Spline(vMax, aMax, 0, 0, startAngle, endAngle, isBackwards, startScale, endScale,
+				knots));
 
 //		drivetrain.startControllerMotion();
 	}
