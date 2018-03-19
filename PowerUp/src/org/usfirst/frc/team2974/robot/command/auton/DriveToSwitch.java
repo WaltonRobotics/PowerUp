@@ -15,6 +15,8 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
 import static org.usfirst.frc.team2974.robot.Config.Path.R7;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
 
 /**
@@ -34,12 +36,20 @@ public class DriveToSwitch extends AutonOption {
 		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		addSequential(new CrossBaseline().center()); // :)
 //		addSequential(new WaitCommand(0.5));
-		addSequential(new DropCube());
 
-		addParallel(new ElevatorTarget(LOW_HEIGHT)); // Lowers elevator and backs up
+		CommandGroup temp = new CommandGroup();
+		temp.addSequential(new DropCube());
+		temp.addSequential(new ElevatorTarget(LOW_HEIGHT));
+		addParallel(temp);
+
 		addSequential(new CrossBaseline().backUp());
 
-		//FIXME Intaking cube does not work
+		temp = new CommandGroup();
+		temp.addSequential(
+			new WaitCommand(4) /*TODO make a sort of wait for distance motion command*/);
+		temp.addSequential(new IntakeCube());
+		addParallel(temp);
+
 		addSequential(new CrossBaseline().toPyramid());
 
 		addSequential(new CrossBaseline().fromPyramid()); //moves back from pyramid

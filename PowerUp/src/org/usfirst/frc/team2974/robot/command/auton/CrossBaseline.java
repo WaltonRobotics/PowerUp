@@ -8,10 +8,11 @@ import static org.usfirst.frc.team2974.robot.Config.Path.C2;
 import static org.usfirst.frc.team2974.robot.Config.Path.C4;
 import static org.usfirst.frc.team2974.robot.Config.Path.C5;
 import static org.usfirst.frc.team2974.robot.Config.Path.C6;
+import static org.usfirst.frc.team2974.robot.Config.Path.C7;
+import static org.usfirst.frc.team2974.robot.Config.Path.C8;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.waltonrobotics.controller.Pose;
 
@@ -84,9 +85,9 @@ public class CrossBaseline extends CommandGroup {
 
 		// From both left and right, splines to the center
 		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(true, C1, C4));
+			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(true, 2, 1, C1, C4));
 		} else {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(true, C2, C4));
+			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(true, 2, 1, C2, C4));
 		}
 
 		return this;
@@ -96,32 +97,24 @@ public class CrossBaseline extends CommandGroup {
 	public CrossBaseline returnToSwitch() {
 		isOptionSelected = true;
 
+		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		// From both left and right, splines to the center
 		if (Robot.getSwitchPosition() == 'R') {
-			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C6, C1));
-			addSequential(new WaitCommand(1));
-			addSequential(new DropCube());
+			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C7));
 		} else {
-			addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C6, C2));
-			addSequential(new WaitCommand(1));
-			addSequential(new DropCube());
+
+			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C8));
+
 		}
 
+//		addSequential(new WaitCommand(1));
+		addSequential(new DropCube());
 		return this;
 	}
 
 
 	public CrossBaseline toPyramid() {
 		isOptionSelected = true;
-
-		CommandGroup temp = new CommandGroup();
-		temp.addSequential(new WaitCommand(3));
-		temp.addSequential(new IntakeCube());
-
-		//FIXME for some reason this command is not run
-		addParallel(temp); //runs intake and moves forward
 
 		//moves forward to the pyramid to pick up a cube
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
