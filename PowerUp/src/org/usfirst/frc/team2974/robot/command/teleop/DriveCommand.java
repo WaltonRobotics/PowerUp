@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.OI.leftJoystick;
 import static org.usfirst.frc.team2974.robot.OI.rightJoystick;
 import static org.usfirst.frc.team2974.robot.OI.shiftDown;
@@ -7,6 +8,7 @@ import static org.usfirst.frc.team2974.robot.OI.shiftUp;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team2974.robot.Robot;
 
 /**
  *
@@ -49,7 +51,15 @@ public class DriveCommand extends Command {
 	}
 
 	private void tankDrive() {
-		drivetrain.setSpeeds(-getLeftThrottle(), -getRightThrottle());
+		double leftPower = -getLeftThrottle();
+		double rightPower = -getRightThrottle();
+
+		if (Robot.elevator.getCurrentPositionNU() >= MAXIMUM_HEIGHT * (2.0 / 3)) {
+			leftPower = Math.pow(leftPower, 3) / 2;
+			rightPower = Math.pow(rightPower, 3) / 2;
+		}
+
+		drivetrain.setSpeeds(leftPower, rightPower);
 	}
 
 	// Called just before this Command runs the first time

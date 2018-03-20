@@ -50,6 +50,7 @@ public final class OI {
 	public static final Button elevatorHigh;
 	public static final Button elevatorMedium;
 	public static final Button elevatorLow;
+	public static final Button elevatorSmooth;
 
 	// used with IntakeOutput subsystem
 	public static final Button intake;
@@ -74,6 +75,7 @@ public final class OI {
 		elevatorHigh = new ButtonOnce(gamepad, ELEVATOR_HIGH);
 		elevatorMedium = new ButtonOnce(gamepad, ELEVATOR_MEDIUM);
 		elevatorLow = new ButtonOnce(gamepad, ELEVATOR_LOW);
+		elevatorSmooth = new ButtonOnce(gamepad, ELEVATOR_LOW);
 
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);

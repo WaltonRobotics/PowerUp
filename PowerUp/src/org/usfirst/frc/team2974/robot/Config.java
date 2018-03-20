@@ -99,6 +99,7 @@ public final class Config {
 		public static final int ELEVATOR_HIGH = Button._4.index();
 		public static final int ELEVATOR_MEDIUM = Button._3.index();
 		public static final int ELEVATOR_LOW = Button._2.index();
+		public static final int ELEVATOR_SMOOTH = Button._2.index();
 
 		private Input() {
 		}
@@ -122,7 +123,7 @@ public final class Config {
 		public static final int ACCELERATION = 2000; // ^^^ per second
 
 		// motion control constants
-		public static final double KF = 0.4661;
+		public static final double KF = 0.4661; //TODO multiply by 2
 		public static final double KP = 1;
 		public static final double KI = 0.001;
 		public static final double KD = 0;

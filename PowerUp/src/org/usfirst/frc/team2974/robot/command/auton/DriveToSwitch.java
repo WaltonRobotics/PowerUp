@@ -35,7 +35,13 @@ public class DriveToSwitch extends AutonOption {
 	public DriveToSwitch center() {
 		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		addSequential(new CrossBaseline().center()); // :)
-//		addSequential(new WaitCommand(0.5));
+
+		setOptionSelected(true);
+
+		return this;
+	}
+
+	public DriveToSwitch nextCube() {
 
 		CommandGroup temp = new CommandGroup();
 		temp.addSequential(new DropCube());

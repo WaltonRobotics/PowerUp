@@ -33,12 +33,18 @@ public class Robot extends IterativeRobot {
 	public static MotionLogger motionLogger;
 	private static Config.Robot currentRobot;
 	private static String gameData; // for ease of access
+	private static int doNumberOfCubes = 2;
 	private CommandGroup autonCommands;
 	//    private static SendableChooser<Config.Robot> robotChooser = new SendableChooser<>();
 	private SendableChooser<Character> startLocation;
+	private SendableChooser<Integer> numberCubes;
 
 	public static Config.Robot getChoosenRobot() {
 		return currentRobot;
+	}
+
+	public static int getDoNumberOfCubes() {
+		return doNumberOfCubes;
 	}
 
 	/**
@@ -80,6 +86,10 @@ public class Robot extends IterativeRobot {
 		startLocation.addObject("Right", 'r');
 		startLocation.addDefault("Center", 'c');
 
+		numberCubes = new SendableChooser<>();
+		numberCubes.addObject("1 Cube sequence", 1);
+		numberCubes.addDefault("2 Cube sequence", 2);
+
 //        robotChooser.addObject("Practice", Config.Robot.PRACTICE);
 //        robotChooser.addDefault("Competition", Config.Robot.COMPETITION);
 
@@ -115,6 +125,8 @@ public class Robot extends IterativeRobot {
 //        drivetrain.shiftDown();
 		drivetrain.shiftUp();
 		planeBreaker.moveUp();
+
+		doNumberOfCubes = numberCubes.getSelected();
 
 //		if (doNothingChooser.getSelected()) { // if should do nothing
 //			System.out.println(">:( Nothing has been chosen. Scrubs.");
@@ -203,6 +215,7 @@ public class Robot extends IterativeRobot {
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
+		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPositionNU());
 		SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
 		SmartDashboard.putNumber("Elevator Error", elevator.getError());
 		SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());

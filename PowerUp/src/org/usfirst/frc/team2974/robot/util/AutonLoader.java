@@ -7,12 +7,11 @@ import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BA
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_RIGHT;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_CENTER_SWITCH_LEFT;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_CENTER_SWITCH_RIGHT;
-import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_LEFT_SCALE_LEFT;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_LEFT_SWITCH_LEFT;
-import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_RIGHT_SCALE_RIGHT;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.DRIVE_STATION_RIGHT_SWITCH_RIGHT;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.auton.CrossBaseline;
 import org.usfirst.frc.team2974.robot.command.auton.DoNothingCommand;
 import org.usfirst.frc.team2974.robot.command.auton.DriveSwitchScale;
@@ -35,7 +34,8 @@ public class AutonLoader {
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // behind switch auton
 				return new DriveToSwitch().startLeftEndRight();
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT: // scale only
-				return getAutonCommands(DRIVE_STATION_LEFT_SCALE_LEFT);
+				return new DriveToScale().left();
+//				return getAutonCommands(DRIVE_STATION_LEFT_SCALE_LEFT);
 			case DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT: // switch only
 				return getAutonCommands(DRIVE_STATION_LEFT_SWITCH_LEFT);
 			case DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_LEFT:
@@ -53,7 +53,8 @@ public class AutonLoader {
 			case DRIVE_STATION_RIGHT_SWITCH_RIGHT_SCALE_LEFT: // switch only
 				return getAutonCommands(DRIVE_STATION_RIGHT_SWITCH_RIGHT);
 			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_RIGHT: // scale only
-				return getAutonCommands(DRIVE_STATION_RIGHT_SCALE_RIGHT);
+				return new DriveToScale().right();
+//				return getAutonCommands(DRIVE_STATION_RIGHT_SCALE_RIGHT);
 			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT: // Behind switch auton
 				return new DriveToSwitch().startRightEndLeft();
 
@@ -63,7 +64,13 @@ public class AutonLoader {
 			case DRIVE_STATION_LEFT_SWITCH_LEFT:
 				return new DriveToSwitch().left();
 			case DRIVE_STATION_CENTER_SWITCH_RIGHT:
-				return new DriveToSwitch().center();
+
+				DriveToSwitch driveToSwitch = new DriveToSwitch().center();
+				if (Robot.getDoNumberOfCubes() == 2) {
+					driveToSwitch.nextCube();
+				}
+
+				return driveToSwitch;
 			case DRIVE_STATION_CENTER_SWITCH_LEFT:
 				return new DriveToSwitch().center();
 			case DRIVE_STATION_RIGHT_SWITCH_RIGHT:
