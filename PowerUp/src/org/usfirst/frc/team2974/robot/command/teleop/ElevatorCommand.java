@@ -63,8 +63,7 @@ public class ElevatorCommand extends Command {
 			}
 		}
 
-		if (elevatorToggleControl.get())
-		{
+		if (elevatorToggleControl.get()) {
 			if (elevator.isMotionControlled()) {
 				elevator.disableControl();
 			} else {

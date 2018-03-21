@@ -148,8 +148,8 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 5; //3 m/s //TODO check if these variables are the ones actually being used in splines
-		public static final double ACCELERATION_MAX = 10; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
+		public static final double VELOCITY_MAX = 4.5; //3 m/s //TODO check if these variables are the ones actually being used in splines
+		public static final double ACCELERATION_MAX = 3; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
@@ -157,7 +157,7 @@ public final class Config {
 		public static final Pose R2 = new Pose(2.60000, 6.64134, StrictMath.toRadians(90));
 		public static final Pose R3 = new Pose(2.28905, 8.03946, StrictMath.toRadians(180));
 		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
-		public static final Pose R5 = new Pose(1.79248, 4.26720, StrictMath.toRadians(180));
+		public static final Pose R5 = new Pose(1.49248, 4.26720, StrictMath.toRadians(180));
 		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
 		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
