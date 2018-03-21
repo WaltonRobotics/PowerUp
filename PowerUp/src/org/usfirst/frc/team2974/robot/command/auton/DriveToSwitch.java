@@ -36,6 +36,11 @@ public class DriveToSwitch extends AutonOption {
 		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		addSequential(new CrossBaseline().center()); // :)
 
+		CommandGroup temp = new CommandGroup();
+		temp.addSequential(new DropCube());
+		temp.addSequential(new ElevatorTarget(LOW_HEIGHT));
+		addParallel(temp);
+
 		setOptionSelected(true);
 
 		return this;
@@ -43,14 +48,9 @@ public class DriveToSwitch extends AutonOption {
 
 	public DriveToSwitch nextCube() {
 
-		CommandGroup temp = new CommandGroup();
-		temp.addSequential(new DropCube());
-		temp.addSequential(new ElevatorTarget(LOW_HEIGHT));
-		addParallel(temp);
-
 		addSequential(new CrossBaseline().backUp());
 
-		temp = new CommandGroup();
+		CommandGroup temp = new CommandGroup();
 		temp.addSequential(
 			new WaitCommand(4) /*TODO make a sort of wait for distance motion command*/);
 		temp.addSequential(new IntakeCube());
