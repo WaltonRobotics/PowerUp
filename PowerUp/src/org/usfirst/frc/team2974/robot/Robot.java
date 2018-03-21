@@ -97,6 +97,9 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putData("6m drive straight",
 //			SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
+		//		Drive train
+		SmartDashboard.putNumber("Speed Percentage", .55);
+
 		updateSmartDashboard();
 	}
 
@@ -212,6 +215,7 @@ public class Robot extends IterativeRobot {
 
 		// Selectors
 		SmartDashboard.putData("Drive Team/Start Location", startLocation);
+		SmartDashboard.putData("Drive Team/Number Of Cubes", numberCubes);
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());

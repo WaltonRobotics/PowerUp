@@ -8,6 +8,7 @@ import static org.usfirst.frc.team2974.robot.OI.shiftUp;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Robot;
 
 /**
@@ -55,8 +56,9 @@ public class DriveCommand extends Command {
 		double rightPower = -getRightThrottle();
 
 		if (Robot.elevator.getCurrentPositionNU() >= MAXIMUM_HEIGHT * (2.0 / 3)) {
-			leftPower = Math.pow(leftPower, 3) / 2;
-			rightPower = Math.pow(rightPower, 3) / 2;
+			double percentage = SmartDashboard.getNumber("Speed Percentage", .5);
+			leftPower = Math.pow(leftPower, 3) * percentage;
+			rightPower = Math.pow(rightPower, 3) * percentage;
 		}
 
 		drivetrain.setSpeeds(leftPower, rightPower);
