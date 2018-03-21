@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2974.robot.util;
 
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.command.auton.AutonOption;
 import org.usfirst.frc.team2974.robot.command.auton.DropCube;
 import org.usfirst.frc.team2974.robot.command.auton.ElevatorTarget;
@@ -22,7 +21,7 @@ public final class AutonUtil {
 		Pose... splinePoints) {
 		auton.addParallel(new ElevatorTarget(elevatorHeight));
 		auton.addSequential(SimpleSpline.pathFromPosesWithAngle(isBackwards, splinePoints));
-		auton.addSequential(new WaitCommand(1));
+		//auton.addSequential(new WaitCommand(1));
 		auton.addSequential(new DropCube());
 
 		auton.setOptionSelected(true);
