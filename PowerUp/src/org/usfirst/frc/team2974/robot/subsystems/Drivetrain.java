@@ -82,6 +82,10 @@ public class Drivetrain extends AbstractDrivetrain {
 		pneumaticsShifter.set(false);
 	}
 
+	public boolean isShiftDown() {
+		return pneumaticsShifter.get();
+	}
+
 	@Override
 	public double getKV() {
 		return MotionConstants.KV;

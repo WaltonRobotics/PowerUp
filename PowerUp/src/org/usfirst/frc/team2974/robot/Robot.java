@@ -150,7 +150,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		//TODO remove this when we have the elevator able to reach the scale
-		gameData = gameData.substring(0, 1) + "..";
+//		gameData = gameData.substring(0, 1) + "..";
 
 		System.out.println(startPosition);
 		System.out.println(gameData);

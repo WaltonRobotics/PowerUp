@@ -59,8 +59,8 @@ public class AutonLoader {
 				return new DriveToSwitch().startRightEndLeft();
 
 			// SWITCH ONLY
-			case DRIVE_STATION_LEFT_SWITCH_RIGHT: // don't do this
-				return new DriveToSwitch().startLeftEndRight();
+//			case DRIVE_STATION_LEFT_SWITCH_RIGHT: // don't do this
+//				return new DriveToSwitch().startLeftEndRight();
 			case DRIVE_STATION_LEFT_SWITCH_LEFT:
 				return new DriveToSwitch().left();
 			case DRIVE_STATION_CENTER_SWITCH_RIGHT:
@@ -72,11 +72,16 @@ public class AutonLoader {
 
 				return driveToSwitch;
 			case DRIVE_STATION_CENTER_SWITCH_LEFT:
-				return new DriveToSwitch().center();
+				DriveToSwitch driveToSwitchL = new DriveToSwitch().center();
+				if (Robot.getDoNumberOfCubes() == 2) {
+					driveToSwitchL.nextCube();
+				}
+
+				return driveToSwitchL;
 			case DRIVE_STATION_RIGHT_SWITCH_RIGHT:
 				return new DriveToSwitch().right();
-			case DRIVE_STATION_RIGHT_SWITCH_LEFT: // don't do this
-				return new DriveToSwitch().startRightEndLeft();
+//			case DRIVE_STATION_RIGHT_SWITCH_LEFT: // don't do this
+//				return new DriveToSwitch().startRightEndLeft();
 
 			// SCALE ONLY
 			case DRIVE_STATION_LEFT_SCALE_RIGHT: // don't do this

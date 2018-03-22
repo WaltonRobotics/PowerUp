@@ -19,10 +19,10 @@ public final class AutonUtil {
 	public static <T extends AutonOption> T driveToSinglePoint(T auton, double elevatorHeight,
 		boolean isBackwards,
 		Pose... splinePoints) {
-		auton.addParallel(new ElevatorTarget(elevatorHeight));
+		auton.addParallel(new ElevatorTarget(elevatorHeight)); // TODO add this back
 		auton.addSequential(SimpleSpline.pathFromPosesWithAngle(isBackwards, splinePoints));
-		//auton.addSequential(new WaitCommand(1));
-		auton.addSequential(new DropCube());
+//		auton.addSequential(new WaitCommand(1));
+		auton.addSequential(new DropCube()); // TODO add this back in
 
 		auton.setOptionSelected(true);
 

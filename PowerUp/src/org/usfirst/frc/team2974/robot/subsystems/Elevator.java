@@ -99,8 +99,12 @@ public class Elevator extends Subsystem {
 
 		zeroed = false;
 
-		elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10);
-		elevatorMotor.configReverseSoftLimitThreshold(MINIMUM_HEIGHT, 10);
+		elevatorMotor
+			.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(),
+				10);
+		elevatorMotor
+			.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(),
+				10);
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(false, 10);

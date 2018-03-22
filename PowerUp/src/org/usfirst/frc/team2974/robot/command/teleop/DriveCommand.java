@@ -55,7 +55,8 @@ public class DriveCommand extends Command {
 		double leftPower = -getLeftThrottle();
 		double rightPower = -getRightThrottle();
 
-		if (Robot.elevator.getCurrentPositionNU() >= MAXIMUM_HEIGHT * (2.0 / 3)) {
+		if (!drivetrain.isShiftDown() && Robot.elevator.getCurrentPositionNU() >= MAXIMUM_HEIGHT * (
+			2.0 / 3)) {
 			double percentage = SmartDashboard.getNumber("Speed Percentage", .5);
 			leftPower = Math.pow(leftPower, 3) * percentage;
 			rightPower = Math.pow(rightPower, 3) * percentage;

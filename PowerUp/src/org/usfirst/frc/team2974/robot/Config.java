@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2974.robot;
 
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT;
+
 import org.usfirst.frc.team2974.robot.Gamepad.Button;
 import org.usfirst.frc.team2974.robot.Gamepad.POV;
 import org.waltonrobotics.controller.Pose;
@@ -14,18 +17,32 @@ public final class Config {
 	}
 
 	public enum Robot {
-		PRACTICE(0.7800, 0.000409, false), COMPETITION(0.7800, 0.0002045, true);
+		PRACTICE(0.7800, 0.000409, MINIMUM_HEIGHT, MAXIMUM_HEIGHT, false), COMPETITION(0.7800,
+			0.0002045, MINIMUM_HEIGHT, MAXIMUM_HEIGHT, true);
 
 
 		private final double robotWidth;
 		private final double distancePerPulse;
+		private final int minimumElevatorHeight;
+		private final int maximumElevatorHeight;
 		private final boolean sensorPhase;
 
-		Robot(double robotWidth, double distancePerPulse, boolean SensorPhase) {
+		Robot(double robotWidth, double distancePerPulse, int minimumElevatorHeight,
+			int maximumElevatorHeight, boolean SensorPhase) {
 
 			this.robotWidth = robotWidth;
 			this.distancePerPulse = distancePerPulse;
+			this.minimumElevatorHeight = minimumElevatorHeight;
+			this.maximumElevatorHeight = maximumElevatorHeight;
 			sensorPhase = SensorPhase;
+		}
+
+		public int getMinimumElevatorHeight() {
+			return minimumElevatorHeight;
+		}
+
+		public int getMaximumElevatorHeight() {
+			return maximumElevatorHeight;
 		}
 
 		public double getRobotWidth() {
@@ -148,14 +165,15 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 4.5; //3 m/s //TODO check if these variables are the ones actually being used in splines
+		public static final double VELOCITY_MAX = 3.075548163; /*TESTED MAX VELOCITY*/ //3 m/s
 		public static final double ACCELERATION_MAX = 3; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
 		public static final Pose R1 = new Pose(2.60000, 3.55600, StrictMath.toRadians(90));
-		public static final Pose R2 = new Pose(2.60000, 6.64134, StrictMath.toRadians(90));
-		public static final Pose R3 = new Pose(2.28905, 8.03946, StrictMath.toRadians(180));
+		public static final Pose R2 = new Pose(2.60000, 4.64134, StrictMath.toRadians(90));
+		public static final Pose R3 = new Pose(2.12905, 7.17946/*8.03946*/,
+			StrictMath.toRadians(135/*180*/));
 		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
 		public static final Pose R5 = new Pose(1.49248, 4.26720, StrictMath.toRadians(180));
 		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
@@ -163,6 +181,8 @@ public final class Config {
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
 		public static final Pose R9 = new Pose(2.33045, 5.93509, StrictMath.toRadians(270));
 		public static final Pose R10 = new Pose(0.83147, 5.90987, 0);
+		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/,
+			StrictMath.toRadians(140/*180*/));
 
 		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
 		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/,
@@ -194,6 +214,7 @@ public final class Config {
 		public static final Pose L8 = negateX(R8);
 		public static final Pose L9 = negateX(R9);
 		public static final Pose L10 = negateX(R10);
+		public static final Pose L11 = negateX(R11);
 
 		private Path() {
 		}
@@ -225,8 +246,8 @@ public final class Config {
 		public static final double KAng = 1;//1
 		public static final double KL = 2; //2
 
-		public static final double IL = 0.01;
-		public static final double IAng = 0.01;
+		public static final double IL = 0.00; // 0.01
+		public static final double IAng = 0.005; // 0.01
 
 		private MotionConstants() {
 		}
