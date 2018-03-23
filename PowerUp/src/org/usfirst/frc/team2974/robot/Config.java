@@ -143,7 +143,7 @@ public final class Config {
 		public static final double TOLERANCE = 0.1;
 		public static final double INCHES_TO_NU = 775 /*775*/; // TODO: improve number to improve accuracy
 
-		public static final double HIGH_HEIGHT = 72; // inches, this gets the scale
+		public static final double HIGH_HEIGHT = 66; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
 		public static final double LOW_HEIGHT = 0; // inches, the floor
 
@@ -184,8 +184,8 @@ public final class Config {
 
 		public static final double CROSS_BASELINE_Y = 4.2748092;
 
-		public static final double VELOCITY_MAX = 3.075548163; /*TESTED MAX VELOCITY*/ //3 m/s
-		public static final double ACCELERATION_MAX = 3; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
+		public static final double VELOCITY_MAX = 4; /* 3.075548163 TESTED MAX VELOCITY*/ //3 m/s
+		public static final double ACCELERATION_MAX = 3.5; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
 
 		// IMPORTANT: these points are measured from the center line
 		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
@@ -210,7 +210,8 @@ public final class Config {
 			StrictMath.toRadians(90));
 		public static final Pose C4 = new Pose(0.0, .8478 /*1.4478*/,
 			StrictMath.toRadians(90)); // before pyramid
-		public static final Pose C5 = new Pose(0.0, 2.5146, StrictMath.toRadians(90)); // at pyramid
+		public static final Pose C5 = new Pose(0.0249 /*0.05*/, 2.5146,
+			StrictMath.toRadians(90)); // at pyramid
 		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/,
 			StrictMath.toRadians(
 				90)); // after getting the second cube. does not go as far back as when going to the pyramid
