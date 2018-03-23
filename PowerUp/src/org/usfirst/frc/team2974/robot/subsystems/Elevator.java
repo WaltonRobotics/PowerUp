@@ -2,13 +2,10 @@ package org.usfirst.frc.team2974.robot.subsystems;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.ACCELERATION;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.CRUISE_SPEED;
-import static org.usfirst.frc.team2974.robot.Config.Elevator.INCHES_TO_NU;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KD;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KF;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KI;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.KP;
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.TIMEOUT;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorLimitLower;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
@@ -77,7 +74,8 @@ public class Elevator extends Subsystem {
 			.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
 		elevatorMotor.setSensorPhase(Robot.getChoosenRobot()
 			.getSensorPhase()); // true for competition bot // false for practice
-		elevatorMotor.setInverted(false);
+		elevatorMotor.setInverted(Robot.getChoosenRobot()
+			.isReversed() /*false*/);
 
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, TIMEOUT);
@@ -119,9 +117,13 @@ public class Elevator extends Subsystem {
 		elevatorMotor.setSelectedSensorPosition(0, 0, TIMEOUT); // TODO: figure out later
 
 		/* +14 rotations forward when using CTRE Mag encoder */
-		elevatorMotor.configForwardSoftLimitThreshold(MAXIMUM_HEIGHT, 10); // TODO: FIX
+		elevatorMotor
+			.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(),
+				10); // TODO: FIX
 		/* -15 rotations reverse when using CTRE Mag encoder */
-		elevatorMotor.configReverseSoftLimitThreshold(MINIMUM_HEIGHT, 10); // TODO: FIX
+		elevatorMotor
+			.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(),
+				10); // TODO: FIX
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(true, 10);
@@ -166,7 +168,8 @@ public class Elevator extends Subsystem {
 	 * Gets the current position of the elevator in inches.
 	 */
 	public double getCurrentPosition() {
-		return elevatorMotor.getSelectedSensorPosition(0) / INCHES_TO_NU;
+		return elevatorMotor.getSelectedSensorPosition(0) / Robot.getChoosenRobot()
+			.getInchesToNativeUnits();
 	}
 
 	/**
@@ -187,8 +190,10 @@ public class Elevator extends Subsystem {
 		if (zeroed) {
 			elevatorMotor.set(
 				ControlMode.MotionMagic,
-				Math.min(MAXIMUM_HEIGHT,
-					Math.max(MINIMUM_HEIGHT, inches * INCHES_TO_NU)) /* This is a hard cap */
+				Math.min(Robot.getChoosenRobot().getMaximumElevatorHeight(),
+					Math.max(Robot.getChoosenRobot().getMinimumElevatorHeight(),
+						inches * Robot.getChoosenRobot()
+							.getInchesToNativeUnits())) /* This is a hard cap */
 			);
 		}
 	}
@@ -204,11 +209,11 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean atTopPosition() {
-		return getCurrentPositionNU() >= MAXIMUM_HEIGHT;
+		return getCurrentPositionNU() >= Robot.getChoosenRobot().getMaximumElevatorHeight();
 	}
 
 	public boolean atLowerPosition() {
-		return getCurrentPositionNU() <= MINIMUM_HEIGHT;
+		return getCurrentPositionNU() <= Robot.getChoosenRobot().getMinimumElevatorHeight();
 	}
 
 	public void startZero() {

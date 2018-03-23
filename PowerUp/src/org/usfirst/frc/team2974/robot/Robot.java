@@ -90,6 +90,18 @@ public class Robot extends IterativeRobot {
 		numberCubes.addObject("1 Cube sequence", 1);
 		numberCubes.addDefault("2 Cube sequence", 2);
 
+//		SmartDashboard.putData(new Command() {
+//			@Override
+//			protected void initialize() {
+//				elevator.startZero();
+//			}
+//
+//			@Override
+//			protected boolean isFinished() {
+//				return true;
+//			}
+//		});
+
 //        robotChooser.addObject("Practice", Config.Robot.PRACTICE);
 //        robotChooser.addDefault("Competition", Config.Robot.COMPETITION);
 
@@ -219,7 +231,7 @@ public class Robot extends IterativeRobot {
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
-		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPositionNU());
+		SmartDashboard.putNumber("Elevator Position (NU)", elevator.getCurrentPositionNU());
 		SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
 		SmartDashboard.putNumber("Elevator Error", elevator.getError());
 		SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());

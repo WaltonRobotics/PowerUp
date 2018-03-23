@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2974.robot;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT_COMP;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT_COMP;
 
 import org.usfirst.frc.team2974.robot.Gamepad.Button;
 import org.usfirst.frc.team2974.robot.Gamepad.POV;
@@ -17,24 +19,34 @@ public final class Config {
 	}
 
 	public enum Robot {
-		PRACTICE(0.7800, 0.000409, MINIMUM_HEIGHT, MAXIMUM_HEIGHT, false), COMPETITION(0.7800,
-			0.0002045, MINIMUM_HEIGHT, MAXIMUM_HEIGHT, true);
+		PRACTICE(0.7800, 0.000409, MINIMUM_HEIGHT, MAXIMUM_HEIGHT, 775, false, false),
+		COMPETITION(0.7800, 0.0002045, MINIMUM_HEIGHT_COMP, MAXIMUM_HEIGHT_COMP, 386, true,
+			true/*true*/);
 
 
 		private final double robotWidth;
 		private final double distancePerPulse;
 		private final int minimumElevatorHeight;
 		private final int maximumElevatorHeight;
+		private final int inchesToNativeUnits;
+		private final boolean isReversed;
 		private final boolean sensorPhase;
 
 		Robot(double robotWidth, double distancePerPulse, int minimumElevatorHeight,
-			int maximumElevatorHeight, boolean SensorPhase) {
+			int maximumElevatorHeight, int inchesToNativeUnits, boolean isReversed,
+			boolean SensorPhase) {
 
 			this.robotWidth = robotWidth;
 			this.distancePerPulse = distancePerPulse;
 			this.minimumElevatorHeight = minimumElevatorHeight;
 			this.maximumElevatorHeight = maximumElevatorHeight;
+			this.inchesToNativeUnits = inchesToNativeUnits;
+			this.isReversed = isReversed;
 			sensorPhase = SensorPhase;
+		}
+
+		public int getInchesToNativeUnits() {
+			return inchesToNativeUnits;
 		}
 
 		public int getMinimumElevatorHeight() {
@@ -55,6 +67,10 @@ public final class Config {
 
 		public boolean getSensorPhase() {
 			return sensorPhase;
+		}
+
+		public boolean isReversed() {
+			return isReversed;
 		}
 	}
 
@@ -125,7 +141,7 @@ public final class Config {
 	public static final class Elevator {
 
 		public static final double TOLERANCE = 0.1;
-		public static final double INCHES_TO_NU = 775; // TODO: improve number to improve accuracy
+		public static final double INCHES_TO_NU = 775 /*775*/; // TODO: improve number to improve accuracy
 
 		public static final double HIGH_HEIGHT = 72; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
@@ -133,6 +149,9 @@ public final class Config {
 
 		public static final int MINIMUM_HEIGHT = 1000; // in nu (native units)
 		public static final int MAXIMUM_HEIGHT = 20000; // in nu
+
+		public static final int MINIMUM_HEIGHT_COMP = 1000; // 1000 in nu (native units)
+		public static final int MAXIMUM_HEIGHT_COMP = 25800; // in nu
 
 		public static final double NUDGE_DISTANCE = 1; // in inches
 

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.OI.leftJoystick;
 import static org.usfirst.frc.team2974.robot.OI.rightJoystick;
 import static org.usfirst.frc.team2974.robot.OI.shiftDown;
@@ -55,8 +54,8 @@ public class DriveCommand extends Command {
 		double leftPower = -getLeftThrottle();
 		double rightPower = -getRightThrottle();
 
-		if (!drivetrain.isShiftDown() && Robot.elevator.getCurrentPositionNU() >= MAXIMUM_HEIGHT * (
-			2.0 / 3)) {
+		if (!drivetrain.isShiftDown() && Robot.elevator.getCurrentPositionNU()
+			>= Robot.getChoosenRobot().getMaximumElevatorHeight() * (2.0 / 3)) {
 			double percentage = SmartDashboard.getNumber("Speed Percentage", .5);
 			leftPower = Math.pow(leftPower, 3) * percentage;
 			rightPower = Math.pow(rightPower, 3) * percentage;
