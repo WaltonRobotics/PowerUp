@@ -55,9 +55,23 @@ public class ElevatorCommand extends Command {
 //			System.out.println("Abs get Y " + Math.abs(gamepad.getLeftY()));
 			if (Math.abs(gamepad.getLeftY()) /*TODO look at why getLeftY return 0*/
 				> TOLERANCE) {
-				elevator.setPower(-gamepad.getLeftY());
+
+				double power = -gamepad.getLeftY();
+
+				if (power < 0) {
+					power *= .75;
+				}
+
+				elevator.setPower(power);
 			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
-				elevator.setPower(-gamepad.getRightY());
+
+				double power = -gamepad.getRightY();
+
+				if (power < 0) {
+					power *= .75;
+				}
+
+				elevator.setPower(power);
 			} else {
 				elevator.setPower(0);
 			}
