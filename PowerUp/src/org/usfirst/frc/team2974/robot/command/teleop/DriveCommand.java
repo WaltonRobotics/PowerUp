@@ -53,12 +53,19 @@ public class DriveCommand extends Command {
 	private void tankDrive() {
 		double leftPower = -getLeftThrottle();
 		double rightPower = -getRightThrottle();
+//
+//		if (!drivetrain.isShiftDown() && Robot.elevator.getCurrentPositionNU()
+//			>= Robot.getChoosenRobot().getMaximumElevatorHeight() * (1.0 / 2.0)) {
+//			double percentage = SmartDashboard.getNumber("Speed Percentage", .5);
+//			leftPower = Math.pow(leftPower, 3) * percentage;
+//			rightPower = Math.pow(rightPower, 3) * percentage;
+//		}
 
-		if (!drivetrain.isShiftDown() && Robot.elevator.getCurrentPositionNU()
+		if (Robot.elevator.getCurrentPositionNU()
 			>= Robot.getChoosenRobot().getMaximumElevatorHeight() * (1.0 / 2.0)) {
-			double percentage = SmartDashboard.getNumber("Speed Percentage", .5);
-			leftPower = Math.pow(leftPower, 3) * percentage;
-			rightPower = Math.pow(rightPower, 3) * percentage;
+			double percentage = SmartDashboard.getNumber("Speed Percentage", .50);
+			leftPower *= percentage;
+			rightPower *= percentage;
 		}
 
 		drivetrain.setSpeeds(leftPower, rightPower);

@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot {
 //			SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
 		//		Drive train
-		SmartDashboard.putNumber("Speed Percentage", .55);
+		SmartDashboard.putNumber("Speed Percentage", .50 /*.75*/);
 
 		updateSmartDashboard();
 	}
