@@ -44,6 +44,10 @@ public class IntakeOutput extends Subsystem {
 		setMotorPowers(-MAX_POWER, -MAX_POWER);
 	}
 
+	public void halfOutput() {
+		setMotorPowers(-MAX_POWER / 2, -MAX_POWER / 2);
+	}
+
 	public void lowIntake() {
 		setMotorPowers(LOW_POWER, LOW_POWER);
 	}
