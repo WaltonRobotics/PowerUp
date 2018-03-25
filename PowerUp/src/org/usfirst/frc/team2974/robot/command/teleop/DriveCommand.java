@@ -31,7 +31,6 @@ public class DriveCommand extends Command {
 			return 0;
 		}
 		return rightJoystick.getY();
-
 	}
 
 	public double getTurn() {
@@ -39,7 +38,6 @@ public class DriveCommand extends Command {
 			return 0;
 		}
 		return rightJoystick.getX();
-
 	}
 
 	private void cheesyDrive() {
@@ -70,13 +68,14 @@ public class DriveCommand extends Command {
 
 		drivetrain.setSpeeds(leftPower, rightPower);
 	}
-
 	// Called just before this Command runs the first time
+
 	@Override
 	protected void initialize() {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+
 	@Override
 	protected void execute() {
 		if (drivetrain.isTankDrive()) {
@@ -92,11 +91,6 @@ public class DriveCommand extends Command {
 		{
 			drivetrain.shiftDown();
 		}
-//        else if (RobotMap.pneumaticsShifter.get() && shiftTrigger.get()) {
-//            drivetrain.shiftDown();
-//        } else if (!RobotMap.pneumaticsShifter.get()) {
-//            drivetrain.shiftUp();
-//        }
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

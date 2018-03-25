@@ -46,8 +46,7 @@ public class DriveToSwitch extends AutonOption {
 		return this;
 	}
 
-	public DriveToSwitch nextCube() {
-
+	public DriveToSwitch toPyramid() {
 		addSequential(new CrossBaseline().backUp());
 
 		CommandGroup temp = new CommandGroup();
@@ -57,6 +56,12 @@ public class DriveToSwitch extends AutonOption {
 		addParallel(temp);
 
 		addSequential(new CrossBaseline().toPyramid());
+
+		setOptionSelected(true);
+		return this;
+	}
+
+	public DriveToSwitch nextCube() {
 
 		addSequential(new CrossBaseline().fromPyramid()); //moves back from pyramid
 		addSequential(new CrossBaseline().returnToSwitch()); //splines to correct side of switch

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.util;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.CROSS_BASELINE_Y;
+import static org.usfirst.frc.team2974.robot.Robot.confuseEnemy;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_CENTER;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_LEFT;
@@ -63,21 +64,32 @@ public class AutonLoader {
 //				return new DriveToSwitch().startLeftEndRight();
 			case DRIVE_STATION_LEFT_SWITCH_LEFT:
 				return new DriveToSwitch().left();
-			case DRIVE_STATION_CENTER_SWITCH_RIGHT:
-
+			case DRIVE_STATION_CENTER_SWITCH_RIGHT: {
 				DriveToSwitch driveToSwitch = new DriveToSwitch().center();
+
 				if (Robot.getDoNumberOfCubes() == 2) {
-					driveToSwitch.nextCube();
+					driveToSwitch.toPyramid();
+
+					if (!confuseEnemy()) {
+						driveToSwitch.nextCube();
+					}
 				}
 
 				return driveToSwitch;
-			case DRIVE_STATION_CENTER_SWITCH_LEFT:
-				DriveToSwitch driveToSwitchL = new DriveToSwitch().center();
+			}
+			case DRIVE_STATION_CENTER_SWITCH_LEFT: {
+				DriveToSwitch driveToSwitch = new DriveToSwitch().center();
+
 				if (Robot.getDoNumberOfCubes() == 2) {
-					driveToSwitchL.nextCube();
+					driveToSwitch.toPyramid();
+
+					if (!confuseEnemy()) {
+						driveToSwitch.nextCube();
+					}
 				}
 
-				return driveToSwitchL;
+				return driveToSwitch;
+			}
 			case DRIVE_STATION_RIGHT_SWITCH_RIGHT:
 				return new DriveToSwitch().right();
 //			case DRIVE_STATION_RIGHT_SWITCH_LEFT: // don't do this

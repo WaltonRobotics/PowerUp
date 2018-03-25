@@ -34,10 +34,12 @@ public class Robot extends IterativeRobot {
 	private static Config.Robot currentRobot;
 	private static String gameData; // for ease of access
 	private static int doNumberOfCubes = 2;
+	private static boolean confuseEnemy = false;
 	private CommandGroup autonCommands;
 	//    private static SendableChooser<Config.Robot> robotChooser = new SendableChooser<>();
 	private SendableChooser<Character> startLocation;
 	private SendableChooser<Integer> numberCubes;
+	private SendableChooser<Boolean> confuseEnenmy;
 
 	public static Config.Robot getChoosenRobot() {
 		return currentRobot;
@@ -45,6 +47,10 @@ public class Robot extends IterativeRobot {
 
 	public static int getDoNumberOfCubes() {
 		return doNumberOfCubes;
+	}
+
+	public static boolean confuseEnemy() {
+		return confuseEnemy;
 	}
 
 	/**
@@ -89,6 +95,10 @@ public class Robot extends IterativeRobot {
 		numberCubes = new SendableChooser<>();
 		numberCubes.addObject("1 Cube sequence", 1);
 		numberCubes.addDefault("2 Cube sequence", 2);
+
+		confuseEnenmy = new SendableChooser<>();
+		confuseEnenmy.addDefault("Do complete 2 cube", false);
+		confuseEnenmy.addObject("Stop before", true);
 
 //		SmartDashboard.putData(new Command() {
 //			@Override
@@ -141,6 +151,7 @@ public class Robot extends IterativeRobot {
 		drivetrain.shiftUp();
 		planeBreaker.moveUp();
 
+		confuseEnemy = confuseEnenmy.getSelected();
 		doNumberOfCubes = numberCubes.getSelected();
 
 //		if (doNothingChooser.getSelected()) { // if should do nothing
@@ -228,6 +239,7 @@ public class Robot extends IterativeRobot {
 		// Selectors
 		SmartDashboard.putData("Drive Team/Start Location", startLocation);
 		SmartDashboard.putData("Drive Team/Number Of Cubes", numberCubes);
+		SmartDashboard.putData("Drive Team/Confuse enemy", confuseEnenmy);
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
