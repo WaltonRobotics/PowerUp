@@ -123,6 +123,7 @@ public final class Config {
 		// gamepad //
 		public static final int INTAKE_BUTTON = Button.RIGHT_TRIGGER.index();
 		public static final int OUTPUT_BUTTON = Button.LEFT_TRIGGER.index();
+		public static final int OUTPUT_HALF_BUTTON = Button.LEFT_BUMPER.index();
 
 		public static final int ELEVATOR_NUDGE_UP = POV.N.angle(); // pov
 		public static final int ELEVATOR_NUDGE_DOWN = POV.S.angle(); // pov
@@ -151,7 +152,7 @@ public final class Config {
 		public static final int MAXIMUM_HEIGHT = 20000; // in nu
 
 		public static final int MINIMUM_HEIGHT_COMP = 1000; // 1000 in nu (native units)
-		public static final int MAXIMUM_HEIGHT_COMP = 25800; // in nu
+		public static final int MAXIMUM_HEIGHT_COMP = 26150; // in nu
 
 		public static final double NUDGE_DISTANCE = 1; // in inches
 
@@ -172,7 +173,7 @@ public final class Config {
 
 	public static final class IntakeOutput {
 
-		public static final double MAX_POWER = 0.85;
+		public static final double MAX_POWER = 0.75;
 		public static final double LOW_POWER = 0.25; // Test this value
 		public static final double HOLD_POWER = 0.1; // TEST
 
@@ -220,6 +221,9 @@ public final class Config {
 			StrictMath.toRadians(90)); // right
 		public static final Pose C8 = new Pose(-1.39388, 3.37791 /*3.12791*/,
 			StrictMath.toRadians(90)); //left
+
+		public static final Pose C9 = new Pose(0.0 /*0.05*/, 2.5146,
+			StrictMath.toRadians(90)); // at pyramid
 
 
 		// we can do this because every point is measured from the center line.

@@ -10,6 +10,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.C5;
 import static org.usfirst.frc.team2974.robot.Config.Path.C6;
 import static org.usfirst.frc.team2974.robot.Config.Path.C7;
 import static org.usfirst.frc.team2974.robot.Config.Path.C8;
+import static org.usfirst.frc.team2974.robot.Config.Path.C9;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -117,7 +118,12 @@ public class CrossBaseline extends CommandGroup {
 		isOptionSelected = true;
 
 		//moves forward to the pyramid to pick up a cube
-		addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
+
+		if (Robot.getSwitchPosition() == 'R') {
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
+		} else {
+			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C9));
+		}
 
 		return this;
 	}
