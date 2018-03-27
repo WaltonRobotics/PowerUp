@@ -50,6 +50,10 @@ public class SimpleSpline extends Command {
 		this(maxVelocity, maxAcceleration, startAngle, endAngle, isBackwards, 1, 1, knots);
 	}
 
+	public static SimpleSpline pointTurn(Pose startPosition, double endAngle) {
+//		TODO FIXME EVAN YOU BETTER FIX THIS BY NEXT MEETING
+		return new SimpleSpline(VELOCITY_MAX, ACCELERATION_MAX, 0, 0, true, new Pose(1, 1, 1));
+	}
 
 	public static SimpleSpline pathFromPosesWithAngle(boolean isBackwards, Pose... knots) {
 		return pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, isBackwards, knots);
