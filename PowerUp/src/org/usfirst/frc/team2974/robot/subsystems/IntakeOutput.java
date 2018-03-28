@@ -72,4 +72,12 @@ public class IntakeOutput extends Subsystem {
 		timer.reset();
 	}
 
+	public double getLeftMotorCurrent() {
+		return intakeMotorLeft.getMotorOutputVoltage();
+//		return intakeMotorLeft.getOutputCurrent();
+	}
+
+	public double getRightMotorCurrent() {
+		return intakeMotorRight.getOutputCurrent();
+	}
 }

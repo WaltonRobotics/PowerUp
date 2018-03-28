@@ -2,22 +2,12 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
-import static org.usfirst.frc.team2974.robot.Config.Path.L0;
-import static org.usfirst.frc.team2974.robot.Config.Path.L1;
-import static org.usfirst.frc.team2974.robot.Config.Path.L10;
-import static org.usfirst.frc.team2974.robot.Config.Path.L4;
-import static org.usfirst.frc.team2974.robot.Config.Path.L5;
-import static org.usfirst.frc.team2974.robot.Config.Path.L7;
-import static org.usfirst.frc.team2974.robot.Config.Path.R0;
-import static org.usfirst.frc.team2974.robot.Config.Path.R1;
-import static org.usfirst.frc.team2974.robot.Config.Path.R10;
-import static org.usfirst.frc.team2974.robot.Config.Path.R4;
-import static org.usfirst.frc.team2974.robot.Config.Path.R5;
-import static org.usfirst.frc.team2974.robot.Config.Path.R7;
+import static org.usfirst.frc.team2974.robot.Config.Path.*;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * Drives to the switch from the chosen (left(), right(), center()) starting position.
@@ -73,11 +63,11 @@ public class DriveToSwitch extends AutonOption {
 
 	public DriveToSwitch startRightEndLeft() {
 		//test these points
-		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, L10, L7, L5);
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8, Math.toRadians(180)), L13, L7, L5);
 	}
 
 	public DriveToSwitch startLeftEndRight() {
 		//test these points
-		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L1, R10, R7, R5);
+		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L1, L6, R13, R7, R5);
 	}
 }

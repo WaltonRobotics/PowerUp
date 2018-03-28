@@ -200,12 +200,13 @@ public final class Config {
 		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
 		public static final Pose R9 = new Pose(2.33045, 5.93509, StrictMath.toRadians(270));
-		public static final Pose R10 = new Pose(2.4147 /*0.83147 */, 6.40987 /*5.90987 */,
+		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
 			StrictMath.toRadians(180/*180*/));
 		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/,
 			StrictMath.toRadians(140/*180*/));
 		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/,
 			StrictMath.toRadians(45/*180*/));
+		public static final Pose R13 = new Pose(0.83147, 5.90987, Math.toRadians(180));
 
 		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
 		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/,
@@ -243,6 +244,7 @@ public final class Config {
 		public static final Pose L10 = negateX(R10);
 		public static final Pose L11 = negateX(R11);
 		public static final Pose L12 = negateX(R12);
+		public static final Pose L13 = negateX(R13);
 
 		private Path() {
 		}
