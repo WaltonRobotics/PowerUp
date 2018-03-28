@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2974.robot;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.R12;
-import static org.usfirst.frc.team2974.robot.Config.Path.R3;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
@@ -12,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
-import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;

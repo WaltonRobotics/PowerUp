@@ -36,8 +36,8 @@ public final class SmartDashboardManager {
 	}
 
 	/**
-	 * <p>Creates a SmartDashboard Property that will update automatically when the update method of
-	 * SmartDashboardManager is called.</p>
+	 * <p>Creates a SmartDashboard Property that will update automatically when the update method
+	 * of SmartDashboardManager is called.</p>
 	 * Example: <pre>{@code
 	 *   addBind("Left Motor Power", 0, () -> SubsystemManager.getSubsystem(Drivetrain.class).getLeftMotorPower());
 	 *   }</pre>

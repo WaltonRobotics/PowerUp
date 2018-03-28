@@ -14,11 +14,7 @@ import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
 import org.waltonrobotics.AbstractDrivetrain;
 import org.waltonrobotics.MotionLogger;
-import org.waltonrobotics.controller.Path;
-import org.waltonrobotics.controller.PathData;
 import org.waltonrobotics.controller.RobotPair;
-
-import java.util.LinkedList;
 
 /**
  *
