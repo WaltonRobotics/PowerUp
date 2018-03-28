@@ -5,8 +5,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import org.waltonrobotics.controller.Pose;
 import org.waltonrobotics.motion.Spline;
@@ -34,8 +33,7 @@ public class SimpleSpline extends Command {
 		double endAngle, boolean isBackwards, double startScale, double endScale, Pose... knots) {
 		this.startScale = startScale;
 		this.endScale = endScale;
-		this.knots = new ArrayList<>(knots.length);
-		Collections.addAll(this.knots, knots);
+		this.knots = Arrays.asList(knots);
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
 		this.isBackwards = isBackwards;
@@ -47,11 +45,19 @@ public class SimpleSpline extends Command {
 
 	public SimpleSpline(double maxVelocity, double maxAcceleration, double startAngle,
 		double endAngle, boolean isBackwards, Pose... knots) {
-		this(maxVelocity, maxAcceleration, startAngle, endAngle, isBackwards, 1, 1, knots);
+		this(maxVelocity, maxAcceleration, startAngle, endAngle, isBackwards, 1,
+			1, knots);
 	}
 
 	public static SimpleSpline pointTurn(Pose startPosition, double endAngle) {
-		return new SimpleSpline(VELOCITY_MAX / 4, ACCELERATION_MAX, startPosition.getAngle(), endAngle, true, 0.00001, 0.00001, startPosition, new Pose(startPosition.getX() + 0.001, startPosition.getY() + 0.001, endAngle));
+		return pointTurn(VELOCITY_MAX / 4, ACCELERATION_MAX, startPosition, endAngle);
+	}
+
+	public static SimpleSpline pointTurn(double maxVelocity, double maxAcceleration,
+		Pose startPosition, double endAngle) {
+		return new SimpleSpline(maxVelocity, maxAcceleration, startPosition.getAngle(), endAngle,
+			false, 0, 0, startPosition,
+			new Pose(startPosition.getX(), startPosition.getY(), endAngle));
 	}
 
 	public static SimpleSpline pathFromPosesWithAngle(boolean isBackwards, Pose... knots) {
