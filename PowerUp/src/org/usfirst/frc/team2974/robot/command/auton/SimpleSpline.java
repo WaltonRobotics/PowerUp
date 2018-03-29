@@ -49,17 +49,6 @@ public class SimpleSpline extends Command {
 			1, knots);
 	}
 
-	public static SimpleSpline pointTurn(Pose startPosition, double endAngle) {
-		return pointTurn(VELOCITY_MAX / 4, ACCELERATION_MAX, startPosition, endAngle);
-	}
-
-	public static SimpleSpline pointTurn(double maxVelocity, double maxAcceleration,
-		Pose startPosition, double endAngle) {
-		return new SimpleSpline(maxVelocity, maxAcceleration, startPosition.getAngle(), endAngle,
-			false, 0, 0, startPosition,
-			new Pose(startPosition.getX(), startPosition.getY(), endAngle));
-	}
-
 	public static SimpleSpline pathFromPosesWithAngle(boolean isBackwards, Pose... knots) {
 		return pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, isBackwards, knots);
 	}

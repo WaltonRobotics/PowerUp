@@ -49,7 +49,7 @@ public class DriveSwitchScale extends AutonOption {
 		addSequential(new ElevatorTarget(LOW_HEIGHT));
 
 //		//FIXME ARRRGGGGG WHY IS POINT TURN NOT WORKING
-		addSequential(SimpleSpline.pointTurn(R3, Math.toRadians(270))); //TODO make point turn
+		addSequential(SimpleTurn.pointTurn(R3, Math.toRadians(270))); //TODO make point turn
 
 //        addSequential(SimpleSpline
 //                .pathFromPosesWithAngle(true , R3, R3.offset(-1, -1, 0)));
