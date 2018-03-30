@@ -9,6 +9,7 @@ import static org.usfirst.frc.team2974.robot.Config.Input.ELEVATOR_TOGGLE_CONTRO
 import static org.usfirst.frc.team2974.robot.Config.Input.ELEVATOR_ZERO;
 import static org.usfirst.frc.team2974.robot.Config.Input.GAMEPAD_PORT;
 import static org.usfirst.frc.team2974.robot.Config.Input.INTAKE_BUTTON;
+import static org.usfirst.frc.team2974.robot.Config.Input.INTAKE_LOW_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.LEFT_JOYSTICK_PORT;
 import static org.usfirst.frc.team2974.robot.Config.Input.OUTPUT_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.OUTPUT_HALF_BUTTON;
@@ -56,6 +57,7 @@ public final class OI {
 	public static final Button intake;
 	public static final Button output;
 	public static final Button outputHalf;
+	public static final Button intakeHalf;
 
 	static {
 		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
@@ -80,6 +82,7 @@ public final class OI {
 		intake = new JoystickButton(gamepad, INTAKE_BUTTON);
 		output = new JoystickButton(gamepad, OUTPUT_BUTTON);
 		outputHalf = new JoystickButton(gamepad, OUTPUT_HALF_BUTTON);
+		intakeHalf = new JoystickButton(gamepad, INTAKE_LOW_BUTTON);
 	}
 
 	private OI() {

@@ -124,7 +124,7 @@ public final class Config {
 		public static final int INTAKE_BUTTON = Button.RIGHT_TRIGGER.index();
 		public static final int OUTPUT_BUTTON = Button.LEFT_TRIGGER.index();
 		public static final int OUTPUT_HALF_BUTTON = Button.LEFT_BUMPER.index();
-		public static final int INTAKE_HALF_BUTTON = Button.RIGHT_BUMPER.index();
+		public static final int INTAKE_LOW_BUTTON = Button.RIGHT_BUMPER.index();
 
 		public static final int ELEVATOR_NUDGE_UP = POV.N.angle(); // pov
 		public static final int ELEVATOR_NUDGE_DOWN = POV.S.angle(); // pov

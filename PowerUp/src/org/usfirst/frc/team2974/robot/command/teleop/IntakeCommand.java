@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
 import static org.usfirst.frc.team2974.robot.OI.intake;
+import static org.usfirst.frc.team2974.robot.OI.intakeHalf;
 import static org.usfirst.frc.team2974.robot.OI.output;
 import static org.usfirst.frc.team2974.robot.OI.outputHalf;
 import static org.usfirst.frc.team2974.robot.Robot.intakeOutput;
@@ -61,6 +62,8 @@ public class IntakeCommand extends Command {
 			public State periodic() {
 				if (intake.get()) {
 					return IN;
+				} else if (intakeHalf.get()) {
+					return IN_HALF;
 				} else if (output.get()) {
 					return OUT;
 				} else if (outputHalf.get()) {
@@ -73,6 +76,19 @@ public class IntakeCommand extends Command {
 			public void init() {
 				updateState();
 				intakeOutput.highIntake();
+			}
+
+			public State periodic() {
+				if (!intake.get()) {
+					return OFF;
+				}
+				return this;
+			}
+		},
+		IN_HALF {
+			public void init() {
+				updateState();
+				intakeOutput.lowIntake();
 			}
 
 			public State periodic() {
