@@ -160,6 +160,17 @@ public class Elevator extends Subsystem {
 		return zeroing;
 	}
 
+	public void zero() {
+		zeroing = true;
+		zeroed = false;
+		elevatorMotor.configReverseSoftLimitEnable(false, 10);
+//            zeroEncoder();
+		disableControl();
+
+//			System.out.println("Heloo ");
+		timer.start();
+	}
+
 	public boolean isMotionControlled() {
 		return isMotionControlled;
 	}
@@ -218,14 +229,7 @@ public class Elevator extends Subsystem {
 
 	public void startZero() {
 		if (!zeroed) {
-			zeroing = true;
-			zeroed = false;
-			elevatorMotor.configReverseSoftLimitEnable(false, 10);
-//            zeroEncoder();
-			disableControl();
-
-//			System.out.println("Heloo ");
-			timer.start();
+			zero();
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.AbstractList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -12,7 +13,7 @@ import java.util.LinkedList;
  */
 public class ElevatorLogger {
 
-	private final LinkedList<ElevatorData> motionDataList;
+	private final AbstractList<ElevatorData> motionDataList;
 	private final String filePath;
 
 	/**

@@ -6,6 +6,7 @@ import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -125,6 +126,12 @@ public class Robot extends IterativeRobot {
 
 		//		Drive train
 		SmartDashboard.putNumber("Speed Percentage", .50 /*.75*/);
+		SmartDashboard.putData("Zero elevator", new InstantCommand() {
+			@Override
+			protected void initialize() {
+				elevator.zero();
+			}
+		});
 
 		updateSmartDashboard();
 	}

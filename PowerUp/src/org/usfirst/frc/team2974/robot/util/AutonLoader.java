@@ -22,7 +22,7 @@ import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 /**
  * Used solely to get the autonomous commands from GamePosition.
  */
-public class AutonLoader {
+public final class AutonLoader {
 
 	private AutonLoader() {
 	}
