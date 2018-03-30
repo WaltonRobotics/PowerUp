@@ -6,7 +6,7 @@ public abstract class AutonOption extends CommandGroup {
 
 	private boolean isOptionSelected;
 
-	AutonOption() {
+	protected AutonOption() {
 
 		isOptionSelected = false;
 	}

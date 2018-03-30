@@ -112,7 +112,7 @@ public class DriveToScale extends AutonOption {
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
 		addSequential(
-			SimpleSpline.pathFromPosesWithAngleAndScale(true, .5, 1, startPosition, pointTurn));
+			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.5, 1, startPosition, pointTurn));
 
 		addSequential(SimpleTurn.pointTurn(pointTurn, endPosition));
 		setOptionSelected(true);
@@ -128,7 +128,7 @@ public class DriveToScale extends AutonOption {
 		temp.addSequential(new IntakeCube());
 		addParallel(temp);
 		addSequential(
-			SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, .5, pointTurn, cubePosition));
+			SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 0.5, pointTurn, cubePosition));
 
 		setOptionSelected(true);
 

@@ -215,7 +215,7 @@ public final class Config {
 			StrictMath.toRadians(90));
 		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/,
 			StrictMath.toRadians(90));
-		public static final Pose C4 = new Pose(0.0, .8478 /*1.4478*/,
+		public static final Pose C4 = new Pose(0.0, 0.8478 /*1.4478*/,
 			StrictMath.toRadians(90)); // before pyramid
 		public static final Pose C5 = new Pose(0.0249 /*0.05*/, 2.5146,
 			StrictMath.toRadians(90)); // at pyramid

@@ -59,7 +59,7 @@ public class ElevatorCommand extends Command {
 				double power = -gamepad.getLeftY();
 
 				if (power < 0) {
-					power *= .75;
+					power *= 0.75;
 				}
 
 				elevator.setPower(power);
@@ -68,7 +68,7 @@ public class ElevatorCommand extends Command {
 				double power = -gamepad.getRightY();
 
 				if (power < 0) {
-					power *= .75;
+					power *= 0.75;
 				}
 
 				elevator.setPower(power);
