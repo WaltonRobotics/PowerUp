@@ -124,6 +124,7 @@ public final class Config {
 		public static final int INTAKE_BUTTON = Button.RIGHT_TRIGGER.index();
 		public static final int OUTPUT_BUTTON = Button.LEFT_TRIGGER.index();
 		public static final int OUTPUT_HALF_BUTTON = Button.LEFT_BUMPER.index();
+		public static final int INTAKE_HALF_BUTTON = Button.RIGHT_BUMPER.index();
 
 		public static final int ELEVATOR_NUDGE_UP = POV.N.angle(); // pov
 		public static final int ELEVATOR_NUDGE_DOWN = POV.S.angle(); // pov
@@ -149,7 +150,7 @@ public final class Config {
 		public static final double LOW_HEIGHT = 0; // inches, the floor
 
 		public static final int MINIMUM_HEIGHT = 1000; // in nu (native units)
-		public static final int MAXIMUM_HEIGHT = 20000; // in nu
+		public static final int MAXIMUM_HEIGHT = 50900; // in nu
 
 		public static final int MINIMUM_HEIGHT_COMP = 1000; // 1000 in nu (native units)
 		public static final int MAXIMUM_HEIGHT_COMP = 26150; // in nu
@@ -194,12 +195,13 @@ public final class Config {
 		public static final Pose R2 = new Pose(2.60000, 4.64134, StrictMath.toRadians(90));
 		public static final Pose R3 = new Pose(2.12905, 7.17946/*8.03946*/,
 			StrictMath.toRadians(135/*180*/));
+		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), Math.toRadians(240));
 		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
 		public static final Pose R5 = new Pose(1.49248, 4.26720, StrictMath.toRadians(180));
 		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
 		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
-		public static final Pose R9 = new Pose(2.33045, 5.93509, StrictMath.toRadians(270));
+		public static final Pose R9 = new Pose(1.0414, 5.02069, StrictMath.toRadians(270));
 		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
 			StrictMath.toRadians(180/*180*/));
 		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/,
@@ -245,6 +247,7 @@ public final class Config {
 		public static final Pose L11 = negateX(R11);
 		public static final Pose L12 = negateX(R12);
 		public static final Pose L13 = negateX(R13);
+		public static final Pose L14 = negateX(R14);
 
 		private Path() {
 		}
