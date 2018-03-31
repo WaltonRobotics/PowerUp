@@ -76,7 +76,7 @@ public class DriveToSwitch extends AutonOption {
 	public DriveToSwitch startRightEndLeft() {
 		//test these points
 		return AutonUtil
-			.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8, Math.toRadians(180)),
+			.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8,180),
 				L13, L7, L5);
 	}
 
