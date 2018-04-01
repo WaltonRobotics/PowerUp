@@ -33,8 +33,9 @@ public final class AutonUtil {
 
 	public static CommandGroup createSequence(Command... commands) {
 		CommandGroup group = new CommandGroup();
-		for(Command c : commands)
+		for (Command c : commands) {
 			group.addSequential(c);
+		}
 		return group;
 	}
 }

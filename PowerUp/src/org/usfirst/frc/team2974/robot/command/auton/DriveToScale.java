@@ -47,7 +47,8 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private DriveToScale driveToScale(Pose[] toScale, Pose forwardPoint) {
-		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.45), new ElevatorTarget(HIGH_HEIGHT)));
+		addParallel(
+			AutonUtil.createSequence(new WaitUntilPercent(.45), new ElevatorTarget(HIGH_HEIGHT)));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, toScale));
 		addSequential(new ElevatorTarget(HIGH_HEIGHT));
 
@@ -114,7 +115,8 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
-		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.5), new ElevatorTarget(HIGH_HEIGHT)));
+		addParallel(
+			AutonUtil.createSequence(new WaitUntilPercent(.5), new ElevatorTarget(HIGH_HEIGHT)));
 		addSequential(
 			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.7, 1.2, startPosition, pointTurn));
 

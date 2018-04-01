@@ -202,7 +202,8 @@ public final class Config {
 		public static final Pose R7 = new Pose(2.85623, 5.17840, 270);
 		public static final Pose R8 = new Pose(2.85623, 5.80987, 270);
 		public static final Pose R9 = new Pose(1.0414, 5.02069, 270);
-		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */, 180/*180*/);
+		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
+			180/*180*/);
 		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/, 140/*180*/);
 		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, 45/*180*/);
 		public static final Pose R13 = new Pose(0.83147, 5.90987, 180);
@@ -212,7 +213,8 @@ public final class Config {
 		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/, 90);
 		public static final Pose C4 = new Pose(0.0, 0.8478 /*1.4478*/, 90); // before pyramid
 		public static final Pose C5 = new Pose(0.0249 /*0.05*/, 2.5146, 90); // at pyramid
-		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/, 90); // after getting the second cube. does not go as far back as when going to the pyramid
+		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/,
+			90); // after getting the second cube. does not go as far back as when going to the pyramid
 		public static final Pose C7 = new Pose(1.59388, 3.37791 /*3.12791*/, 90); // right
 		public static final Pose C8 = new Pose(-1.39388, 3.37791 /*3.12791*/, 90); //left
 		public static final Pose C9 = new Pose(0.0 /*0.05*/, 2.5146, 90); // at pyramid
