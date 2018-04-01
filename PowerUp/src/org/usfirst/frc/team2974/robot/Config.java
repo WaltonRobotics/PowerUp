@@ -190,46 +190,32 @@ public final class Config {
 		public static final double ACCELERATION_MAX = 3.5; //2 m/s^2 //TODO check if these variables are the ones actually being used in splines
 
 		// IMPORTANT: these points are measured from the center line
-		public static final Pose R0 = new Pose(2.38333, 0.42835, StrictMath.toRadians(90));
-		public static final Pose R1 = new Pose(2.60000, 3.55600, StrictMath.toRadians(90));
-		public static final Pose R2 = new Pose(2.60000, 4.64134, StrictMath.toRadians(90));
-		public static final Pose R3 = new Pose(2.12905, 7.17946/*8.03946*/,
-			StrictMath.toRadians(135/*180*/));
-		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), Math.toRadians(240));
-		public static final Pose R4 = new Pose(2.85623, 3.55600, StrictMath.toRadians(90));
-		public static final Pose R5 = new Pose(1.49248, 4.26720, StrictMath.toRadians(180));
-		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
-		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
-		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
-		public static final Pose R9 = new Pose(1.1014, 5.02069, StrictMath.toRadians(270));
-		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
-			StrictMath.toRadians(180/*180*/));
-		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/,
-			StrictMath.toRadians(140/*180*/));
-		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/,
-			StrictMath.toRadians(45/*180*/));
-		public static final Pose R13 = new Pose(0.83147, 5.90987, Math.toRadians(180));
 
-		public static final Pose C0 = new Pose(0.19177, 0.42835, StrictMath.toRadians(90));
-		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/,
-			StrictMath.toRadians(90));
-		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/,
-			StrictMath.toRadians(90));
-		public static final Pose C4 = new Pose(0.0, 0.8478 /*1.4478*/,
-			StrictMath.toRadians(90)); // before pyramid
-		public static final Pose C5 = new Pose(0.0249 /*0.05*/, 2.5146,
-			StrictMath.toRadians(90)); // at pyramid
-		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/,
-			StrictMath.toRadians(
-				90)); // after getting the second cube. does not go as far back as when going to the pyramid
+		public static final Pose R0 = new Pose(2.38333, 0.42835, 90);
+		public static final Pose R1 = new Pose(2.60000, 3.55600, 90);
+		public static final Pose R2 = new Pose(2.60000, 4.64134, 90);
+		public static final Pose R3 = new Pose(2.12905, 7.17946/*8.03946*/, 135/*180*/);
+		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), 240);
+		public static final Pose R4 = new Pose(2.85623, 3.55600, 90);
+		public static final Pose R5 = new Pose(1.49248, 4.26720, 180);
+		public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
+		public static final Pose R7 = new Pose(2.85623, 5.17840, 270);
+		public static final Pose R8 = new Pose(2.85623, 5.80987, 270);
+		public static final Pose R9 = new Pose(1.0414, 5.02069, 270);
+		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */, 180/*180*/);
+		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/, 140/*180*/);
+		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, 45/*180*/);
+		public static final Pose R13 = new Pose(0.83147, 5.90987, 180);
 
-		public static final Pose C7 = new Pose(1.59388, 3.37791 /*3.12791*/,
-			StrictMath.toRadians(90)); // right
-		public static final Pose C8 = new Pose(-1.39388, 3.37791 /*3.12791*/,
-			StrictMath.toRadians(90)); //left
-
-		public static final Pose C9 = new Pose(0.0 /*0.05*/, 2.5146,
-			StrictMath.toRadians(90)); // at pyramid
+		public static final Pose C0 = new Pose(0.19177, 0.42835, 90);
+		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/, 90);
+		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/, 90);
+		public static final Pose C4 = new Pose(0.0, 0.8478 /*1.4478*/, 90); // before pyramid
+		public static final Pose C5 = new Pose(0.0249 /*0.05*/, 2.5146, 90); // at pyramid
+		public static final Pose C6 = new Pose(0.0, 1.4478 /*1.4478*/, 90); // after getting the second cube. does not go as far back as when going to the pyramid
+		public static final Pose C7 = new Pose(1.59388, 3.37791 /*3.12791*/, 90); // right
+		public static final Pose C8 = new Pose(-1.39388, 3.37791 /*3.12791*/, 90); //left
+		public static final Pose C9 = new Pose(0.0 /*0.05*/, 2.5146, 90); // at pyramid
 
 
 		// we can do this because every point is measured from the center line.

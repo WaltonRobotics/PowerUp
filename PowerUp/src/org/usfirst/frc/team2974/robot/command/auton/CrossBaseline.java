@@ -55,8 +55,8 @@ public class CrossBaseline extends CommandGroup {
 
 		addSequential(SimpleSpline
 			.pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, false,
-				new Pose(0, 0, StrictMath.toRadians(90)),
-				new Pose(0, yMovement, StrictMath.toRadians(90))));
+				new Pose(0, 0, 90),
+				new Pose(0, yMovement, 90)));
 		return this;
 	}
 
