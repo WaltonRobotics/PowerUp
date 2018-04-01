@@ -22,7 +22,9 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.command.WaitForChildren;
 import org.usfirst.frc.team2974.robot.Robot;
+import org.usfirst.frc.team2974.robot.util.AutonUtil;
 import org.waltonrobotics.controller.Pose;
 
 /**
@@ -45,8 +47,9 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private DriveToScale driveToScale(Pose[] toScale, Pose forwardPoint) {
+		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.45), new ElevatorTarget(HIGH_HEIGHT)));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, toScale));
-		addSequential(new ElevatorTarget(HIGH_HEIGHT));// TODO ADD BACK
+		addSequential(new ElevatorTarget(HIGH_HEIGHT));
 
 		forwardsDropBackwards(toScale[toScale.length - 1], forwardPoint);
 		setOptionSelected(true);
@@ -92,8 +95,8 @@ public class DriveToScale extends AutonOption {
 	}
 
 	public void toSwitch() {
-		addSequential(new ElevatorTarget(MEDIUM_HEIGHT)); //TODO ADD this back
-		addSequential(new DropCube()); //TODO Add this back in
+		addSequential(new ElevatorTarget(MEDIUM_HEIGHT));
+		addSequential(new DropCube());
 
 		setOptionSelected(true);
 	}
@@ -111,24 +114,23 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
+		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.5), new ElevatorTarget(HIGH_HEIGHT)));
 		addSequential(
-			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.5, 1, startPosition, pointTurn));
+			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.7, 1.2, startPosition, pointTurn));
 
 		addSequential(SimpleTurn.pointTurn(pointTurn, endPosition));
 		setOptionSelected(true);
 	}
 
 	private void scaleSwitch(Pose scaleEndPosition, Pose pointTurn, Pose cubePosition) {
-		addSequential(new ElevatorTarget(LOW_HEIGHT)); //TODO ADD BACK
+		addParallel(new ElevatorTarget(LOW_HEIGHT));
 
 		addSequential(SimpleTurn.pointTurn(scaleEndPosition, pointTurn));
+		addSequential(new ElevatorTarget(LOW_HEIGHT));
 
-		CommandGroup temp = new CommandGroup();
-		temp.addSequential(new WaitCommand(1));
-		temp.addSequential(new IntakeCube());
-		addParallel(temp);
+		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.5), new IntakeCube()));
 		addSequential(
-			SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 0.5, pointTurn, cubePosition));
+			SimpleSpline.pathFromPosesWithAngleAndScale(false, 1.2, 0.7, pointTurn, cubePosition));
 
 		setOptionSelected(true);
 

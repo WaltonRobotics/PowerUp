@@ -29,7 +29,6 @@ public class CrossBaseline extends CommandGroup {
 	 * work correctly.
 	 */
 	public CrossBaseline() {
-
 		isOptionSelected = false;
 
 		// add sequential later.
@@ -79,62 +78,6 @@ public class CrossBaseline extends CommandGroup {
 		}
 
 		return this; // ease of use :) <--- smiley face :)
-	}
-
-	public CrossBaseline backUp() {
-		isOptionSelected = true;
-
-		// From both left and right, splines to the center
-		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(true, 2, 1, C1, C4));
-		} else {
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(true, 2, 1, C2, C4));
-		}
-
-		return this;
-	}
-
-
-	public CrossBaseline returnToSwitch() {
-		isOptionSelected = true;
-
-		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
-		// From both left and right, splines to the center
-		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C7));
-		} else {
-
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C8));
-
-		}
-
-//		addSequential(new WaitCommand(1));
-		addSequential(new DropCube());
-		return this;
-	}
-
-
-	public CrossBaseline toPyramid() {
-		isOptionSelected = true;
-
-		//moves forward to the pyramid to pick up a cube
-
-		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
-		} else {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C9));
-		}
-
-		return this;
-	}
-
-	public CrossBaseline fromPyramid() {
-		isOptionSelected = true;
-
-		//moves forward to the pyramid to pick up a cube
-		addSequential(SimpleSpline.pathFromPosesWithAngle(true, C5, C6));
-
-		return this;
 	}
 
 	@Override

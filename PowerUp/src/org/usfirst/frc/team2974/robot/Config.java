@@ -201,7 +201,7 @@ public final class Config {
 		public static final Pose R6 = new Pose(3.61036, 5.80987, StrictMath.toRadians(0));
 		public static final Pose R7 = new Pose(2.85623, 5.17840, StrictMath.toRadians(270));
 		public static final Pose R8 = new Pose(2.85623, 5.80987, StrictMath.toRadians(270));
-		public static final Pose R9 = new Pose(1.0414, 5.02069, StrictMath.toRadians(270));
+		public static final Pose R9 = new Pose(1.1014, 5.02069, StrictMath.toRadians(270));
 		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
 			StrictMath.toRadians(180/*180*/));
 		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/,

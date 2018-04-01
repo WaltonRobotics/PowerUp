@@ -74,10 +74,9 @@ public class IntakeOutput extends Subsystem {
 
 	public double getLeftMotorCurrent() {
 		return intakeMotorLeft.getMotorOutputVoltage();
-//		return intakeMotorLeft.getOutputCurrent();
 	}
 
 	public double getRightMotorCurrent() {
-		return intakeMotorRight.getOutputCurrent();
+		return intakeMotorRight.getMotorOutputVoltage();
 	}
 }
