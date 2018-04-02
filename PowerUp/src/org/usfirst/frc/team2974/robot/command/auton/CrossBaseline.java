@@ -1,16 +1,9 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.C0;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
-import static org.usfirst.frc.team2974.robot.Config.Path.C4;
-import static org.usfirst.frc.team2974.robot.Config.Path.C5;
-import static org.usfirst.frc.team2974.robot.Config.Path.C6;
-import static org.usfirst.frc.team2974.robot.Config.Path.C7;
-import static org.usfirst.frc.team2974.robot.Config.Path.C8;
-import static org.usfirst.frc.team2974.robot.Config.Path.C9;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -25,8 +18,7 @@ public class CrossBaseline extends CommandGroup {
 	private boolean isOptionSelected;
 
 	/**
-	 * Follow up your constructor with a call to either left, right, or center to make this command
-	 * work correctly.
+	 * Follow up your constructor with a call to either left, right, or center to make this command work correctly.
 	 */
 	public CrossBaseline() {
 		isOptionSelected = false;

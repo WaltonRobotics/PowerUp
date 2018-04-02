@@ -11,8 +11,8 @@ import org.waltonrobotics.controller.Pose;
 /**
  * This enum is meant to represent all possible autonomous.
  *
- * DriveCommand Station position l = left drive station c = center drive station r = right drive
- * station <p> Field position L = left R = right . = any X = remove character
+ * DriveCommand Station position l = left drive station c = center drive station r = right drive station <p> Field
+ * position L = left R = right . = any X = remove character
  */
 public enum GamePosition {
 	DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT("lRR.", L0),

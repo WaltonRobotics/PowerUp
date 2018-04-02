@@ -10,8 +10,7 @@ import org.usfirst.frc.team2974.robot.Gamepad.POV;
 import org.waltonrobotics.controller.Pose;
 
 /**
- * This holds many constant values for all parts of the robot. It increases efficiency and
- * effectiveness of the code.
+ * This holds many constant values for all parts of the robot. It increases efficiency and effectiveness of the code.
  */
 public final class Config {
 

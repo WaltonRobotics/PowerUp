@@ -20,9 +20,6 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R3;
 import static org.usfirst.frc.team2974.robot.Config.Path.R9;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import edu.wpi.first.wpilibj.command.WaitForChildren;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
 import org.waltonrobotics.controller.Pose;
@@ -116,8 +113,8 @@ public class DriveToScale extends AutonOption {
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
 		addParallel(AutonUtil.createSequence(
-				new WaitUntilPercent(.5),
-				new ElevatorTarget(HIGH_HEIGHT)
+			new WaitUntilPercent(.5),
+			new ElevatorTarget(HIGH_HEIGHT)
 		));
 		addSequential(
 			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.7, 1.2, startPosition, pointTurn));

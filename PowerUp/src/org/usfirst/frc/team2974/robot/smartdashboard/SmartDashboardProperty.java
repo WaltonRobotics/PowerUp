@@ -30,8 +30,7 @@ public class SmartDashboardProperty<T> {
 	 *
 	 * @param key the key that SmartDashboard will take in to find or update the value
 	 * @param defaultValue the default value that SmartDashboard will take in to retrieve a value
-	 * @param valueSupplier the value that you wish to place into SmartDashboard, can be null for a
-	 * static value
+	 * @param valueSupplier the value that you wish to place into SmartDashboard, can be null for a static value
 	 */
 	public SmartDashboardProperty(String key, T defaultValue, Supplier<T> valueSupplier) {
 		this.key = key;
@@ -61,8 +60,7 @@ public class SmartDashboardProperty<T> {
 	}
 
 	/**
-	 * Sets the value and updates SmartDashboard by running the onValueChange Runnable object run
-	 * method
+	 * Sets the value and updates SmartDashboard by running the onValueChange Runnable object run method
 	 *
 	 * @param value the value you want value to be
 	 */
@@ -85,8 +83,7 @@ public class SmartDashboardProperty<T> {
 	}
 
 	/**
-	 * Returns the value supplier. This is used to determine the value that is meant to be on
-	 * SmartDashboard
+	 * Returns the value supplier. This is used to determine the value that is meant to be on SmartDashboard
 	 *
 	 * @return returns valueSupplier
 	 */
@@ -97,8 +94,7 @@ public class SmartDashboardProperty<T> {
 	/**
 	 * Sets valueSupplier
 	 *
-	 * @param valueSupplier the new valueSupplier that should return what value should be placed in
-	 * SmartDashboard
+	 * @param valueSupplier the new valueSupplier that should return what value should be placed in SmartDashboard
 	 */
 	public void setValueSupplier(Supplier<T> valueSupplier) {
 		this.valueSupplier = valueSupplier;
@@ -143,8 +139,8 @@ public class SmartDashboardProperty<T> {
 	}
 
 	/**
-	 * This method retrieves the latest value from the value Supplier and if the value changes it
-	 * will use the onValueChange Runnable object to update SmartDashboard
+	 * This method retrieves the latest value from the value Supplier and if the value changes it will use the
+	 * onValueChange Runnable object to update SmartDashboard
 	 */
 	public void update() {
 		if (valueSupplier != null) {

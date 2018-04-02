@@ -45,11 +45,9 @@ public final class SmartDashboardManager {
 	 * added later.</p>
 	 *
 	 * @param key SmartDashboard key
-	 * @param defaultValue Default value that SmartDashboard will returns if it cannot find the
-	 * value
+	 * @param defaultValue Default value that SmartDashboard will returns if it cannot find the value
 	 * @param valueSupplier Supplier used to get the updating value
-	 * @param <T> the data type you want SmartDashboard to display (most of the time you don't need
-	 * to worry about it)
+	 * @param <T> the data type you want SmartDashboard to display (most of the time you don't need to worry about it)
 	 * @return The SmartDashboard property created
 	 */
 	public static <T> SmartDashboardProperty<T> addBind(String key, T defaultValue,
@@ -150,10 +148,9 @@ public final class SmartDashboardManager {
 	}
 
 	/**
-	 * Iterates through the PROPERTIES list and calls the update method for each individual
-	 * property. The update method in the property uses its supplier to get the latest value and if
-	 * the value changes it will update the value by doing whatever the Runnable object
-	 * onValueChange tells it to do
+	 * Iterates through the PROPERTIES list and calls the update method for each individual property. The update method
+	 * in the property uses its supplier to get the latest value and if the value changes it will update the value by
+	 * doing whatever the Runnable object onValueChange tells it to do
 	 */
 	public static void update() {
 		PROPERTIES.forEach(SmartDashboardProperty::update);
