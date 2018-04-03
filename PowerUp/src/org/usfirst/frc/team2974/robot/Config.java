@@ -103,7 +103,7 @@ public final class Config {
 		}
 	}
 
-	public static final class Input { // TODO: get from drive team
+	public static final class Input {
 
 		public static final int LEFT_JOYSTICK_PORT = 0;
 		public static final int RIGHT_JOYSTICK_PORT = 1;
@@ -143,7 +143,6 @@ public final class Config {
 	public static final class Elevator {
 
 		public static final double TOLERANCE = 0.1;
-		public static final double INCHES_TO_NU = 775 /*775*/; // TODO: improve number to improve accuracy
 
 		public static final double HIGH_HEIGHT = 66; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
@@ -161,7 +160,7 @@ public final class Config {
 		public static final int ACCELERATION = 2000; // ^^^ per second
 
 		// motion control constants
-		public static final double KF = 0.4661; //TODO multiply by 2
+		public static final double KF = 0.4661;
 		public static final double KP = 1;
 		public static final double KI = 0.001;
 		public static final double KD = 0;

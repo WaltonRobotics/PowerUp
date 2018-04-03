@@ -31,10 +31,7 @@ public class ElevatorCommand extends Command {
 
 	@Override
 	protected void execute() {
-//		System.out.println(elevator.isMotionControlled());
 		if (elevator.isMotionControlled()) {
-//			System.out.println("Getting button inputs");
-
 			if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
 				elevator.nudge(NUDGE_DISTANCE);
 			}
@@ -51,11 +48,7 @@ public class ElevatorCommand extends Command {
 				elevator.setTarget(LOW_HEIGHT);
 			}
 		} else {
-//			System.out.println("Joystick input receiving");
-//			System.out.println("Abs get Y " + Math.abs(gamepad.getLeftY()));
-			if (Math.abs(gamepad.getLeftY()) /*TODO look at why getLeftY return 0*/
-				> TOLERANCE) {
-
+			if (Math.abs(gamepad.getLeftY()) > TOLERANCE) {
 				double power = -gamepad.getLeftY();
 
 				if (power < 0) {
@@ -64,7 +57,6 @@ public class ElevatorCommand extends Command {
 
 				elevator.setPower(power);
 			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
-
 				double power = -gamepad.getRightY();
 
 				if (power < 0) {
@@ -85,9 +77,7 @@ public class ElevatorCommand extends Command {
 			}
 		}
 
-		if (elevatorZero.get())
-
-		{
+		if (elevatorZero.get()) {
 			elevator.startZero();
 		}
 

@@ -17,7 +17,7 @@ public class DebugSmartDashboardProperty<T> extends SmartDashboardProperty<T> {
 		super.updateSmartDashboard();
 //        } else if (SmartDashboardManager.containsBind(getKey())) {
 //             why dost thou do this to me SmartDashboard
-//            SmartDashboardManager.removeBind(getKey()); // TODO: fix so it actually deletes
+//            SmartDashboardManager.removeBind(getKey());
 //        }
 	}
 }

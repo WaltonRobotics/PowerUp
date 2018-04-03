@@ -69,7 +69,7 @@ public class DriveToScale extends AutonOption {
 				startPosition,
 				endPosition));
 
-//		addSequential(new WaitCommand(1)); // TODO remove this?
+//		addSequential(new WaitCommand(1));
 		addSequential(new DropCube());
 
 		addSequential(SimpleSpline
@@ -102,7 +102,7 @@ public class DriveToScale extends AutonOption {
 		setOptionSelected(true);
 	}
 
-	public void backToScale() { //FIXME fix sequencing
+	public void backToScale() {
 		if (Robot.getScalePosition() == 'R') {
 			driveBackToScale(R9, R14, R3);
 			forwardsDropBackwards(R3, R11);
@@ -115,12 +115,15 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
-		addParallel(
-			AutonUtil.createSequence(new WaitUntilPercent(.5), new ElevatorTarget(HIGH_HEIGHT)));
+		addParallel(AutonUtil.createSequence(
+				new WaitUntilPercent(.5),
+				new ElevatorTarget(HIGH_HEIGHT)
+		));
 		addSequential(
 			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.7, 1.2, startPosition, pointTurn));
 
 		addSequential(SimpleTurn.pointTurn(pointTurn, endPosition));
+		addSequential(new ElevatorTarget(HIGH_HEIGHT)); // to fix errors with not being high enough
 		setOptionSelected(true);
 	}
 

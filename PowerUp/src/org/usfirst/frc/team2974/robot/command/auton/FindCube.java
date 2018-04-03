@@ -3,7 +3,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 /**
  * Finds the power cube and positions itself so it is in front of it.
  *
- * TODO: make the class function
+ * NOTE: this class will probably never be used.
  */
 public class FindCube extends AutonOption {
 

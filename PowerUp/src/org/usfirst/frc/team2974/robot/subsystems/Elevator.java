@@ -23,7 +23,7 @@ import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger.ElevatorData;
 
 /**
- * The elevator subsystem, which raises and lowers the intake/outtake <p> TODO: finish me
+ * The elevator subsystem, which raises and lowers the intake/outtake
  */
 public class Elevator extends Subsystem {
 
@@ -58,8 +58,7 @@ public class Elevator extends Subsystem {
 		if (zeroing) {
 			setPower(-0.2);
 
-			if (!elevatorLimitLower.get() || timer
-				.hasPeriodPassed(2.0 /*TODO tune time to be as small as possible*/)) {
+			if (!elevatorLimitLower.get() || timer.hasPeriodPassed(1.0)) {
 				zeroing = false;
 				timer.stop();
 				enableControl();
@@ -70,12 +69,9 @@ public class Elevator extends Subsystem {
 
 	public void initConstants() {
 		elevatorMotor.setNeutralMode(NeutralMode.Brake);
-		elevatorMotor
-			.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
-		elevatorMotor.setSensorPhase(Robot.getChoosenRobot()
-			.getSensorPhase()); // true for competition bot // false for practice
-		elevatorMotor.setInverted(Robot.getChoosenRobot()
-			.isReversed() /*false*/);
+		elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, TIMEOUT);
+		elevatorMotor.setSensorPhase(Robot.getChoosenRobot().getSensorPhase()); // true for comp bot; false for practice
+		elevatorMotor.setInverted(Robot.getChoosenRobot().isReversed() /*false*/);
 
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT);
 		elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, TIMEOUT);
@@ -97,33 +93,21 @@ public class Elevator extends Subsystem {
 
 		zeroed = false;
 
-		elevatorMotor
-			.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(),
-				10);
-		elevatorMotor
-			.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(),
-				10);
+		elevatorMotor.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(), TIMEOUT);
+		elevatorMotor.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(), TIMEOUT);
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(false, 10);
 
 		/* pass false to FORCE OFF the feature.  Otherwise the enable flags above are honored */
 		elevatorMotor.overrideLimitSwitchesEnable(true);
-
-
 	}
 
 	public void zeroEncoder() {
-		elevatorMotor.setSelectedSensorPosition(0, 0, TIMEOUT); // TODO: figure out later
+		elevatorMotor.setSelectedSensorPosition(0, 0, TIMEOUT); // there was a to-do(figure out later) here
 
-		/* +14 rotations forward when using CTRE Mag encoder */
-		elevatorMotor
-			.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(),
-				10); // TODO: FIX
-		/* -15 rotations reverse when using CTRE Mag encoder */
-		elevatorMotor
-			.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(),
-				10); // TODO: FIX
+		elevatorMotor.configForwardSoftLimitThreshold(Robot.getChoosenRobot().getMaximumElevatorHeight(), 10);
+		elevatorMotor.configReverseSoftLimitThreshold(Robot.getChoosenRobot().getMinimumElevatorHeight(), 10);
 
 		elevatorMotor.configForwardSoftLimitEnable(true, 10);
 		elevatorMotor.configReverseSoftLimitEnable(true, 10);

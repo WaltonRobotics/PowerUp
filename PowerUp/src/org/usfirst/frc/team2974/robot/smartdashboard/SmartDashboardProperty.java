@@ -147,8 +147,6 @@ public class SmartDashboardProperty<T> {
 	 * will use the onValueChange Runnable object to update SmartDashboard
 	 */
 	public void update() {
-		//FIXME this will not run if you have a static variable since the valueSupplier is always null causing it to never send the value to SmartDashboard
-
 		if (valueSupplier != null) {
 			setValue(valueSupplier.get());
 		}

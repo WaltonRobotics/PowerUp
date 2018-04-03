@@ -38,7 +38,7 @@ public class DriveToSwitch extends AutonOption {
 		backUp();
 
 		addParallel(AutonUtil.createSequence(
-			new WaitCommand(4) /*TODO make a sort of wait for distance motion command*/,
+			new WaitUntilPercent(.90),
 			new IntakeCube()
 		));
 
@@ -59,7 +59,7 @@ public class DriveToSwitch extends AutonOption {
 
 	public DriveToSwitch startRightEndLeft() {
 		return AutonUtil
-			.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8, 180),
+			.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8, 180), // TODO: MOVE TO CONFIG
 				L13, L7, L5);
 	}
 

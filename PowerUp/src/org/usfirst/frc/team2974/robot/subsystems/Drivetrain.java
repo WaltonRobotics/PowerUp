@@ -53,7 +53,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public void reset() {
-		System.out.println("Reset Drivetrain"); // TODO: do we need this?
+		System.out.println("Reset Drivetrain");
 		encoderLeft.reset();
 		encoderRight.reset();
 	}

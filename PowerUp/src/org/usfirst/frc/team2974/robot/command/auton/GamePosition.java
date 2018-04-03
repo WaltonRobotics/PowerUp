@@ -15,8 +15,6 @@ import org.waltonrobotics.controller.Pose;
  * station <p> Field position L = left R = right . = any X = remove character
  */
 public enum GamePosition {
-	// TODO: make these names smaller and better
-
 	DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT("lRR.", L0),
 	DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_LEFT("lRL.", L0),
 	DRIVE_STATION_LEFT_SWITCH_LEFT_SCALE_RIGHT("lLR.", L0),

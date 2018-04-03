@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
- * This button is used when you have multiple alternate buttons for the same purpose. TODO: ask
- * soham/tim if only one other alternate is needed (I think this is good for subsequent years)
+ * This button is used when you have multiple alternate buttons for the same purpose.
  */
 public class ButtonMultiple extends Button {
 

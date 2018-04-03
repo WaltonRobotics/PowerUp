@@ -6,23 +6,21 @@ import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 
 /**
- *
+ * Waits until a certain percentage done the robot is with its current path.
  */
 public class WaitUntilPercent extends Command {
 
-	public final double endPercent;
-	public double currentPercent;
+	private final double endPercent;
+	private double currentPercent;
 
 	public WaitUntilPercent(double percent) {
 		this.endPercent = percent;
 		currentPercent = 0;
 	}
 
-	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		try {
 			currentPercent = drivetrain.getPathPercentDone();
@@ -32,17 +30,13 @@ public class WaitUntilPercent extends Command {
 		}
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return currentPercent >= endPercent;
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
 	}

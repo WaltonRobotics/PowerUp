@@ -30,14 +30,16 @@ public class Robot extends IterativeRobot {
 	public static IntakeOutput intakeOutput;
 	public static PlaneBreaker planeBreaker;
 	public static Elevator elevator;
+
 	public static ElevatorLogger elevatorLogger;
 	public static MotionLogger motionLogger;
+
 	private static Config.Robot currentRobot;
+
 	private static String gameData; // for ease of access
 	private static int doNumberOfCubes = 2;
 	private static boolean confuseEnemy = false;
 	private CommandGroup autonCommands;
-	//    private static SendableChooser<Config.Robot> robotChooser = new SendableChooser<>();
 	private SendableChooser<Character> startLocation;
 	private SendableChooser<Integer> numberCubes;
 	private SendableChooser<Boolean> confuseEnenmy;
@@ -50,6 +52,7 @@ public class Robot extends IterativeRobot {
 		return doNumberOfCubes;
 	}
 
+	// TODO: 4/2/2018 EVAN lets make a better name for this
 	public static boolean confuseEnemy() {
 		return confuseEnemy;
 	}
@@ -74,8 +77,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		currentRobot =
-			RobotMap.robotIdentifier.get() ? Config.Robot.COMPETITION : Config.Robot.PRACTICE;
+		currentRobot = RobotMap.robotIdentifier.get() ? Config.Robot.COMPETITION : Config.Robot.PRACTICE;
 
 		motionLogger = new MotionLogger("/home/lvuser/");
 		elevatorLogger = new ElevatorLogger("/home/lvuser/");
@@ -84,13 +86,6 @@ public class Robot extends IterativeRobot {
 		planeBreaker = new PlaneBreaker();
 		elevator = new Elevator(elevatorLogger);
 
-//		drivetrain.startControllerMotion(R3);
-//		SmartDashboard.putData("POINT TURN", SimpleSpline
-//			.pathFromPosesWithAngleAndScale(false, .0001, .0001,R3, R12));
-
-//
-//		SmartDashboard.putData("Intake", new IntakeCube());
-//		SmartDashboard.putData("Drop Cube", new DropCube());
 		startLocation = new SendableChooser<>();
 		startLocation.addObject("Do Nothing", ' ');
 		startLocation.addObject("Left", 'l');
@@ -104,25 +99,6 @@ public class Robot extends IterativeRobot {
 		confuseEnenmy = new SendableChooser<>();
 		confuseEnenmy.addDefault("Do complete 2 cube", false);
 		confuseEnenmy.addObject("Stop before", true);
-
-//		SmartDashboard.putData(new Command() {
-//			@Override
-//			protected void initialize() {
-//				elevator.startZero();
-//			}
-//
-//			@Override
-//			protected boolean isFinished() {
-//				return true;
-//			}
-//		});
-
-//        robotChooser.addObject("Practice", Config.Robot.PRACTICE);
-//        robotChooser.addDefault("Competition", Config.Robot.COMPETITION);
-
-//        SmartDashboard.putData("TEST AUTON", SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 1, 90), new Pose(1, 2, 0), new Pose(2, 2, 0)));
-//		SmartDashboard.putData("6m drive straight",
-//			SimpleSpline.pathFromPosesWithAngle(false, new Pose(0, 0, 90), new Pose(0, 6, 90)));
 
 		//		Drive train
 		SmartDashboard.putNumber("Speed Percentage", 0.50 /*.75*/);
@@ -158,18 +134,11 @@ public class Robot extends IterativeRobot {
 		elevator.startZero();
 		motionLogger.initialize();
 		elevatorLogger.initialize();
-//        drivetrain.shiftDown();
 		drivetrain.shiftUp();
 		planeBreaker.moveUp();
 
 		confuseEnemy = confuseEnenmy.getSelected();
 		doNumberOfCubes = numberCubes.getSelected();
-
-//		if (doNothingChooser.getSelected()) { // if should do nothing
-//			System.out.println(">:( Nothing has been chosen. Scrubs.");
-//			autonCommands = GamePosition.DO_NOTHING.getCommand();
-//			return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
-//		}
 
 		while ((gameData == null) || gameData.isEmpty()) {
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
@@ -183,12 +152,9 @@ public class Robot extends IterativeRobot {
 			return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
 		}
 
-		//TODO remove this when we have the elevator able to reach the scale
-//		gameData = gameData.substring(0, 1) + "..";
-
-		System.out.println(startPosition);
-		System.out.println(gameData);
-		System.out.println(GamePosition.getGamePosition(startPosition, gameData));
+		System.out.printf("Start Position: %s", startPosition);
+		System.out.printf("Given GameData: %s", gameData);
+		System.out.printf("Game Position loaded: %s", GamePosition.getGamePosition(startPosition, gameData));
 
 		autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
 
@@ -208,8 +174,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-//        elevator.startZero(); TODO: check with tim
-
 		if (autonCommands != null) {
 			autonCommands.cancel();
 		}
@@ -248,9 +212,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 
 		// Selectors
-		SmartDashboard.putData("Drive Team/Start Location", startLocation);
-		SmartDashboard.putData("Drive Team/Number Of Cubes", numberCubes);
-		SmartDashboard.putData("Drive Team/Confuse enemy", confuseEnenmy);
+		SmartDashboard.putData("DriveTeam/Start Location", startLocation);
+		SmartDashboard.putData("DriveTeam/Number Of Cubes", numberCubes);
+		SmartDashboard.putData("DriveTeam/Confuse enemy", confuseEnenmy);
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
