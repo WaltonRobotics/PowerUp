@@ -45,7 +45,7 @@ public class DriveToScale extends AutonOption {
 
 	private DriveToScale driveToScale(Pose[] toScale, Pose forwardPoint) {
 		addParallel(
-			AutonUtil.createSequence(new WaitUntilPercent(.45), new ElevatorTarget(HIGH_HEIGHT)));
+			AutonUtil.createSequence(new WaitUntilPercent(.07), new ElevatorTarget(HIGH_HEIGHT)));
 		addSequential(SimpleSpline.pathFromPosesWithAngle(false, toScale));
 		addSequential(new ElevatorTarget(HIGH_HEIGHT));
 
@@ -56,6 +56,13 @@ public class DriveToScale extends AutonOption {
 	}
 
 	private void forwardsDropBackwards(Pose startPosition, Pose endPosition) {
+		forwardsDropBackwards(startPosition, endPosition, false);
+	}
+
+	private void forwardsDropBackwards(Pose startPosition, Pose endPosition, boolean waitForElevaotrOnTop) {
+
+		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.5), new DropCube()));
+
 		addSequential(SimpleSpline
 			.pathFromPosesWithAngleAndScale(
 				VELOCITY_MAX / 10,
@@ -66,8 +73,11 @@ public class DriveToScale extends AutonOption {
 				startPosition,
 				endPosition));
 
+		if (waitForElevaotrOnTop) {
+			addSequential(new ElevatorTarget(HIGH_HEIGHT));
+		}
+
 //		addSequential(new WaitCommand(1));
-		addSequential(new DropCube());
 
 		addSequential(SimpleSpline
 			.pathFromPosesWithAngleAndScale(
@@ -102,10 +112,10 @@ public class DriveToScale extends AutonOption {
 	public void backToScale() {
 		if (Robot.getScalePosition() == 'R') {
 			driveBackToScale(R9, R14, R3);
-			forwardsDropBackwards(R3, R11);
+			forwardsDropBackwards(R3, R11, true);
 		} else {
 			driveBackToScale(L9, L14, L3);
-			forwardsDropBackwards(L3, L11);
+			forwardsDropBackwards(L3, L11, true);
 		}
 		setOptionSelected(true);
 
@@ -113,14 +123,16 @@ public class DriveToScale extends AutonOption {
 
 	private void driveBackToScale(Pose startPosition, Pose pointTurn, Pose endPosition) {
 		addParallel(AutonUtil.createSequence(
-			new WaitUntilPercent(.5),
+			new WaitUntilPercent(.2),
 			new ElevatorTarget(HIGH_HEIGHT)
 		));
+
 		addSequential(
 			SimpleSpline.pathFromPosesWithAngleAndScale(true, 0.7, 1.2, startPosition, pointTurn));
 
 		addSequential(SimpleTurn.pointTurn(pointTurn, endPosition));
-		addSequential(new ElevatorTarget(HIGH_HEIGHT)); // to fix errors with not being high enough
+
+//		addSequential(new ElevatorTarget(HIGH_HEIGHT)); // to fix errors with not being high enough
 		setOptionSelected(true);
 	}
 
@@ -128,11 +140,12 @@ public class DriveToScale extends AutonOption {
 		addParallel(new ElevatorTarget(LOW_HEIGHT));
 
 		addSequential(SimpleTurn.pointTurn(scaleEndPosition, pointTurn));
-		addSequential(new ElevatorTarget(LOW_HEIGHT));
 
 		addParallel(AutonUtil.createSequence(new WaitUntilPercent(.5), new IntakeCube()));
 		addSequential(
 			SimpleSpline.pathFromPosesWithAngleAndScale(false, 1.2, 0.7, pointTurn, cubePosition));
+
+		addSequential(new ElevatorTarget(LOW_HEIGHT));
 
 		setOptionSelected(true);
 

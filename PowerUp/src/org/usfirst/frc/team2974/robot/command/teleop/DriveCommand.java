@@ -7,7 +7,6 @@ import static org.usfirst.frc.team2974.robot.OI.shiftUp;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Robot;
 
 /**
@@ -62,7 +61,8 @@ public class DriveCommand extends Command {
 		if (Robot.elevator.getCurrentPositionNU()
 			>= (Robot.getChoosenRobot().getMaximumElevatorHeight() * (0.5))) {
 //			double percentage = SmartDashboard.getNumber("Speed Percentage", 0.50);
-			double percentage = 1.2 - (Robot.elevator.getCurrentPositionNU() / Robot.getChoosenRobot().getMaximumElevatorHeight());
+			double percentage =
+				1.4 - (Robot.elevator.getCurrentPositionNU() / Robot.getChoosenRobot().getMaximumElevatorHeight());
 			leftPower *= percentage;
 			rightPower *= percentage;
 		}

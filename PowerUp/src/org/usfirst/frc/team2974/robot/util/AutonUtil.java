@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2974.robot.util;
 
+import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.command.auton.AutonOption;
@@ -21,8 +24,16 @@ public final class AutonUtil {
 	public static <T extends AutonOption> T driveToSinglePoint(T auton, double elevatorHeight,
 		boolean isBackwards,
 		Pose... splinePoints) {
+		return driveToSinglePoint(auton, VELOCITY_MAX, ACCELERATION_MAX, elevatorHeight, isBackwards, splinePoints);
+	}
+
+	public static <T extends AutonOption> T driveToSinglePoint(T auton, double maxVelocity, double maxAcceleration,
+		double elevatorHeight,
+		boolean isBackwards,
+		Pose... splinePoints) {
 		auton.addParallel(new ElevatorTarget(elevatorHeight));
-		auton.addSequential(SimpleSpline.pathFromPosesWithAngle(isBackwards, splinePoints));
+		auton.addSequential(
+			SimpleSpline.pathFromPosesWithAngle(maxVelocity, maxAcceleration, isBackwards, splinePoints));
 //		auton.addSequential(new WaitCommand(1));
 		auton.addSequential(new DropCube());
 

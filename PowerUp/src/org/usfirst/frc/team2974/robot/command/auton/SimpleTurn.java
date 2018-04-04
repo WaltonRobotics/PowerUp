@@ -34,7 +34,7 @@ public class SimpleTurn extends Command {
 	}
 
 	public static SimpleTurn pointTurn(Pose startPosition, Pose endPosition) {
-		return pointTurn(VELOCITY_MAX / 4, ACCELERATION_MAX, startPosition, endPosition.getAngle());
+		return pointTurn(VELOCITY_MAX / 2, ACCELERATION_MAX, startPosition, endPosition.getAngle());
 	}
 
 

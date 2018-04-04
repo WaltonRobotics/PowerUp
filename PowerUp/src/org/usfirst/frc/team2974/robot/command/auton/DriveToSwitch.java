@@ -2,6 +2,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
+import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
 import static org.usfirst.frc.team2974.robot.Config.Path.C4;
@@ -13,13 +14,16 @@ import static org.usfirst.frc.team2974.robot.Config.Path.C9;
 import static org.usfirst.frc.team2974.robot.Config.Path.L0;
 import static org.usfirst.frc.team2974.robot.Config.Path.L1;
 import static org.usfirst.frc.team2974.robot.Config.Path.L13;
+import static org.usfirst.frc.team2974.robot.Config.Path.L15;
+import static org.usfirst.frc.team2974.robot.Config.Path.L16;
 import static org.usfirst.frc.team2974.robot.Config.Path.L4;
 import static org.usfirst.frc.team2974.robot.Config.Path.L5;
-import static org.usfirst.frc.team2974.robot.Config.Path.L6;
 import static org.usfirst.frc.team2974.robot.Config.Path.L7;
 import static org.usfirst.frc.team2974.robot.Config.Path.R0;
 import static org.usfirst.frc.team2974.robot.Config.Path.R1;
 import static org.usfirst.frc.team2974.robot.Config.Path.R13;
+import static org.usfirst.frc.team2974.robot.Config.Path.R15;
+import static org.usfirst.frc.team2974.robot.Config.Path.R16;
 import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
 import static org.usfirst.frc.team2974.robot.Config.Path.R7;
@@ -77,12 +81,15 @@ public class DriveToSwitch extends AutonOption {
 
 	public DriveToSwitch startRightEndLeft() {
 		return AutonUtil
-			.driveToSinglePoint(this, MEDIUM_HEIGHT, R0, R1, new Pose(2, 5.8, 180), // TODO: MOVE TO CONFIG
-				L13, L7, L5);
+			.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, MEDIUM_HEIGHT, false, R0, R1,
+				new Pose(2, 5.8, StrictMath.toRadians(180)), // TODO: MOVE TO CONFIG
+				L13, L7, L15, L16);
 	}
 
 	public DriveToSwitch startLeftEndRight() {
-		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L1, L6, R13, R7, R5);
+		return AutonUtil.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, MEDIUM_HEIGHT, false, L0, L1,
+			new Pose(-2, 5.5, StrictMath.toRadians(180)), // TODO: MOVE TO CONFIG
+			R13, R7, R15, R16);
 	}
 
 	private void backUp() {
