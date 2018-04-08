@@ -23,6 +23,7 @@ public class SimpleSpline extends Command {
 	private final List<Pose> knots;
 	private final double vMax;
 	private final double aMax;
+	private final Spline spline;
 
 	public SimpleSpline(double maxVelocity, double maxAcceleration, double startAngle,
 		double endAngle, Pose... knots) {
@@ -39,6 +40,8 @@ public class SimpleSpline extends Command {
 		this.isBackwards = isBackwards;
 		vMax = maxVelocity;
 		aMax = maxAcceleration;
+
+		spline = new Spline(vMax, aMax, 0, 0, startAngle, endAngle, isBackwards, startScale, endScale, this.knots);
 
 		requires(drivetrain);
 	}
@@ -82,9 +85,7 @@ public class SimpleSpline extends Command {
 
 	protected void initialize() {
 //		drivetrain.reset();
-		drivetrain.addControllerMotions(
-			new Spline(vMax, aMax, 0, 0, startAngle, endAngle, isBackwards, startScale, endScale,
-				knots));
+		drivetrain.addControllerMotions(spline);
 
 //		drivetrain.startControllerMotion();
 	}
@@ -95,7 +96,7 @@ public class SimpleSpline extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return drivetrain.isControllerFinished();
+		return spline.isFinished();
 	}
 
 	// Called once after isFinished returns true
@@ -104,6 +105,10 @@ public class SimpleSpline extends Command {
 //		drivetrain.cancelControllerMotion();
 //		drivetrain.clearControllerMotions();
 		drivetrain.setSpeeds(0, 0);
+	}
+
+	public Spline getSpline() {
+		return spline;
 	}
 
 	// Called when another command which requires one or more of the same

@@ -1,8 +1,10 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
+import static org.usfirst.frc.team2974.robot.Config.Elevator.HIGH_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.ANGLE_180;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
 import static org.usfirst.frc.team2974.robot.Config.Path.C4;
@@ -28,6 +30,8 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R4;
 import static org.usfirst.frc.team2974.robot.Config.Path.R5;
 import static org.usfirst.frc.team2974.robot.Config.Path.R7;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
 import org.waltonrobotics.controller.Pose;
@@ -48,7 +52,10 @@ public class DriveToSwitch extends AutonOption {
 	public DriveToSwitch center() {
 		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		addSequential(new CrossBaseline().center()); // :)
+//		addSequential(new ElevatorTarget(MEDIUM_HEIGHT));
 
+//		addSequential(new DropCube());
+//		addSequential(new ElevatorTarget(LOW_HEIGHT));
 		addParallel(AutonUtil.createSequence(new DropCube(), new ElevatorTarget(LOW_HEIGHT)));
 
 		setOptionSelected(true);
@@ -58,11 +65,6 @@ public class DriveToSwitch extends AutonOption {
 
 	public DriveToSwitch toPyramid() {
 		backUp();
-
-		addParallel(AutonUtil.createSequence(
-			new WaitUntilPercent(.90),
-			new IntakeCube()
-		));
 
 		toPyramidC();
 
@@ -80,16 +82,38 @@ public class DriveToSwitch extends AutonOption {
 	}
 
 	public DriveToSwitch startRightEndLeft() {
-		return AutonUtil
-			.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, MEDIUM_HEIGHT, false, R0, R1,
-				new Pose(2, 5.8, StrictMath.toRadians(180)), // TODO: MOVE TO CONFIG
-				L13, L7, L15, L16);
+		CommandGroup commandGroup = new CommandGroup();
+		commandGroup.addSequential(new WaitCommand(2));
+		commandGroup.addSequential(new ElevatorTarget(HIGH_HEIGHT));
+
+		addParallel(commandGroup);
+		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, false, R0, R1,
+			new Pose(2, 5.5, ANGLE_180), // TODO: MOVE TO CONFIG
+			L13));
+		addSequential(SimpleSpline.pathFromPosesWithAngle(1, ACCELERATION_MAX, false, L7, L15, L16));
+		return this;
+
+//		return AutonUtil
+//			.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, .5, HIGH_HEIGHT, false, R0, R1,
+//				new Pose(2, 5.8, ANGLE_180), // TODO: MOVE TO CONFIG
+//				L13, L7, L15, L16);
 	}
 
 	public DriveToSwitch startLeftEndRight() {
-		return AutonUtil.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, MEDIUM_HEIGHT, false, L0, L1,
-			new Pose(-2, 5.5, StrictMath.toRadians(180)), // TODO: MOVE TO CONFIG
-			R13, R7, R15, R16);
+		CommandGroup commandGroup = new CommandGroup();
+		commandGroup.addSequential(new WaitCommand(2));
+		commandGroup.addSequential(new ElevatorTarget(HIGH_HEIGHT));
+
+		addParallel(commandGroup);
+		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, false, L0, L1,
+			new Pose(-2, 5.5, ANGLE_180), // TODO: MOVE TO CONFIG
+			R13));
+		addSequential(SimpleSpline.pathFromPosesWithAngle(1, ACCELERATION_MAX, false, R7, R15, R16));
+
+		return this;
+//		return AutonUtil.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, .5, HIGH_HEIGHT, false, L0, L1,
+//			new Pose(-2, 5.5, ANGLE_180), // TODO: MOVE TO CONFIG
+//			R13, R7, R15, R16);
 	}
 
 	private void backUp() {
@@ -102,26 +126,49 @@ public class DriveToSwitch extends AutonOption {
 	}
 
 	private void returnToSwitch() {
-		addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
+		CommandGroup group = new CommandGroup();
+		group.addParallel(new ElevatorTarget(MEDIUM_HEIGHT));
 		// From both left and right, splines to the center
 		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C7));
+			group.addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C7));
 		} else {
-			addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C8));
-
+			group.addSequential(SimpleSpline.pathFromPosesWithAngleAndScale(false, 1, 2, C6, C8));
 		}
 
 //		addSequential(new WaitCommand(1));
-		addSequential(new DropCube());
+		group.addSequential(new DropCube());
+
+		addSequential(group);
 	}
 
 	private void toPyramidC() {
+		CommandGroup group = new CommandGroup();
+		group.addParallel(AutonUtil.createSequence(new WaitCommand(1.5), new IntakeCube()));
+
 		// moves forward to the pyramid to pick up a cube
 		if (Robot.getSwitchPosition() == 'R') {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
+//			SimpleSpline toCube = SimpleSpline.pathFromPosesWithAngle(false, C4, C5);
+			group.addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C5));
+
+//			addParallel(AutonUtil.createSequence(
+//				new WaitUntilPercent(toCube.getSpline(), .90),
+//				new IntakeCube()
+//			));
+
+//			addSequential(toCube);
 		} else {
-			addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C9));
+//			SimpleSpline toCube = SimpleSpline.pathFromPosesWithAngle(false, C4, C9);
+			group.addSequential(SimpleSpline.pathFromPosesWithAngle(false, C4, C9));
+
+//			addParallel(AutonUtil.createSequence(
+//				new WaitUntilPercent(toCube.getSpline(), .90),
+//				new IntakeCube()
+//			));
+
+//			addSequential(toCube);
 		}
+
+		addSequential(group);
 	}
 
 	private void fromPyramid() {

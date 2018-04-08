@@ -33,6 +33,7 @@ public class Elevator extends Subsystem {
 	private double power;
 	private boolean zeroing;
 	private boolean zeroed;
+	private double zeroStartTime;
 
 	public Elevator(ElevatorLogger logger) {
 		zeroing = true;
@@ -58,7 +59,7 @@ public class Elevator extends Subsystem {
 		if (zeroing) {
 			setPower(-0.2);
 
-			if (!elevatorLimitLower.get() || timer.hasPeriodPassed(1.0)) {
+			if (!elevatorLimitLower.get() || (Timer.getFPGATimestamp() - zeroStartTime > 1.0)) {
 				zeroing = false;
 				timer.stop();
 				enableControl();
@@ -152,7 +153,7 @@ public class Elevator extends Subsystem {
 		disableControl();
 
 //			System.out.println("Heloo ");
-		timer.start();
+		zeroStartTime = Timer.getFPGATimestamp();
 	}
 
 	public boolean isMotionControlled() {

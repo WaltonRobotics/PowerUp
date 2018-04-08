@@ -143,15 +143,15 @@ public final class Config {
 
 		public static final double TOLERANCE = 0.1;
 
-		public static final double HIGH_HEIGHT = 66; // inches, this gets the scale
+		public static final double HIGH_HEIGHT = 68; // inches, this gets the scale
 		public static final double MEDIUM_HEIGHT = 24.00; // inches, this gets the switch, exchange top, and portal
 		public static final double LOW_HEIGHT = 0; // inches, the floor
 
 		public static final int MINIMUM_HEIGHT = 1000; // in nu (native units)
 		public static final int MAXIMUM_HEIGHT = 50900; // in nu
 
-		public static final int MINIMUM_HEIGHT_COMP = 1000; // 1000 in nu (native units)
-		public static final int MAXIMUM_HEIGHT_COMP = 26150; // in nu
+		public static final int MINIMUM_HEIGHT_COMP = 00; // 1000 in nu (native units)
+		public static final int MAXIMUM_HEIGHT_COMP = 27200; //2700 -  // in nu
 
 		public static final double NUDGE_DISTANCE = 1; // in inches
 
@@ -192,18 +192,18 @@ public final class Config {
 		private static double ANGLE_135 = StrictMath.toRadians(135);
 		private static double ANGLE_240 = StrictMath.toRadians(240);
 		private static double ANGLE_140 = StrictMath.toRadians(140);
-		private static double ANGLE_180 = StrictMath.toRadians(180);
+		public static double ANGLE_180 = StrictMath.toRadians(180);
 		private static double ANGLE_45 = StrictMath.toRadians(45);
 		private static double ANGLE_150 = StrictMath.toRadians(150);
 
 		// IMPORTANT: these points are measured from the center line
-		public static final Pose R11 = new Pose(1.92905, 7.37946/*8.03946*/, ANGLE_140/*180*/);
+		public static final Pose R11 = new Pose(1.97905 /*1.92905 */, 7.37946/*8.03946*/, ANGLE_140/*180*/);
 		public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
 		// we can do this because every point is measured from the center line.
 
 		public static final Pose R0 = new Pose(2.38333, 0.42835, ANGLE_90);
-		public static final Pose R1 = new Pose(2.60000, 3.55600, ANGLE_90);
-		public static final Pose R2 = new Pose(2.60000, 4.64134, ANGLE_90);
+		public static final Pose R1 = new Pose(2.65000 /*2.6*/, 3.55600, ANGLE_90);
+		public static final Pose R2 = new Pose(2.65000/*2.6*/, 4.64134, ANGLE_90);
 		public static final Pose R4 = new Pose(2.85623, 3.55600, ANGLE_90);
 		public static final Pose C0 = new Pose(0.19177, 0.42835, ANGLE_90);
 		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/, ANGLE_90);
@@ -218,10 +218,10 @@ public final class Config {
 		public static final Pose R5 = new Pose(1.49248, 4.26720, ANGLE_180);
 		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
 			ANGLE_180/*180*/);
-		public static final Pose R3 = new Pose(2.12905, 7.17946/*8.03946*/, ANGLE_135/*180*/);
+		public static final Pose R3 = new Pose(2.17905/*2.12905*/, 7.17946/*8.03946*/, ANGLE_135/*180*/);
 		public static final Pose R7 = new Pose(3.05623, 5.72840, ANGLE_270);
 		public static final Pose R8 = new Pose(2.85623, 5.80987, ANGLE_270);
-		public static final Pose R9 = new Pose(1.0414, 5.02069, ANGLE_270);
+		public static final Pose R9 = new Pose(1.0914 /*1.0414 */, 5.02069, ANGLE_270);
 		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, ANGLE_45/*180*/);
 		public static final Pose R13 = new Pose(0.83147, 5.93987, ANGLE_180);
 		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), ANGLE_240);

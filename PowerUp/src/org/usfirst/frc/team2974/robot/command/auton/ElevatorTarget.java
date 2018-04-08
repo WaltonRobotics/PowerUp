@@ -10,7 +10,9 @@ import org.usfirst.frc.team2974.robot.Robot;
  */
 public class ElevatorTarget extends Command {
 
+	private static int elevatorCommand = 0;
 	private final double position;
+	private int index;
 
 	public ElevatorTarget(double position) {
 		this.position = Math
@@ -24,11 +26,13 @@ public class ElevatorTarget extends Command {
 			elevator.enableControl();
 		}
 
+		index = elevatorCommand++;
 		requires(elevator);
 	}
 
 	@Override
 	protected void initialize() {
+		System.out.println("Initializing elevator" + index);
 		elevator.setTarget(position);
 	}
 

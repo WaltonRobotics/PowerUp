@@ -70,6 +70,7 @@ public class IntakeOutput extends Subsystem {
 
 	public synchronized void resetTime() {
 		timer.reset();
+		timer.start();
 	}
 
 	public double getLeftMotorCurrent() {

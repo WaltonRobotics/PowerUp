@@ -14,6 +14,11 @@ public class SimpleTurn extends Command {
 	private final double maxAcceleration;
 	private final Pose startPosition;
 	private final double endAngle;
+	private final PointTurn pointTurn;
+
+	public PointTurn getPointTurn() {
+		return pointTurn;
+	}
 
 	public SimpleTurn(double maxVelocity, double maxAcceleration, Pose startPosition,
 		double endAngle) {
@@ -22,6 +27,8 @@ public class SimpleTurn extends Command {
 		this.startPosition = startPosition;
 
 		this.endAngle = endAngle;
+
+		pointTurn = new PointTurn(maxVelocity, maxAcceleration, startPosition, endAngle);
 	}
 
 	public static SimpleTurn pointTurn(Pose startPosition, double endAngle) {
@@ -40,7 +47,7 @@ public class SimpleTurn extends Command {
 
 	protected void initialize() {
 		drivetrain.addControllerMotions(
-			new PointTurn(maxVelocity, maxAcceleration, startPosition, endAngle));
+			pointTurn);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

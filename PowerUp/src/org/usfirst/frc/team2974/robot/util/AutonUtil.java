@@ -9,6 +9,7 @@ import org.usfirst.frc.team2974.robot.command.auton.AutonOption;
 import org.usfirst.frc.team2974.robot.command.auton.DropCube;
 import org.usfirst.frc.team2974.robot.command.auton.ElevatorTarget;
 import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
+import org.usfirst.frc.team2974.robot.command.auton.WaitUntilPercent;
 import org.waltonrobotics.controller.Pose;
 
 public final class AutonUtil {
@@ -31,9 +32,22 @@ public final class AutonUtil {
 		double elevatorHeight,
 		boolean isBackwards,
 		Pose... splinePoints) {
-		auton.addParallel(new ElevatorTarget(elevatorHeight));
-		auton.addSequential(
-			SimpleSpline.pathFromPosesWithAngle(maxVelocity, maxAcceleration, isBackwards, splinePoints));
+		return driveToSinglePoint(auton, maxVelocity, maxAcceleration, 0, elevatorHeight, isBackwards, splinePoints);
+	}
+
+	public static <T extends AutonOption> T driveToSinglePoint(T auton, double maxVelocity, double maxAcceleration,
+		double putUpAtPercent, double elevatorHeight,
+		boolean isBackwards,
+		Pose... splinePoints) {
+
+		SimpleSpline driveToPoint = SimpleSpline
+			.pathFromPosesWithAngle(maxVelocity, maxAcceleration, isBackwards, splinePoints);
+
+		auton.addParallel(
+			AutonUtil.createSequence(new WaitUntilPercent(driveToPoint.getSpline(), putUpAtPercent),
+				new ElevatorTarget(elevatorHeight)));
+		auton.addSequential(driveToPoint);
+		auton.addSequential(new ElevatorTarget(elevatorHeight));
 //		auton.addSequential(new WaitCommand(1));
 		auton.addSequential(new DropCube());
 
