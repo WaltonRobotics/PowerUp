@@ -8,6 +8,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
+import org.waltonrobotics.command.SimpleSpline;
 import org.waltonrobotics.controller.Pose;
 
 /**

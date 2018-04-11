@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Config.MotionConstants;
+import org.usfirst.frc.team2974.robot.Config.Path;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
 import org.waltonrobotics.AbstractDrivetrain;
@@ -124,6 +125,16 @@ public class Drivetrain extends AbstractDrivetrain {
 	@Override
 	public double getIAng() {
 		return MotionConstants.IAng;
+	}
+
+	@Override
+	public double getMaxVelocity() {
+		return Path.VELOCITY_MAX;
+	}
+
+	@Override
+	public double getMaxAcceleration() {
+		return Path.ACCELERATION_MAX;
 	}
 
 	public boolean isTankDrive() {

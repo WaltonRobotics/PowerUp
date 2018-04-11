@@ -23,6 +23,8 @@ import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
+import org.waltonrobotics.command.SimpleSpline;
+import org.waltonrobotics.command.SimpleTurn;
 import org.waltonrobotics.controller.Pose;
 
 /**

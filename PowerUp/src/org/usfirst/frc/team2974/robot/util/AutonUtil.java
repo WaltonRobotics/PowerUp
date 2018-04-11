@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.command.auton.AutonOption;
 import org.usfirst.frc.team2974.robot.command.auton.DropCube;
 import org.usfirst.frc.team2974.robot.command.auton.ElevatorTarget;
-import org.usfirst.frc.team2974.robot.command.auton.SimpleSpline;
 import org.usfirst.frc.team2974.robot.command.auton.WaitUntilPercent;
+import org.waltonrobotics.command.SimpleSpline;
 import org.waltonrobotics.controller.Pose;
 
 public final class AutonUtil {
@@ -44,7 +44,7 @@ public final class AutonUtil {
 			.pathFromPosesWithAngle(maxVelocity, maxAcceleration, isBackwards, splinePoints);
 
 		auton.addParallel(
-			AutonUtil.createSequence(new WaitUntilPercent(driveToPoint.getSpline(), putUpAtPercent),
+			AutonUtil.createSequence(new WaitUntilPercent(driveToPoint.getPath(), putUpAtPercent),
 				new ElevatorTarget(elevatorHeight)));
 		auton.addSequential(driveToPoint);
 		auton.addSequential(new ElevatorTarget(elevatorHeight));
