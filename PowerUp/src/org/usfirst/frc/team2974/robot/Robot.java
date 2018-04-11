@@ -3,6 +3,8 @@ package org.usfirst.frc.team2974.robot;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -17,6 +19,8 @@ import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
+import org.waltonrobotics.command.SimpleLine;
+import org.waltonrobotics.controller.Pose;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -106,6 +110,12 @@ public class Robot extends IterativeRobot {
 				elevator.zero();
 			}
 		});
+
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setResolution(1280 / 2, 720 / 2);
+		camera.setFPS(5);
+
+		SmartDashboard.putData("Move forwards", SimpleLine.lineWithDistance(new Pose(0, 0, 0), 6));
 
 		updateSmartDashboard();
 	}

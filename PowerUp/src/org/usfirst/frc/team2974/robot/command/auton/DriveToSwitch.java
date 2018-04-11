@@ -34,12 +34,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.util.AutonUtil;
+import org.waltonrobotics.command.SimpleLine;
+import org.waltonrobotics.command.SimpleSpline;
 import org.waltonrobotics.controller.Pose;
 
 /**
  * Drives to the switch from the chosen (left(), right(), center()) starting position.
  */
 public class DriveToSwitch extends AutonOption {
+
+	private final double TRANSITION_VELOCITY = 1.5;
 
 	public DriveToSwitch left() {
 		return AutonUtil.driveToSinglePoint(this, MEDIUM_HEIGHT, L0, L4, L5);
@@ -87,10 +91,16 @@ public class DriveToSwitch extends AutonOption {
 		commandGroup.addSequential(new ElevatorTarget(HIGH_HEIGHT));
 
 		addParallel(commandGroup);
-		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, false, R0, R1,
+		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, 0, TRANSITION_VELOCITY, false, R0, R1,
 			new Pose(2, 5.5, ANGLE_180), // TODO: MOVE TO CONFIG
-			L13));
-		addSequential(SimpleSpline.pathFromPosesWithAngle(1, ACCELERATION_MAX, false, L7, L15, L16));
+			new Pose(L13.getX(), L13.getY(), R13.getAngle())));
+		addSequential(SimpleSpline
+			.pathFromPosesWithAngle(TRANSITION_VELOCITY, ACCELERATION_MAX, false,
+				new Pose(L13.getX(), L13.getY(), R13.getAngle()), L7,
+				L15, L16));
+
+		addSequential(SimpleLine.lineWithDistance(true, L16, -0.7));
+		setOptionSelected(true);
 		return this;
 
 //		return AutonUtil
@@ -105,10 +115,17 @@ public class DriveToSwitch extends AutonOption {
 		commandGroup.addSequential(new ElevatorTarget(HIGH_HEIGHT));
 
 		addParallel(commandGroup);
-		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, false, L0, L1,
+		addSequential(SimpleSpline.pathFromPosesWithAngle(3, ACCELERATION_MAX, 0, TRANSITION_VELOCITY, false, L0, L1,
 			new Pose(-2, 5.5, ANGLE_180), // TODO: MOVE TO CONFIG
-			R13));
-		addSequential(SimpleSpline.pathFromPosesWithAngle(1, ACCELERATION_MAX, false, R7, R15, R16));
+			new Pose(R13.getX(), R13.getY(), L13.getAngle())));
+		addSequential(SimpleSpline
+			.pathFromPosesWithAngle(TRANSITION_VELOCITY, ACCELERATION_MAX, false,
+				new Pose(R13.getX(), R13.getY(), L13.getAngle()),
+				R7,
+				R15, R16));
+		addSequential(SimpleLine.lineWithDistance(true, R16, -.7));
+
+		setOptionSelected(true);
 
 		return this;
 //		return AutonUtil.driveToSinglePoint(this, 3.0, ACCELERATION_MAX, .5, HIGH_HEIGHT, false, L0, L1,

@@ -225,8 +225,8 @@ public final class Config {
 		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, ANGLE_45/*180*/);
 		public static final Pose R13 = new Pose(0.83147, 5.93987, ANGLE_180);
 		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), ANGLE_240);
-		public static final Pose R15 = new Pose(4.10, 6.30);
-		public static final Pose R16 = new Pose(2.92905, 7.07946/*8.03946*/, ANGLE_150/*180*/);
+		public static final Pose R15 = new Pose(4, 6.50);
+		public static final Pose R16 = new Pose(3.02905, 7.57946/*8.03946*/, ANGLE_135/*180*/);
 
 
 		public static final Pose L0 = negateX(R0);
