@@ -197,14 +197,30 @@ public final class Config {
 		private static double ANGLE_150 = StrictMath.toRadians(150);
 
 		// IMPORTANT: these points are measured from the center line
-		public static final Pose R11 = new Pose(1.97905 /*1.92905 */, 7.37946/*8.03946*/, ANGLE_140/*180*/);
-		public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
 		// we can do this because every point is measured from the center line.
 
 		public static final Pose R0 = new Pose(2.38333, 0.42835, ANGLE_90);
 		public static final Pose R1 = new Pose(2.65000 /*2.6*/, 3.55600, ANGLE_90);
 		public static final Pose R2 = new Pose(2.65000/*2.6*/, 4.64134, ANGLE_90);
+		public static final Pose R3 = new Pose(2.17905/*2.12905*/, 7.17946/*8.03946*/, ANGLE_135/*180*/);
 		public static final Pose R4 = new Pose(2.85623, 3.55600, ANGLE_90);
+		public static final Pose R5 = new Pose(1.49248, 4.26720, ANGLE_180);
+		public static final Pose R6 = new Pose(3.61036, 5.80987, 0);
+		public static final Pose R7 = new Pose(3.05623, 5.72840, ANGLE_270);
+		public static final Pose R8 = new Pose(2.85623, 5.80987, ANGLE_270);
+		public static final Pose R9 = new Pose(1.0914 /*1.0414 */, 5.02069, ANGLE_270);
+		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
+				ANGLE_180/*180*/);
+		public static final Pose R11 = new Pose(1.97905 /*1.92905 */, 7.37946/*8.03946*/, ANGLE_140/*180*/);
+		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, ANGLE_45/*180*/);
+		public static final Pose R13 = new Pose(0.83147, 5.93987, ANGLE_180);
+		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), ANGLE_240);
+		public static final Pose R15 = new Pose(4, 6.50);
+		public static final Pose R16 = new Pose(3.02905, 7.57946/*8.03946*/, ANGLE_135/*180*/);
+		public static final Pose R17 = new Pose(2.27905, 7.47946, ANGLE_180);
+		public static final Pose R18 = new Pose(2.07905, 7.47946, ANGLE_180);
+
+		
 		public static final Pose C0 = new Pose(0.19177, 0.42835, ANGLE_90);
 		public static final Pose C1 = new Pose(1.59388, 3.17791 /*3.12791*/, ANGLE_90);
 		public static final Pose C2 = new Pose(-1.59388, 3.17791 /*3.12791*/, ANGLE_90);
@@ -215,18 +231,6 @@ public final class Config {
 		public static final Pose C7 = new Pose(1.59388, 3.37791 /*3.12791*/, ANGLE_90); // right
 		public static final Pose C8 = new Pose(-1.39388, 3.37791 /*3.12791*/, ANGLE_90); //left
 		public static final Pose C9 = new Pose(0.0 /*0.05*/, 2.5146, ANGLE_90); // at pyramid
-		public static final Pose R5 = new Pose(1.49248, 4.26720, ANGLE_180);
-		public static final Pose R10 = new Pose(2.9147 /*0.83147 */, 6.40987 /*5.90987 */,
-			ANGLE_180/*180*/);
-		public static final Pose R3 = new Pose(2.17905/*2.12905*/, 7.17946/*8.03946*/, ANGLE_135/*180*/);
-		public static final Pose R7 = new Pose(3.05623, 5.72840, ANGLE_270);
-		public static final Pose R8 = new Pose(2.85623, 5.80987, ANGLE_270);
-		public static final Pose R9 = new Pose(1.0914 /*1.0414 */, 5.02069, ANGLE_270);
-		public static final Pose R12 = new Pose(2.12905, 7.17946/*8.03946*/, ANGLE_45/*180*/);
-		public static final Pose R13 = new Pose(0.83147, 5.93987, ANGLE_180);
-		public static final Pose R14 = new Pose(R3.getX(), R3.getY(), ANGLE_240);
-		public static final Pose R15 = new Pose(4, 6.50);
-		public static final Pose R16 = new Pose(3.02905, 7.57946/*8.03946*/, ANGLE_135/*180*/);
 
 
 		public static final Pose L0 = negateX(R0);
@@ -246,6 +250,8 @@ public final class Config {
 		public static final Pose L14 = negateX(R14);
 		public static final Pose L15 = negateX(R15);
 		public static final Pose L16 = negateX(R16);
+		public static final Pose L17 = negateX(R17);
+		public static final Pose L18 = negateX(R18);
 
 
 		private Path() {

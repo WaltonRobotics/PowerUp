@@ -4,10 +4,13 @@ import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.C0;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
+import static org.usfirst.frc.team2974.robot.Config.Path.R0;
+import static org.usfirst.frc.team2974.robot.Config.Path.L0;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
+import org.waltonrobotics.command.SimpleLine;
 import org.waltonrobotics.command.SimpleSpline;
 import org.waltonrobotics.controller.Pose;
 
@@ -33,7 +36,12 @@ public class CrossBaseline extends CommandGroup {
 	 * @return this
 	 */
 	public CrossBaseline left(double yMovement) {
-		return right(yMovement);
+		isOptionSelected = true;
+
+		// drive forward x meters
+
+		addSequential(SimpleLine.lineWithDistance(L0, yMovement));
+		return this;
 	}
 
 	/**
@@ -46,10 +54,7 @@ public class CrossBaseline extends CommandGroup {
 
 		// drive forward x meters
 
-		addSequential(SimpleSpline
-			.pathFromPosesWithAngle(VELOCITY_MAX, ACCELERATION_MAX, false,
-				new Pose(0, 0, StrictMath.toRadians(90)),
-				new Pose(0, yMovement, StrictMath.toRadians(90))));
+		addSequential(SimpleLine.lineWithDistance(R0, yMovement));
 		return this;
 	}
 

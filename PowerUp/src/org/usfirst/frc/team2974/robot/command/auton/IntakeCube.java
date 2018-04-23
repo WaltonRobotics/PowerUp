@@ -37,6 +37,6 @@ public class IntakeCube extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Timer.getFPGATimestamp() - startTime > 1;
+		return Timer.getFPGATimestamp() - startTime > 1.5;
 	}
 }

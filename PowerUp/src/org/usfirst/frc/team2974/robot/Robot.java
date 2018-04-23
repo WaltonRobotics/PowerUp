@@ -42,10 +42,12 @@ public class Robot extends IterativeRobot {
 	private static String gameData; // for ease of access
 	private static int doNumberOfCubes = 2;
 	private static boolean confuseEnemy = false;
+	private static boolean doBehindSwitch = true;
 	private CommandGroup autonCommands;
 	private SendableChooser<Character> startLocation;
 	private SendableChooser<Integer> numberCubes;
 	private SendableChooser<Boolean> confuseEnenmy;
+	private SendableChooser<Boolean> behindSwitch;
 
 	public static Config.Robot getChoosenRobot() {
 		return currentRobot;
@@ -58,6 +60,10 @@ public class Robot extends IterativeRobot {
 	// TODO: 4/2/2018 EVAN lets make a better name for this
 	public static boolean confuseEnemy() {
 		return confuseEnemy;
+	}
+	
+	public static boolean doBehindSwitch(){
+		return doBehindSwitch;
 	}
 
 	/**
@@ -101,6 +107,10 @@ public class Robot extends IterativeRobot {
 		confuseEnenmy = new SendableChooser<>();
 		confuseEnenmy.addDefault("Do complete 2 cube", false);
 		confuseEnenmy.addObject("Stop before", true);
+		
+		behindSwitch = new SendableChooser<>();
+		behindSwitch.addDefault("Do", true);
+		behindSwitch.addObject("DONT", false);
 
 		//		Drive train
 		SmartDashboard.putNumber("Speed Percentage", 0.50 /*.75*/);
@@ -115,7 +125,7 @@ public class Robot extends IterativeRobot {
 		camera.setResolution(1280 / 2, 720 / 2);
 		camera.setFPS(5);
 
-		SmartDashboard.putData("Move forwards", SimpleLine.lineWithDistance(new Pose(0, 0, 0), 6));
+//		SmartDashboard.putData("Move forwards", SimpleLine.lineWithDistance(new Pose(0, 0, 0), 6));
 
 		updateSmartDashboard();
 	}
@@ -147,6 +157,7 @@ public class Robot extends IterativeRobot {
 
 		confuseEnemy = confuseEnenmy.getSelected();
 		doNumberOfCubes = numberCubes.getSelected();
+		doBehindSwitch = behindSwitch.getSelected();
 
 		while ((gameData == null) || gameData.isEmpty()) {
 			gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
@@ -223,6 +234,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("DriveTeam/Start Location", startLocation);
 		SmartDashboard.putData("DriveTeam/Number Of Cubes", numberCubes);
 		SmartDashboard.putData("DriveTeam/Confuse enemy", confuseEnenmy);
+		SmartDashboard.putData("DriveTeam/Behind Switch", behindSwitch);
 
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());

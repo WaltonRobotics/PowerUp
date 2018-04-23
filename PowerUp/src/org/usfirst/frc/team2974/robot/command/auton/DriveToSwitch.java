@@ -100,6 +100,8 @@ public class DriveToSwitch extends AutonOption {
 				L15, L16));
 
 		addSequential(SimpleLine.lineWithDistance(true, L16, -0.7));
+		addSequential(new DropCube());
+
 		setOptionSelected(true);
 		return this;
 
@@ -124,6 +126,7 @@ public class DriveToSwitch extends AutonOption {
 				R7,
 				R15, R16));
 		addSequential(SimpleLine.lineWithDistance(true, R16, -.7));
+		addSequential(new DropCube());
 
 		setOptionSelected(true);
 
@@ -160,7 +163,7 @@ public class DriveToSwitch extends AutonOption {
 
 	private void toPyramidC() {
 		CommandGroup group = new CommandGroup();
-		group.addParallel(AutonUtil.createSequence(new WaitCommand(1.5), new IntakeCube()));
+		group.addParallel(AutonUtil.createSequence(new WaitCommand(1.0), new IntakeCube()));
 
 		// moves forward to the pyramid to pick up a cube
 		if (Robot.getSwitchPosition() == 'R') {

@@ -18,6 +18,7 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R14;
 import static org.usfirst.frc.team2974.robot.Config.Path.R2;
 import static org.usfirst.frc.team2974.robot.Config.Path.R3;
 import static org.usfirst.frc.team2974.robot.Config.Path.R9;
+import static org.usfirst.frc.team2974.robot.Config.Path.*;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -44,6 +45,14 @@ public class DriveToScale extends AutonOption {
 
 	public DriveToScale right() {
 		return driveToScale(new Pose[]{R0, R1, R2, R3}, R11);
+	}
+	
+	public DriveToScale rightSide() {
+		return driveToScale(new Pose[]{R0, R1, R2, R17}, R18);
+	}
+	
+	public DriveToScale leftSide() {
+		return driveToScale(new Pose[]{L0, L1, L2, L17}, L18);
 	}
 
 	private DriveToScale driveToScale(Pose[] toScale, Pose forwardPoint) {
@@ -103,7 +112,7 @@ public class DriveToScale extends AutonOption {
 	}
 
 	public void toCube() {
-		if (Robot.getSwitchPosition() == 'R') {
+		if (Robot.getScalePosition() == 'R') {
 			scaleSwitch(R3, R14, R9);
 		} else {
 			scaleSwitch(L3, L14, L9);
