@@ -3,7 +3,7 @@ package org.usfirst.frc.team2974.robot.command.auton;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.waltonrobotics.controller.Path;
+import org.waltonrobotics.motion.Path;
 
 
 /**

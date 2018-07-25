@@ -16,7 +16,6 @@ import static org.usfirst.frc.team2974.robot.Config.Input.OUTPUT_HALF_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.RIGHT_JOYSTICK_PORT;
 import static org.usfirst.frc.team2974.robot.Config.Input.SHIFT_DOWN_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.SHIFT_DOWN_BUTTON_ALT;
-import static org.usfirst.frc.team2974.robot.Config.Input.SHIFT_TOGGLE_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.SHIFT_UP_BUTTON;
 import static org.usfirst.frc.team2974.robot.Config.Input.SHIFT_UP_BUTTON_ALT;
 
@@ -40,7 +39,6 @@ public final class OI {
 	// used with Drivetrain subsystem
 	public static final Button shiftUp;
 	public static final Button shiftDown;
-	public static final Button shiftTrigger;
 //	public static final Button shiftUpAlt; // ButtonMultiple ^^^
 //	public static final Button shiftDownAlt;
 
@@ -60,14 +58,13 @@ public final class OI {
 	public static final Button intakeHalf;
 
 	static {
-		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
 		leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
+		rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
 		gamepad = new Gamepad(GAMEPAD_PORT);
 
-		shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON,
-			SHIFT_UP_BUTTON_ALT); // Shifting buttons approved by Mr.B for Noah
+		// Shifting buttons approved by Mr.B for Noah
+		shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON, SHIFT_UP_BUTTON_ALT);
 		shiftDown = new ButtonMultiple(leftJoystick, SHIFT_DOWN_BUTTON, SHIFT_DOWN_BUTTON_ALT);
-		shiftTrigger = new JoystickButton(leftJoystick, SHIFT_TOGGLE_BUTTON);
 //		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT); // moved to ButtonMultiple :)
 //		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
 

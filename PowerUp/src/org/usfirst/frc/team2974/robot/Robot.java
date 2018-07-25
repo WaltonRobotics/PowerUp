@@ -19,8 +19,6 @@ import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
-import org.waltonrobotics.command.SimpleLine;
-import org.waltonrobotics.controller.Pose;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -61,8 +59,8 @@ public class Robot extends IterativeRobot {
 	public static boolean confuseEnemy() {
 		return confuseEnemy;
 	}
-	
-	public static boolean doBehindSwitch(){
+
+	public static boolean doBehindSwitch() {
 		return doBehindSwitch;
 	}
 
@@ -107,7 +105,7 @@ public class Robot extends IterativeRobot {
 		confuseEnenmy = new SendableChooser<>();
 		confuseEnenmy.addDefault("Do complete 2 cube", false);
 		confuseEnenmy.addObject("Stop before", true);
-		
+
 		behindSwitch = new SendableChooser<>();
 		behindSwitch.addDefault("Do", true);
 		behindSwitch.addObject("DONT", false);

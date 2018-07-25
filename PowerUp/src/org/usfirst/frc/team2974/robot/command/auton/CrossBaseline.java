@@ -1,18 +1,15 @@
 package org.usfirst.frc.team2974.robot.command.auton;
 
-import static org.usfirst.frc.team2974.robot.Config.Path.ACCELERATION_MAX;
 import static org.usfirst.frc.team2974.robot.Config.Path.C0;
 import static org.usfirst.frc.team2974.robot.Config.Path.C1;
 import static org.usfirst.frc.team2974.robot.Config.Path.C2;
-import static org.usfirst.frc.team2974.robot.Config.Path.R0;
 import static org.usfirst.frc.team2974.robot.Config.Path.L0;
-import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
+import static org.usfirst.frc.team2974.robot.Config.Path.R0;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.waltonrobotics.command.SimpleLine;
 import org.waltonrobotics.command.SimpleSpline;
-import org.waltonrobotics.controller.Pose;
 
 /**
  * Command for crossing the baseline. Usage is: new CrossBaseline().left();

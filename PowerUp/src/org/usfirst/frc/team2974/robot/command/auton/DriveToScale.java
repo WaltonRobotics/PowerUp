@@ -8,6 +8,8 @@ import static org.usfirst.frc.team2974.robot.Config.Path.L0;
 import static org.usfirst.frc.team2974.robot.Config.Path.L1;
 import static org.usfirst.frc.team2974.robot.Config.Path.L11;
 import static org.usfirst.frc.team2974.robot.Config.Path.L14;
+import static org.usfirst.frc.team2974.robot.Config.Path.L17;
+import static org.usfirst.frc.team2974.robot.Config.Path.L18;
 import static org.usfirst.frc.team2974.robot.Config.Path.L2;
 import static org.usfirst.frc.team2974.robot.Config.Path.L3;
 import static org.usfirst.frc.team2974.robot.Config.Path.L9;
@@ -15,10 +17,11 @@ import static org.usfirst.frc.team2974.robot.Config.Path.R0;
 import static org.usfirst.frc.team2974.robot.Config.Path.R1;
 import static org.usfirst.frc.team2974.robot.Config.Path.R11;
 import static org.usfirst.frc.team2974.robot.Config.Path.R14;
+import static org.usfirst.frc.team2974.robot.Config.Path.R17;
+import static org.usfirst.frc.team2974.robot.Config.Path.R18;
 import static org.usfirst.frc.team2974.robot.Config.Path.R2;
 import static org.usfirst.frc.team2974.robot.Config.Path.R3;
 import static org.usfirst.frc.team2974.robot.Config.Path.R9;
-import static org.usfirst.frc.team2974.robot.Config.Path.*;
 import static org.usfirst.frc.team2974.robot.Config.Path.VELOCITY_MAX;
 
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -46,11 +49,11 @@ public class DriveToScale extends AutonOption {
 	public DriveToScale right() {
 		return driveToScale(new Pose[]{R0, R1, R2, R3}, R11);
 	}
-	
+
 	public DriveToScale rightSide() {
 		return driveToScale(new Pose[]{R0, R1, R2, R17}, R18);
 	}
-	
+
 	public DriveToScale leftSide() {
 		return driveToScale(new Pose[]{L0, L1, L2, L17}, L18);
 	}

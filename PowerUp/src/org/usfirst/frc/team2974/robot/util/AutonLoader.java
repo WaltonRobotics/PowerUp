@@ -2,7 +2,6 @@ package org.usfirst.frc.team2974.robot.util;
 
 import static org.usfirst.frc.team2974.robot.Config.Path.CROSS_BASELINE_Y;
 import static org.usfirst.frc.team2974.robot.Robot.confuseEnemy;
-import static org.usfirst.frc.team2974.robot.Robot.doBehindSwitch;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_CENTER;
 import static org.usfirst.frc.team2974.robot.command.auton.GamePosition.CROSS_BASELINE_LEFT;
@@ -34,10 +33,9 @@ public final class AutonLoader {
 		switch (gamePosition) {
 			case DRIVE_STATION_LEFT_SWITCH_RIGHT_SCALE_RIGHT: // behind switch auton
 			{
-				if(!Robot.doBehindSwitch()){
+				if (!Robot.doBehindSwitch()) {
 					return getAutonCommands(CROSS_BASELINE_LEFT);
-				}
-				else{
+				} else {
 					return new DriveToSwitch().startLeftEndRight();
 				}
 			}
@@ -112,10 +110,9 @@ public final class AutonLoader {
 //				return getAutonCommands(DRIVE_STATION_RIGHT_SCALE_RIGHT);
 			case DRIVE_STATION_RIGHT_SWITCH_LEFT_SCALE_LEFT: // Behind switch auton
 			{
-				if(!Robot.doBehindSwitch()){
+				if (!Robot.doBehindSwitch()) {
 					return getAutonCommands(CROSS_BASELINE_RIGHT);
-				}
-				else{
+				} else {
 					return new DriveToSwitch().startRightEndLeft();
 				}
 			}
