@@ -5,6 +5,7 @@ import static org.usfirst.frc.team2974.robot.Config.Elevator.MAXIMUM_HEIGHT_COMP
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT_COMP;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Gamepad.Button;
 import org.usfirst.frc.team2974.robot.Gamepad.POV;
 import org.waltonrobotics.controller.Pose;
