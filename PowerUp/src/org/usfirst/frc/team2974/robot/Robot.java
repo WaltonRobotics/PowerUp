@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2974.robot;
 
+import static org.usfirst.frc.team2974.robot.Config.IntakeOutput.LOW_POWER;
 import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
 import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
@@ -118,6 +119,9 @@ public class Robot extends IterativeRobot {
 				elevator.zero();
 			}
 		});
+
+
+		SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
 
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(1280 / 2, 720 / 2);

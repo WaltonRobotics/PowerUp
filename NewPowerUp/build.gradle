@@ -1,3 +1,7 @@
+import jaci.openrio.gradle.GradleRIOPlugin
+import jaci.openrio.gradle.frc.FRCJavaArtifact
+import jaci.openrio.gradle.frc.RoboRIO
+
 plugins {
     id "java"
     id "eclipse"
@@ -12,12 +16,12 @@ def ROBOT_CLASS = "frc.team2974.robot.Robot"
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
-        target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+        target("roborio", RoboRIO) {
             team = TEAM
         }
     }
     artifacts {
-        artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
+        artifact('frcJava', FRCJavaArtifact) {
             targets << "roborio"
         }
     }
@@ -39,9 +43,10 @@ dependencies {
 // knows where to look for our Robot Class.
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+    manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = '4.4'
+//    TODO check if changing this to 4.10 works
 }
