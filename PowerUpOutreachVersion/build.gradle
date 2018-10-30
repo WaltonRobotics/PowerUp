@@ -30,7 +30,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
-    
+
     compile files("C:\\Users\\mariu\\Documents\\GitHub\\Actually-Simple-Splines\\out\\artifacts\\Actually_Simple_Splines__For_Library__jar\\2974Splines.jar")
 }
 
