@@ -2,8 +2,6 @@ package frc.team2974.robot.command.teleop;
 
 import static frc.team2974.robot.OI.leftJoystick;
 import static frc.team2974.robot.OI.rightJoystick;
-import static frc.team2974.robot.OI.shiftDown;
-import static frc.team2974.robot.OI.shiftUp;
 import static frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -83,14 +81,6 @@ public class DriveCommand extends Command {
       tankDrive();
     } else {
       cheesyDrive();
-    }
-
-    if (shiftUp.get()) //|| shiftUpAlt.get())
-    {
-      drivetrain.shiftUp();
-    } else if (shiftDown.get()) // || shiftDownAlt.get())
-    {
-      drivetrain.shiftDown();
     }
   }
 

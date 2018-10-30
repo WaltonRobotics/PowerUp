@@ -132,6 +132,8 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putData("Move forwards", SimpleLine.lineWithDistance(new Pose(0, 0, 0), 6));
 
 		updateSmartDashboard();
+
+		drivetrain.shiftDown();
 	}
 
 	@Override
