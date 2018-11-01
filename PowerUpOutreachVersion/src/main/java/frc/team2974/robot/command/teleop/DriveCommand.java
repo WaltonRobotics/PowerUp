@@ -1,16 +1,20 @@
 package frc.team2974.robot.command.teleop;
 
+import static frc.team2974.robot.Config.Driving.CRUISE_POWER;
 import static frc.team2974.robot.OI.leftJoystick;
 import static frc.team2974.robot.OI.rightJoystick;
 import static frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team2974.robot.OI;
 import frc.team2974.robot.Robot;
 
 /**
  *
  */
 public class DriveCommand extends Command {
+
+  private boolean cruiseMode;
 
   public DriveCommand() {
     requires(drivetrain);
@@ -56,6 +60,13 @@ public class DriveCommand extends Command {
 //			rightPower = Math.pow(rightPower, 3) * percentage;
 //		}
 
+    if (cruiseMode) {
+      double powerNormalizer = 1 - Math.abs(CRUISE_POWER);
+
+      leftPower = CRUISE_POWER + (leftPower / powerNormalizer);
+      rightPower = CRUISE_POWER + (rightPower / powerNormalizer);
+    }
+
     if (Robot.elevator.getCurrentPositionNU()
         >= (Robot.getChoosenRobot().getMaximumElevatorHeight() * (0.5))) {
 //			double percentage = SmartDashboard.getNumber("Speed Percentage", 0.50);
@@ -77,6 +88,10 @@ public class DriveCommand extends Command {
 
   @Override
   protected void execute() {
+    if (OI.isCruiseModeToggled()) {
+      cruiseMode = !cruiseMode;
+    }
+
     if (drivetrain.isTankDrive()) {
       tankDrive();
     } else {

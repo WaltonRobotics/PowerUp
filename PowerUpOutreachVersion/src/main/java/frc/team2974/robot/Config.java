@@ -118,6 +118,7 @@ public final class Config {
     public static final int SHIFT_TOGGLE_BUTTON = 1;
 
     // right joystick //
+    public static final int CRUISE_BUTTON = 2;
 
     // gamepad //
     public static final int INTAKE_BUTTON = Button.RIGHT_TRIGGER.index();
@@ -135,8 +136,13 @@ public final class Config {
     public static final int ELEVATOR_LOW = Button._2.index();
     public static final int ELEVATOR_SMOOTH = Button._2.index();
 
+
     private Input() {
     }
+  }
+
+  public static final class Driving{
+    public static final double CRUISE_POWER = .8; //TODO To Find
   }
 
   public static final class Elevator {

@@ -1,5 +1,6 @@
 package frc.team2974.robot;
 
+import static frc.team2974.robot.Config.Input.CRUISE_BUTTON;
 import static frc.team2974.robot.Config.Input.ELEVATOR_HIGH;
 import static frc.team2974.robot.Config.Input.ELEVATOR_LOW;
 import static frc.team2974.robot.Config.Input.ELEVATOR_MEDIUM;
@@ -14,15 +15,10 @@ import static frc.team2974.robot.Config.Input.LEFT_JOYSTICK_PORT;
 import static frc.team2974.robot.Config.Input.OUTPUT_BUTTON;
 import static frc.team2974.robot.Config.Input.OUTPUT_HALF_BUTTON;
 import static frc.team2974.robot.Config.Input.RIGHT_JOYSTICK_PORT;
-import static frc.team2974.robot.Config.Input.SHIFT_DOWN_BUTTON;
-import static frc.team2974.robot.Config.Input.SHIFT_DOWN_BUTTON_ALT;
-import static frc.team2974.robot.Config.Input.SHIFT_UP_BUTTON;
-import static frc.team2974.robot.Config.Input.SHIFT_UP_BUTTON_ALT;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.team2974.robot.util.ButtonMultiple;
 import frc.team2974.robot.util.ButtonOnce;
 import frc.team2974.robot.util.POVButton;
 
@@ -37,8 +33,8 @@ public final class OI {
   public static final Gamepad gamepad;
 
   // used with Drivetrain subsystem
-  public static final Button shiftUp;
-  public static final Button shiftDown;
+//  public static final Button shiftUp;
+//  public static final Button shiftDown;
 //	public static final Button shiftUpAlt; // ButtonMultiple ^^^
 //	public static final Button shiftDownAlt;
 
@@ -57,14 +53,23 @@ public final class OI {
   public static final Button outputHalf;
   public static final Button intakeHalf;
 
+  private static final ButtonOnce cruiseModeRight;
+
+  private static final ButtonOnce cruiseModeLeft;
+
+
+  private static final JoystickButton stopButton;
+
+  private static final int STOP_BUTTON = Gamepad.Button._2.index();
+
   static {
     leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
     rightJoystick = new Joystick(RIGHT_JOYSTICK_PORT);
     gamepad = new Gamepad(GAMEPAD_PORT);
 
     // Shifting buttons approved by Mr.B for Noah
-    shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON, SHIFT_UP_BUTTON_ALT);
-    shiftDown = new ButtonMultiple(leftJoystick, SHIFT_DOWN_BUTTON, SHIFT_DOWN_BUTTON_ALT);
+//    shiftUp = new ButtonMultiple(leftJoystick, SHIFT_UP_BUTTON, SHIFT_UP_BUTTON_ALT);
+//    shiftDown = new ButtonMultiple(leftJoystick, SHIFT_DOWN_BUTTON, SHIFT_DOWN_BUTTON_ALT);
 //		shiftUpAlt = new JoystickButton(leftJoystick, SHIFT_UP_BUTTON_ALT); // moved to ButtonMultiple :)
 //		shiftDownAlt = new JoystickButton(leftJoystick, SHIFT_DOWN_BUTTON_ALT);
 
@@ -80,8 +85,19 @@ public final class OI {
     output = new JoystickButton(gamepad, OUTPUT_BUTTON);
     outputHalf = new JoystickButton(gamepad, OUTPUT_HALF_BUTTON);
     intakeHalf = new JoystickButton(gamepad, INTAKE_LOW_BUTTON);
+
+    cruiseModeLeft = new ButtonOnce(leftJoystick, CRUISE_BUTTON);
+    cruiseModeRight = new ButtonOnce(leftJoystick, CRUISE_BUTTON);
+
+    stopButton = new JoystickButton(gamepad, STOP_BUTTON);
+    stopButton.whenActive();
   }
 
   private OI() {
+  }
+
+  public static boolean isCruiseModeToggled() {
+    return cruiseModeLeft.get() || cruiseModeRight.get();
+
   }
 }
