@@ -15,10 +15,12 @@ import static frc.team2974.robot.Config.Input.LEFT_JOYSTICK_PORT;
 import static frc.team2974.robot.Config.Input.OUTPUT_BUTTON;
 import static frc.team2974.robot.Config.Input.OUTPUT_HALF_BUTTON;
 import static frc.team2974.robot.Config.Input.RIGHT_JOYSTICK_PORT;
+import static frc.team2974.robot.Config.Input.STOP_BUTTON;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.team2974.robot.command.teleop.Stop;
 import frc.team2974.robot.util.ButtonOnce;
 import frc.team2974.robot.util.POVButton;
 
@@ -52,15 +54,9 @@ public final class OI {
   public static final Button output;
   public static final Button outputHalf;
   public static final Button intakeHalf;
-
+  public static final JoystickButton stopButton;
   private static final ButtonOnce cruiseModeRight;
-
   private static final ButtonOnce cruiseModeLeft;
-
-
-  private static final JoystickButton stopButton;
-
-  private static final int STOP_BUTTON = Gamepad.Button._2.index();
 
   static {
     leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
@@ -90,7 +86,7 @@ public final class OI {
     cruiseModeRight = new ButtonOnce(leftJoystick, CRUISE_BUTTON);
 
     stopButton = new JoystickButton(gamepad, STOP_BUTTON);
-    stopButton.whenActive();
+    stopButton.whenPressed(new Stop());
   }
 
   private OI() {

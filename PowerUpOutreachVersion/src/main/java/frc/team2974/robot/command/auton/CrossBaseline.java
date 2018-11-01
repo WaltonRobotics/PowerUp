@@ -1,10 +1,10 @@
 package frc.team2974.robot.command.auton;
 
-import static frc.team2974.robot.Config.Path.C0;
-import static frc.team2974.robot.Config.Path.C1;
-import static frc.team2974.robot.Config.Path.C2;
-import static frc.team2974.robot.Config.Path.L0;
-import static frc.team2974.robot.Config.Path.R0;
+import static frc.team2974.robot.Config.Path.Center.C0;
+import static frc.team2974.robot.Config.Path.Center.C1;
+import static frc.team2974.robot.Config.Path.Center.C2;
+import static frc.team2974.robot.Config.Path.Left.L0;
+import static frc.team2974.robot.Config.Path.Right.R0;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team2974.robot.Robot;
