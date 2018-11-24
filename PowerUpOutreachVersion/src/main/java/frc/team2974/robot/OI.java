@@ -55,8 +55,8 @@ public final class OI {
   public static final Button outputHalf;
   public static final Button intakeHalf;
   public static final JoystickButton stopButton;
-  private static final ButtonOnce cruiseModeRight;
-  private static final ButtonOnce cruiseModeLeft;
+  private static final JoystickButton cruiseModeRight;
+  private static final JoystickButton cruiseModeLeft;
 
   static {
     leftJoystick = new Joystick(LEFT_JOYSTICK_PORT);
@@ -82,8 +82,8 @@ public final class OI {
     outputHalf = new JoystickButton(gamepad, OUTPUT_HALF_BUTTON);
     intakeHalf = new JoystickButton(gamepad, INTAKE_LOW_BUTTON);
 
-    cruiseModeLeft = new ButtonOnce(leftJoystick, CRUISE_BUTTON);
-    cruiseModeRight = new ButtonOnce(leftJoystick, CRUISE_BUTTON);
+    cruiseModeLeft = new JoystickButton(leftJoystick, CRUISE_BUTTON);
+    cruiseModeRight = new JoystickButton(rightJoystick, CRUISE_BUTTON);
 
     stopButton = new JoystickButton(gamepad, STOP_BUTTON);
     stopButton.whenPressed(new Stop());
@@ -93,6 +93,8 @@ public final class OI {
   }
 
   public static boolean isCruiseModeToggled() {
+    System.out.println(cruiseModeLeft.get());
+    System.out.println(cruiseModeRight.get());
     return cruiseModeLeft.get() || cruiseModeRight.get();
 
   }

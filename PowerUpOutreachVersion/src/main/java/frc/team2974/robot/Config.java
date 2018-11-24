@@ -164,7 +164,7 @@ public final class Config {
 
   public static final class Driving {
 
-    public static final double CRUISE_POWER = .8; //TODO To Find
+    public static final double CRUISE_POWER = .3; //TODO To Find
   }
 
   public static final class Elevator {
