@@ -1,11 +1,5 @@
 package frc.team2974.robot.subsystems;
 
-import static frc.team2974.robot.RobotMap.encoderLeft;
-import static frc.team2974.robot.RobotMap.encoderRight;
-import static frc.team2974.robot.RobotMap.motorLeft;
-import static frc.team2974.robot.RobotMap.motorRight;
-import static frc.team2974.robot.RobotMap.pneumaticsShifter;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,12 +11,15 @@ import org.waltonrobotics.AbstractDrivetrain;
 import org.waltonrobotics.MotionLogger;
 import org.waltonrobotics.controller.RobotPair;
 
+import static frc.team2974.robot.RobotMap.*;
+
 /**
  *
  */
 public class Drivetrain extends AbstractDrivetrain {
 
   private final SendableChooser<Boolean> driveMode;
+  private double distancePerPulse = Robot.getChosenRobot().getDistancePerPulse();
 
   public Drivetrain(MotionLogger motionLogger) {
     super(motionLogger);
@@ -44,7 +41,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
   @Override
   public double getRobotWidth() {
-    return Robot.getChoosenRobot().getRobotWidth();
+    return Robot.getChosenRobot().getRobotWidth();
   }
 
   @Override
@@ -61,12 +58,16 @@ public class Drivetrain extends AbstractDrivetrain {
 
   @Override
   public void setEncoderDistancePerPulse() {
-    double distancePerPulse = Robot.getChoosenRobot().getDistancePerPulse();
+
 
     encoderLeft.setDistancePerPulse(distancePerPulse);
     encoderRight.setDistancePerPulse(distancePerPulse);
     encoderRight.setReverseDirection(true);
     motorRight.setInverted(true);
+  }
+
+  public double getDistancePerPulse() {
+    return distancePerPulse;
   }
 
   @Override

@@ -1,9 +1,5 @@
 package frc.team2974.robot;
 
-import static frc.team2974.robot.Config.IntakeOutput.LOW_POWER;
-import static frc.team2974.robot.RobotMap.elevatorMotor;
-import static frc.team2974.robot.RobotMap.pneumaticsShifter;
-
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,6 +16,10 @@ import frc.team2974.robot.subsystems.IntakeOutput;
 import frc.team2974.robot.subsystems.PlaneBreaker;
 import frc.team2974.robot.util.ElevatorLogger;
 import org.waltonrobotics.MotionLogger;
+
+import static frc.team2974.robot.Config.IntakeOutput.LOW_POWER;
+import static frc.team2974.robot.RobotMap.elevatorMotor;
+import static frc.team2974.robot.RobotMap.pneumaticsShifter;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<Boolean> confuseEnenmy;
 	private SendableChooser<Boolean> behindSwitch;
 
-	public static Config.Robot getChoosenRobot() {
+	public static Config.Robot getChosenRobot() {
 		return currentRobot;
 	}
 

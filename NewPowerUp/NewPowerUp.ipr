@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <resourceExtensions>
-      <entry name=".+\.(properties|xml|html|dtd|tld)" />
-      <entry name=".+\.(gif|png|jpeg|jpg)" />
-    </resourceExtensions>
-    <wildcardResourcePatterns>
-      <entry name="!?*.class" />
-      <entry name="!?*.scala" />
-      <entry name="!?*.java" />
-      <entry name="!?*.groovy" />
-    </wildcardResourcePatterns>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="NewPowerUp_main" target="1.8" />
       <module name="NewPowerUp_test" target="1.8" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="CopyrightManager" default="" />
-  <component name="DependencyValidationManager">
-    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="Encoding" addBOMForNewFiles="with NO BOM" />
   <component name="GradleSettings">
@@ -35,35 +21,11 @@
       </GradleProjectSettings>
     </option>
   </component>
-  <component name="GradleUISettings">
-    <setting name="root" />
-  </component>
-  <component name="GradleUISettings2">
-    <setting name="root" />
-  </component>
-  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C" />
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
     </profile>
     <version value="1.0" />
-  </component>
-  <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" />
-    <option name="OPTION_SCOPE" value="protected" />
-    <option name="OPTION_HIERARCHY" value="true" />
-    <option name="OPTION_NAVIGATOR" value="true" />
-    <option name="OPTION_INDEX" value="true" />
-    <option name="OPTION_SEPARATE_INDEX" value="true" />
-    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
-    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
-    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
-    <option name="OPTION_DEPRECATED_LIST" value="true" />
-    <option name="OTHER_OPTIONS" value="" />
-    <option name="HEAP_SIZE" />
-    <option name="LOCALE" />
-    <option name="OPEN_IN_BROWSER" value="true" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
@@ -73,15 +35,22 @@
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
-  <component name="SvnBranchConfigurationManager">
-    <option name="mySupportsUserInfoFilter" value="true" />
+    <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
   </component>
   <component name="libraryTable">
+    <library name="2974Splines">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../PowerUp/lib/2974Splines.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../PowerUp/lib/CTRE_Phoenix.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../PowerUp/lib/CTRE_Phoenix-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: edu.wpi.first.cscore:cscore-java:1.3.0">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cscore/cscore-java/1.3.0/af0c62cf7e9903d052e67008105e014357917e13/cscore-java-1.3.0.jar!/" />
@@ -117,6 +86,13 @@
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpiutil/wpiutil-java/3.2.0/c2f13b5007365c2b972c3d37e6104e4213c70c53/wpiutil-java-3.2.0-sources.jar!/" />
       </SOURCES>
+    </library>
+    <library name="Gradle: junit:junit:4.12">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/Could not find junit:junit:4.12.&#13;&#10;Searched in the following locations:&#13;&#10;    http:/first.wpi.edu/FRC/roborio/maven/release/junit/junit/4.12/junit-4.12.pom&#13;&#10;    http:/first.wpi.edu/FRC/roborio/maven/release/junit/junit/4.12/junit-4.12.jar&#13;&#10;    http:/dev.imjac.in/maven/junit/junit/4.12/junit-4.12.pom&#13;&#10;    http:/dev.imjac.in/maven/junit/junit/4.12/junit-4.12.jar&#13;&#10;    https:/raw.githubusercontent.com/Open-RIO/Maven-Mirror/master/m2/junit/junit/4.12/junit-4.12.pom&#13;&#10;    https:/raw.githubusercontent.com/Open-RIO/Maven-Mirror/master/m2/junit/junit/4.12/junit-4.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
     </library>
     <library name="Gradle: openrio.mirror.third.ctre:CTRE-phoenix-java:5.2.2.0">
       <CLASSES>
@@ -154,46 +130,48 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opencv/opencv-java/3.2.0/da5215ba2c023701a644802a1fcd93749061f90d/opencv-java-3.2.0-sources.jar!/" />
       </SOURCES>
     </library>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <UIState>
-          <splitter-proportions>
-            <SplitterProportionsDataImpl />
-          </splitter-proportions>
-          <settings />
-        </UIState>
-      </state>
-      <state key="Copyright.UI">
-        <UIState>
-          <splitter-proportions>
-            <SplitterProportionsDataImpl />
-          </splitter-proportions>
-        </UIState>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <UIState>
-          <splitter-proportions>
-            <SplitterProportionsDataImpl>
-              <option name="proportions">
-                <list>
-                  <option value="0.2" />
-                </list>
-              </option>
-            </SplitterProportionsDataImpl>
-          </splitter-proportions>
-          <last-edited>1.6</last-edited>
-        </UIState>
-      </state>
-      <state key="ScopeChooserConfigurable.UI">
-        <UIState>
-          <splitter-proportions>
-            <SplitterProportionsDataImpl />
-          </splitter-proportions>
-          <settings />
-        </UIState>
-      </state>
-    </states>
+    <library name="junit5-master">
+      <CLASSES />
+      <JAVADOC />
+      <SOURCES>
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/documentation/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/documentation/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-api/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-engine/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-engine/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-migrationsupport/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-migrationsupport/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-params/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-jupiter-params/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-commons-java-9/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-commons-java-9/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-commons/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-console/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-engine/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-launcher/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-reporting/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-runner/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-suite-api/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-platform-testkit/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-vintage-engine/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/junit-vintage-engine/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tests/src/jmh/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tests/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/ant-starter/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/ant-starter/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/gradle-missing-engine/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/gradle-starter/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/gradle-starter/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/java-versions/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/maven-starter/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/maven-starter/src/test/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/multi-release-jar/default/src/test/java/integration" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/multi-release-jar/no-scripting/src/test/java/integration" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/projects/standalone/src" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/src/main/java" />
+        <root url="file://$USER_HOME$/Downloads/junit5-master/junit5-master/platform-tooling-support-tests/src/test/java" />
+      </SOURCES>
+    </library>
   </component>
 </project>

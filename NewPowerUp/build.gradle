@@ -6,7 +6,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
+    id "jaci.openrio.gradle.GradleRIO" version "2019.2.1"
 }
 
 def TEAM = 2974
@@ -34,6 +34,11 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
+    compile wpi.deps.wpilib()
+    compile wpi.deps.vendor.java()
+    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+    testCompile 'junit:junit:4.12'
 
     compile files("C:\\Users\\mariu\\Documents\\GitHub\\Actually-Simple-Splines\\out\\artifacts\\Actually_Simple_Splines__For_Library__jar\\2974Splines.jar")
 }
@@ -47,6 +52,14 @@ jar {
 }
 
 wrapper {
-    gradleVersion = '4.4'
+    gradleVersion = '4.9'
 //    TODO check if changing this to 4.10 works
+}
+
+test {
+    useJUnit()
+
+    filter {
+        includeTestsMatching "frc.team2974.robot.*"
+    }
 }
