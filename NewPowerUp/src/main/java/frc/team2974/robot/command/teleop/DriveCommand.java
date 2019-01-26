@@ -59,10 +59,10 @@ public class DriveCommand extends Command {
 //		}
 
     if (Robot.elevator.getCurrentPositionNU()
-        >= (Robot.getChoosenRobot().getMaximumElevatorHeight() * (0.5))) {
+        >= (Robot.getChosenRobot().getMaximumElevatorHeight() * (0.5))) {
 //			double percentage = SmartDashboard.getNumber("Speed Percentage", 0.50);
       double percentage =
-          1.4 - (Robot.elevator.getCurrentPositionNU() / Robot.getChoosenRobot().getMaximumElevatorHeight());
+          1.4 - (Robot.elevator.getCurrentPositionNU() / Robot.getChosenRobot().getMaximumElevatorHeight());
       leftPower *= percentage;
       rightPower *= percentage;
     }

@@ -22,7 +22,7 @@ public class Drivetrain extends AbstractDrivetrain {
   private double distancePerPulse = Robot.getChosenRobot().getDistancePerPulse();
 
   public Drivetrain(MotionLogger motionLogger) {
-    super(motionLogger);
+    super(motionLogger, ()-> false, ()->null);
     driveMode = new SendableChooser<>();
     driveMode.addDefault("Tank", true);
     driveMode.addObject("Cheesy", false);
