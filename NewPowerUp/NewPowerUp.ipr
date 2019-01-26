@@ -30,7 +30,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NewPowerUp.iml" filepath="$PROJECT_DIR$/NewPowerUp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NewPowerUp.iml" filepath="$PROJECT_DIR$/NewPowerUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/NewPowerUp_main.iml" filepath="$PROJECT_DIR$/NewPowerUp_main.iml" group="NewPowerUp" />
+      <module fileurl="file://$PROJECT_DIR$/NewPowerUp_main.iml" filepath="$PROJECT_DIR$/NewPowerUp_main.iml" group="NewPowerUp" />
+      <module fileurl="file://$PROJECT_DIR$/NewPowerUp_test.iml" filepath="$PROJECT_DIR$/NewPowerUp_test.iml" group="NewPowerUp" />
       <module fileurl="file://$PROJECT_DIR$/NewPowerUp_test.iml" filepath="$PROJECT_DIR$/NewPowerUp_test.iml" group="NewPowerUp" />
     </modules>
   </component>

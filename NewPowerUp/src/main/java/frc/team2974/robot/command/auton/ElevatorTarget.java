@@ -17,9 +17,9 @@ public class ElevatorTarget extends Command {
   public ElevatorTarget(double position) {
     this.position = Math
         .min(Math.max(position,
-            Robot.getChoosenRobot().getMinimumElevatorHeight() / Robot.getChoosenRobot()
+            Robot.getChosenRobot().getMinimumElevatorHeight() / Robot.getChosenRobot()
                 .getInchesToNativeUnits()),
-            Robot.getChoosenRobot().getMaximumElevatorHeight() / Robot.getChoosenRobot()
+            Robot.getChosenRobot().getMaximumElevatorHeight() / Robot.getChosenRobot()
                 .getInchesToNativeUnits());
 
     if (!elevator.isMotionControlled()) {
