@@ -1,0 +1,84 @@
+package org.usfirst.frc.team2974.robot.subsystems;
+
+import static org.usfirst.frc.team2974.robot.RobotMap.encoderLeft;
+import static org.usfirst.frc.team2974.robot.RobotMap.encoderRight;
+import static org.usfirst.frc.team2974.robot.RobotMap.motorLeft;
+import static org.usfirst.frc.team2974.robot.RobotMap.motorRight;
+import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team2974.robot.Robot;
+import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
+import org.waltonrobotics.AbstractDrivetrain;
+import org.waltonrobotics.metadata.RobotPair;
+
+/**
+ *
+ */
+public class Drivetrain extends AbstractDrivetrain {
+
+  private final SendableChooser<Boolean> driveMode;
+
+  public Drivetrain() {
+    super(Robot.robotConfig);
+    driveMode = new SendableChooser<>();
+    driveMode.addDefault("Tank", true);
+    driveMode.addObject("Cheesy", false);
+    SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
+
+    motorRight.setInverted(true);
+  }
+
+  @Override
+  public RobotPair getWheelPositions() {
+    return new RobotPair(encoderLeft.getDistance(), encoderRight.getDistance(),
+        Timer.getFPGATimestamp());
+  }
+
+
+  @Override
+  protected void initDefaultCommand() {
+    setDefaultCommand(new DriveCommand());
+  }
+
+  @Override
+  public void reset() {
+    System.out.println("Reset Drivetrain");
+    encoderLeft.reset();
+    encoderRight.reset();
+  }
+
+  @Override
+  public void setEncoderDistancePerPulse() {
+    double distancePerPulse = Robot.getChoosenRobot().getDistancePerPulse();
+
+    encoderLeft.setDistancePerPulse(distancePerPulse);
+    encoderRight.setDistancePerPulse(distancePerPulse);
+    encoderRight.setReverseDirection(true);
+    motorRight.setInverted(true);
+  }
+
+  @Override
+  public void setSpeeds(double leftPower, double rightPower) {
+    motorRight.set(-rightPower);
+    motorLeft.set(-leftPower);
+  }
+
+  public void shiftDown() {
+    pneumaticsShifter.set(true);
+  }
+
+  public void shiftUp() {
+    pneumaticsShifter.set(false);
+  }
+
+  public boolean isShiftDown() {
+    return pneumaticsShifter.get();
+  }
+
+  public boolean isTankDrive() {
+    return driveMode.getSelected();
+  }
+}

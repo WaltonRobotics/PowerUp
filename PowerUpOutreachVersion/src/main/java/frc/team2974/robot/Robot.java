@@ -132,6 +132,9 @@ public class Robot extends IterativeRobot {
     updateSmartDashboard();
 
     drivetrain.shiftDown();
+
+    System.out.println("Hello World! I live!");
+    System.out.println("If I do not print this statement I shall die");
   }
 
   @Override
@@ -214,6 +217,8 @@ public class Robot extends IterativeRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     updateSmartDashboard();
+
+    System.out.println("Hello World! I live!");
   }
 
   @Override
