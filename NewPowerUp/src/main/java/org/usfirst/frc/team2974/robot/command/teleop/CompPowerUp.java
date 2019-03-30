@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.waltonrobotics.config.Controls;
 import org.waltonrobotics.config.EncoderConfig;
 import org.waltonrobotics.config.RobotConfig;
@@ -156,5 +157,55 @@ public class CompPowerUp extends RobotConfig {
   @Override
   public boolean isCurrentRobot() {
     return false;
+  }
+
+  @Override
+  public double getPLag() {
+    return SmartDashboard.getNumber("PL", 2);
+  }
+
+  @Override
+  public double getILag() {
+    return SmartDashboard.getNumber("IL", 1);
+  }
+
+  @Override
+  public double getDLag() {
+    return SmartDashboard.getNumber("DL", 0);
+  }
+
+  @Override
+  public double getPSteer() {
+    return SmartDashboard.getNumber("PS", 0);
+  }
+
+  @Override
+  public double getISteer() {
+    return SmartDashboard.getNumber("IS", 0);
+  }
+
+  @Override
+  public double getDSteer() {
+    return SmartDashboard.getNumber("DS", 0);
+  }
+
+  @Override
+  public double getPAngle() {
+    return SmartDashboard.getNumber("PA", 0);
+  }
+
+  @Override
+  public double getIAngle() {
+    return SmartDashboard.getNumber("IA", 0);
+  }
+
+  @Override
+  public double getDAngle() {
+    return SmartDashboard.getNumber("DA", 0);
+  }
+
+  @Override
+  public double getVMax() {
+    return 3.5 * .95;
   }
 }

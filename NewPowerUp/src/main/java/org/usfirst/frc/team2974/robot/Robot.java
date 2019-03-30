@@ -32,7 +32,11 @@ import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.usfirst.frc.team2974.robot.util.ParkingLines;
+import org.waltonrobotics.command.SimpleLine;
 import org.waltonrobotics.config.RobotConfig;
+import org.waltonrobotics.metadata.Pose;
+import org.waltonrobotics.motion.Line;
+import org.waltonrobotics.motion.Spline;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -137,6 +141,16 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
 
+    SmartDashboard.putNumber("PL", 8.0);
+    SmartDashboard.putNumber("IL", 0.0);
+    SmartDashboard.putNumber("DL", 0.0);
+    SmartDashboard.putNumber("PS", 4.5);
+    SmartDashboard.putNumber("IS", 0.0);
+    SmartDashboard.putNumber("DS", 0.0);
+    SmartDashboard.putNumber("PA", 5.0);
+    SmartDashboard.putNumber("IA", 0.0);
+    SmartDashboard.putNumber("DA", 0.0);
+
     initCamera();
 //    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 //    camera.setResolution(1280 / 2, 720 / 2);
@@ -195,6 +209,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    drivetrain.cancelControllerMotion();
+    drivetrain.clearControllerMotions();
     gameData = null;
     drivetrain.reset();
     drivetrain.getMotionLogger().writeMotionDataCSV(true);
@@ -215,8 +231,9 @@ public class Robot extends TimedRobot {
     drivetrain.getMotionLogger().initialize();
     elevatorLogger.initialize();
     drivetrain.shiftUp();
-    planeBreaker.moveUp();
+//    planeBreaker.moveUp();
 
+    /*
     confuseEnemy = confuseEnenmy.getSelected();
     doNumberOfCubes = numberCubes.getSelected();
     doBehindSwitch = behindSwitch.getSelected();
@@ -242,6 +259,18 @@ public class Robot extends TimedRobot {
     if (autonCommands != null) {
       autonCommands.start();
     }
+    */
+//    Line linePath = new Line(2, 1, 0, 0, false, Pose.ZERO, 2);
+//    drivetrain.addControllerMotions(linePath);
+    Pose startPose = new Pose(0, 0, StrictMath.toRadians(90));
+    Spline splinePath = new Spline(robotConfig.getVMax(), 2.5, 0, 1, false,
+        startPose, new Pose(2, 1, 0));
+    Spline spline2 = new Spline(robotConfig.getVMax(), 2.5, 1, 0, false,
+        new Pose(2, 1, 0), new Pose(4, 2, StrictMath.toRadians(90)));
+    drivetrain.addControllerMotions(splinePath);
+    drivetrain.addControllerMotions(spline2);
+//    System.out.println(linePath.toString());
+    drivetrain.startControllerMotion(startPose);
   }
 
   /**
@@ -308,6 +337,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Elevator power mode", elevatorMotor.getControlMode().name());
     SmartDashboard.putBoolean("Elevator elevator mode", elevator.isMotionControlled());
     SmartDashboard.putString("Gear", pneumaticsShifter.get() ? "Low" : "High");
+
+    SmartDashboard.putNumber("Center Velocity",
+        (RobotMap.encoderLeft.getRate() + RobotMap.encoderRight.getRate()) / 2);
 
   }
 
