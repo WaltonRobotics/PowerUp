@@ -184,13 +184,13 @@ public class Elevator extends Subsystem {
 //		System.out.println("Target: " + inches);
 
 		if (zeroed) {
-			elevatorMotor.set(
-				ControlMode.MotionMagic,
-				Math.min(Robot.getChoosenRobot().getMaximumElevatorHeight(),
-					Math.max(Robot.getChoosenRobot().getMinimumElevatorHeight(),
-						inches * Robot.getChoosenRobot()
-							.getInchesToNativeUnits())) /* This is a hard cap */
-			);
+//			elevatorMotor.set(
+//				ControlMode.MotionMagic,
+//				Math.min(Robot.getChoosenRobot().getMaximumElevatorHeight(),
+//					Math.max(Robot.getChoosenRobot().getMinimumElevatorHeight(),
+//						inches * Robot.getChoosenRobot()
+//							.getInchesToNativeUnits())) /* This is a hard cap */
+//			);
 		}
 	}
 
@@ -201,7 +201,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Elevator Power", percent);
 
 //		System.out.println("Setting Power "  + percent);
-		elevatorMotor.set(ControlMode.PercentOutput, percent);
+//		elevatorMotor.set(ControlMode.PercentOutput, percent);
 	}
 
 	public boolean atTopPosition() {
