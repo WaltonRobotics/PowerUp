@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
 
-    initCamera();
+//    initCamera();
 //    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 //    camera.setResolution(1280 / 2, 720 / 2);
 //    camera.setFPS(5);
@@ -147,50 +147,50 @@ public class Robot extends TimedRobot {
     updateSmartDashboard();
   }
 
-  private void initCamera() {
-    new Thread(() -> {
-      SmartDashboard.putNumber(PARKING_LINE_OFFSET, 100);
-      SmartDashboard.putNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0);
-      SmartDashboard.putNumber(PARKING_LINE_FOCUS_Y, 80);
-      SmartDashboard.putNumber(PARKING_LINE_PERCENTAGE, .69);
-
-      CameraServer cameraServer = CameraServer.getInstance();
-
-      UsbCamera fishEyeCamera = cameraServer.startAutomaticCapture();
-      fishEyeCamera.setResolution(WIDTH, HEIGHT);
-
-      CvSink cvSink = cameraServer.getVideo();
-      CvSource outputStream = cameraServer.putVideo("Fisheye Camera", WIDTH, HEIGHT);
-      outputStream.setFPS(FPS);
-
-      MjpegServer fisheyeServer = cameraServer.addServer("Fisheye Camera Server");
-      fisheyeServer.setSource(outputStream);
-
-      fisheyeServer.getProperty("compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
-      fisheyeServer.getProperty("default_compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
-
-//      if (!fishEyeCamera.isConnected()) {
-//        fishEyeCamera.close();
-//        fisheyeServer.close();
-//        return;
+//  private void initCamera() {
+//    new Thread(() -> {
+//      SmartDashboard.putNumber(PARKING_LINE_OFFSET, 100);
+//      SmartDashboard.putNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0);
+//      SmartDashboard.putNumber(PARKING_LINE_FOCUS_Y, 80);
+//      SmartDashboard.putNumber(PARKING_LINE_PERCENTAGE, .69);
+//
+//      CameraServer cameraServer = CameraServer.getInstance();
+//
+//      UsbCamera fishEyeCamera = cameraServer.startAutomaticCapture();
+//      fishEyeCamera.setResolution(WIDTH, HEIGHT);
+//
+//      CvSink cvSink = cameraServer.getVideo();
+//      CvSource outputStream = cameraServer.putVideo("Fisheye Camera", WIDTH, HEIGHT);
+//      outputStream.setFPS(FPS);
+//
+//      MjpegServer fisheyeServer = cameraServer.addServer("Fisheye Camera Server");
+//      fisheyeServer.setSource(outputStream);
+//
+//      fisheyeServer.getProperty("compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
+//      fisheyeServer.getProperty("default_compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
+//
+////      if (!fishEyeCamera.isConnected()) {
+////        fishEyeCamera.close();
+////        fisheyeServer.close();
+////        return;
+////      }
+//
+//      Mat source = new Mat();
+//
+//      while (!Thread.interrupted()) {
+//        cvSink.grabFrame(source);
+//        ParkingLines.setFocusPoint(
+//            SmartDashboard.getNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0),
+//            SmartDashboard.getNumber(PARKING_LINE_FOCUS_Y, HEIGHT / 2.0)
+//        );
+//        ParkingLines.setPercentage(SmartDashboard.getNumber(PARKING_LINE_PERCENTAGE, 1));
+//        ParkingLines.setXOffset(SmartDashboard.getNumber(PARKING_LINE_OFFSET, 0));
+//
+//        ParkingLines.drawParkingLines(source);
+//        outputStream.putFrame(source);
 //      }
-
-      Mat source = new Mat();
-
-      while (!Thread.interrupted()) {
-        cvSink.grabFrame(source);
-        ParkingLines.setFocusPoint(
-            SmartDashboard.getNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0),
-            SmartDashboard.getNumber(PARKING_LINE_FOCUS_Y, HEIGHT / 2.0)
-        );
-        ParkingLines.setPercentage(SmartDashboard.getNumber(PARKING_LINE_PERCENTAGE, 1));
-        ParkingLines.setXOffset(SmartDashboard.getNumber(PARKING_LINE_OFFSET, 0));
-
-        ParkingLines.drawParkingLines(source);
-        outputStream.putFrame(source);
-      }
-    }).start();
-  }
+//    }).start();
+//  }
 
 
   @Override
