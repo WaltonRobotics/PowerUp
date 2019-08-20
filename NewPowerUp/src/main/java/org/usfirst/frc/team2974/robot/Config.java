@@ -98,6 +98,9 @@ public final class Config {
 
     public static final int PLANE_BREAK = 1; //pcm
 
+    public static final int LED_CHANNEL5 = 5;
+    public static final int LED_CHANNEL6 = 6;
+
     private Hardware() {
     }
   }
@@ -172,14 +175,21 @@ public final class Config {
     }
   }
 
-  public static final class Camera {
+    public static final class Camera {
 
-    public static final int WIDTH = 320;
-    public static final int HEIGHT = 240;
-    public static final int FPS = 30;
-    public static final int DEFAULT_CAMERA_COMPRESSION_QUALITY = 40; // between 0 and 100, 100 being the max, -1 being left to Shuffleboard
+      public static final int DRIVER_PIPELINE = 3;
+      public static final int AUTO_ALIGN_PIPELINE = 2;
+      public static final int LED_OFF = 1;
+      public static final int LED_ON = 3;
 
-  }
+      public static final int WIDTH = 320; //320
+      public static final int HEIGHT = 240; //240
+      public static final int FPS = 30;
+      public static final int DEFAULT_CAMERA_COMPRESSION_QUALITY = 20; // between 0 and 100, 100 being the max, -1 being left to Shuffleboard
+
+      private Camera() {
+      }
+    }
 
   public static final class SmartDashboardKeys {
 

@@ -4,6 +4,8 @@ import static org.usfirst.frc.team2974.robot.Config.Hardware.ELEVATOR_LIMIT_LOWE
 import static org.usfirst.frc.team2974.robot.Config.Hardware.ELEVATOR_MOTOR_CHANNEL;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.INTAKE_LEFT_MOTOR_CHANNEL;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.INTAKE_RIGHT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LED_CHANNEL5;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LED_CHANNEL6;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_ENCODER_CHANNEL1;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_ENCODER_CHANNEL2;
 import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_MOTOR_CHANNEL;
@@ -18,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -48,6 +51,9 @@ public final class RobotMap {
 
 	public static final DigitalInput elevatorLimitLower;
 
+	public static final DigitalOutput LED1 = new DigitalOutput(LED_CHANNEL5);
+	public static final DigitalOutput LED2 = new DigitalOutput(LED_CHANNEL6);
+
 	// public static final DigitalInput limitIntake;
 
 	static {
@@ -71,6 +77,7 @@ public final class RobotMap {
 		intakeMotorRight = new VictorSPX(INTAKE_RIGHT_MOTOR_CHANNEL);
 
 		robotIdentifier = new DigitalInput(ROBOT_IDENTIFIER_CHANNEL);
+
 	}
 
 	private RobotMap() {
