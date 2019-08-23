@@ -2,6 +2,7 @@ package org.usfirst.frc.team2974.robot.command.teleop;
 
 import static org.usfirst.frc.team2974.robot.OI.leftJoystick;
 import static org.usfirst.frc.team2974.robot.OI.rightJoystick;
+import static org.usfirst.frc.team2974.robot.OI.stop;
 import static org.usfirst.frc.team2974.robot.Robot.drivetrain;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -9,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Config.Camera;
 import org.usfirst.frc.team2974.robot.OI;
-import org.usfirst.frc.team2974.robot.util.LEDController;
 
 /**
  *
@@ -43,37 +43,38 @@ public class DriveCommand extends Command {
 
   private void tankDrive() {
 
-      rightTriggerPress.set(OI.rightJoystick.getTrigger());
+    rightTriggerPress.set(OI.rightJoystick.getTrigger());
 
-      if (rightTriggerPress.isRisingEdge()) {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline")
-            .setDouble(Camera.AUTO_ALIGN_PIPELINE);
-      } else if (rightTriggerPress.isFallingEdge()) {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setDouble(Camera.DRIVER_PIPELINE);
-      }
-
-      updateLimelightTracking();
+    if (rightTriggerPress.isRisingEdge()) {
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline")
+          .setDouble(Camera.AUTO_ALIGN_PIPELINE);
+    } else if (rightTriggerPress.isFallingEdge()) {
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline")
+          .setDouble(Camera.DRIVER_PIPELINE);
+    }
 
 
     double leftPower = -getLeftThrottle();
     double rightPower = -getRightThrottle();
 
-
-      if (rightTriggerPress.get()) {
-        if (limelightHasValidTarget) {
-          drivetrain.setArcadeSpeeds(limelightDriveCommand, limelightSteerCommand);
-          isAligning = true;
-          LEDController.setLEDAutoAlignMode();
-        } else {
-          isAligning = false;
-        }
-      } else if (rightTriggerPress.isFallingEdge()) {
+    if (rightTriggerPress.get()) {
+      if (limelightHasValidTarget) {
+//        System.out.println("Puppy dogging");
+        drivetrain.setArcadeSpeeds(limelightDriveCommand, limelightSteerCommand);
+        isAligning = true;
+      } else {
         isAligning = false;
-
       }
+    } else if (rightTriggerPress.isFallingEdge()) {
+      isAligning = false;
 
-    if (!isAligning || !limelightHasValidTarget) {
-      drivetrain.setSpeeds(leftPower, rightPower);
+    }
+    if(!stop.get()) {
+      if (!isAligning || !limelightHasValidTarget) {
+        drivetrain.setSpeeds(leftPower, rightPower);
+      }
+    } else {
+      drivetrain.setSpeeds(0, 0);
     }
   }
   // Called just before this Command runs the first time
@@ -86,6 +87,8 @@ public class DriveCommand extends Command {
 
   @Override
   protected void execute() {
+    updateLimelightTracking();
+
     tankDrive();
   }
 
@@ -108,33 +111,39 @@ public class DriveCommand extends Command {
 
   public void updateLimelightTracking() {
     // These numbers must be tuned for your Robot!  Be careful!
-    double STEER_K = SmartDashboard.getNumber("Steer K", 0.1); // how hard to turn toward the target
-    double DRIVE_K = SmartDashboard.getNumber("Drive K", 0.26); // how hard to drive fwd toward the target
+    double STEER_K = SmartDashboard.getNumber("Steer K", 0.05); // how hard to turn toward the target
+    double STEER_B = SmartDashboard.getNumber("Steer B", 0.1);
+    double DRIVE_K = SmartDashboard
+        .getNumber("Drive K", 0.26); // how hard to drive fwd toward the target
 
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
+//    System.out.println(String.format("%s, %s, %s, %s", tx, ty, ta, tv));
+
     if (tv < 1.0) {
       limelightHasValidTarget = false;
       limelightDriveCommand = 0.0;
       limelightSteerCommand = 0.0;
-      LEDController.setLEDNoTargetFoundMode();
       return;
     } else {
-      // LEDController.setLEDFoundTargetMode();
       limelightHasValidTarget = true;
     }
 
     // Start with proportional steering
-    double distance = (0.0003645262 * ty * ty * ty) + (-0.0008723340 * ty * ty) + (0.0425549550 * ty) + 0.5546679097;
+    double distance =
+        (0.0003645262 * ty * ty * ty) + (-0.0008723340 * ty * ty) + (0.0425549550 * ty)
+            + 0.5546679097;
     SmartDashboard.putNumber("Camera Distance", distance);
 
-    distance = Math.max(0.5, distance);
-    distance = Math.min(2.5, distance);
+    distance = Math.max(0.75, distance);
+    distance = Math.min(5, distance);
 
-    double steerCmd = (tx * STEER_K) / distance;
+    double f = 1 - STEER_B * Math.pow(ta - 2, 2);
+
+    double steerCmd = (tx * STEER_K * f) / distance;
     limelightSteerCommand = steerCmd;
 
     // try to drive forward until the target area reaches our desired area
@@ -154,6 +163,7 @@ public class DriveCommand extends Command {
 //
 //    SmartDashboard.putNumber("Drive Speed", driveCmd);
 //    SmartDashboard.putNumber("Alpha", alpha);
+
 
     limelightDriveCommand = driveCmd;
   }

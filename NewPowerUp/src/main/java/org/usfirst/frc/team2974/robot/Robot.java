@@ -101,41 +101,44 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     currentRobot = RobotMap.robotIdentifier.get() ? Config.Robot.COMPETITION : Config.Robot.PRACTICE;
 
-    System.out.println("Hello?");
+//    System.out.println("Hello?");
     elevatorLogger = new ElevatorLogger("/home/lvuser/");
     drivetrain = new Drivetrain();
     intakeOutput = new IntakeOutput();
     planeBreaker = new PlaneBreaker();
     elevator = new Elevator(elevatorLogger);
-
-    startLocation = new SendableChooser<>();
-    startLocation.addObject("Do Nothing", ' ');
-    startLocation.addObject("Left", 'l');
-    startLocation.addObject("Right", 'r');
-    startLocation.addDefault("Center", 'c');
-
-    numberCubes = new SendableChooser<>();
-    numberCubes.addObject("1 Cube sequence", 1);
-    numberCubes.addDefault("2 Cube sequence", 2);
-
-    confuseEnenmy = new SendableChooser<>();
-    confuseEnenmy.addDefault("Do complete 2 cube", false);
-    confuseEnenmy.addObject("Stop before", true);
-
-    behindSwitch = new SendableChooser<>();
-    behindSwitch.addDefault("Do", true);
-    behindSwitch.addObject("DONT", false);
-
-    //		Drive train
-    SmartDashboard.putNumber("Speed Percentage", 0.50 /*.75*/);
-    SmartDashboard.putData("Zero elevator", new InstantCommand() {
-      @Override
-      protected void initialize() {
-        elevator.zero();
-      }
-    });
-
-    SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
+    SmartDashboard.putNumber("Steer K", 0.06);
+    SmartDashboard.putNumber("Steer B", 0.1);
+    SmartDashboard.putBoolean("Slow Speed", true);
+//
+//    startLocation = new SendableChooser<>();
+//    startLocation.addObject("Do Nothing", ' ');
+//    startLocation.addObject("Left", 'l');
+//    startLocation.addObject("Right", 'r');
+//    startLocation.addDefault("Center", 'c');
+//
+//    numberCubes = new SendableChooser<>();
+//    numberCubes.addObject("1 Cube sequence", 1);
+//    numberCubes.addDefault("2 Cube sequence", 2);
+//
+//    confuseEnenmy = new SendableChooser<>();
+//    confuseEnenmy.addDefault("Do complete 2 cube", false);
+//    confuseEnenmy.addObject("Stop before", true);
+//
+//    behindSwitch = new SendableChooser<>();
+//    behindSwitch.addDefault("Do", true);
+//    behindSwitch.addObject("DONT", false);
+//
+//    //		Drive train
+//    SmartDashboard.putNumber("Speed Percentage", 0.50 /*.75*/);
+//    SmartDashboard.putData("Zero elevator", new InstantCommand() {
+//      @Override
+//      protected void initialize() {
+//        elevator.zero();
+//      }
+//    });
+//
+//    SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
 
 //    initCamera();
 //    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -209,39 +212,39 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    drivetrain.cancelControllerMotion();
-//		drivetrain.startControllerMotion();
-    elevator.startZero();
-    drivetrain.getMotionLogger().initialize();
-    elevatorLogger.initialize();
-    drivetrain.shiftUp();
-    planeBreaker.moveUp();
-
-    confuseEnemy = confuseEnenmy.getSelected();
-    doNumberOfCubes = numberCubes.getSelected();
-    doBehindSwitch = behindSwitch.getSelected();
-
-    while ((gameData == null) || gameData.isEmpty()) {
-      gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
-    }
-
-    char startPosition = startLocation.getSelected();
-
-    if (startPosition == ' ') { // if should do nothing
-      System.out.println(">:( Nothing has been chosen. Scrubs.");
-      autonCommands = GamePosition.DO_NOTHING.getCommand();
-      return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
-    }
-
-    System.out.printf("Start Position: %s", startPosition);
-    System.out.printf("Given GameData: %s", gameData);
-    System.out.printf("Game Position loaded: %s", GamePosition.getGamePosition(startPosition, gameData));
-
-    autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
-
-    if (autonCommands != null) {
-      autonCommands.start();
-    }
+//    drivetrain.cancelControllerMotion();
+////		drivetrain.startControllerMotion();
+//    elevator.startZero();
+//    drivetrain.getMotionLogger().initialize();
+//    elevatorLogger.initialize();
+//    drivetrain.shiftUp();
+//    planeBreaker.moveUp();
+//
+//    confuseEnemy = confuseEnenmy.getSelected();
+//    doNumberOfCubes = numberCubes.getSelected();
+//    doBehindSwitch = behindSwitch.getSelected();
+//
+//    while ((gameData == null) || gameData.isEmpty()) {
+//      gameData = DriverStation.getInstance().getGameSpecificMessage(); // "LRL" or something
+//    }
+//
+//    char startPosition = startLocation.getSelected();
+//
+//    if (startPosition == ' ') { // if should do nothing
+//      System.out.println(">:( Nothing has been chosen. Scrubs.");
+//      autonCommands = GamePosition.DO_NOTHING.getCommand();
+//      return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
+//    }
+//
+//    System.out.printf("Start Position: %s", startPosition);
+//    System.out.printf("Given GameData: %s", gameData);
+//    System.out.printf("Game Position loaded: %s", GamePosition.getGamePosition(startPosition, gameData));
+//
+//    autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
+//
+//    if (autonCommands != null) {
+//      autonCommands.start();
+//    }
   }
 
   /**
@@ -292,22 +295,24 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left", RobotMap.encoderLeft.getDistance());
     SmartDashboard.putNumber("Right", RobotMap.encoderRight.getDistance());
 
-    // Selectors
-    SmartDashboard.putData("DriveTeam/Start Location", startLocation);
-    SmartDashboard.putData("DriveTeam/Number Of Cubes", numberCubes);
-    SmartDashboard.putData("DriveTeam/Confuse enemy", confuseEnenmy);
-    SmartDashboard.putData("DriveTeam/Behind Switch", behindSwitch);
+    SmartDashboard.putBoolean("Puppy Dogging", OI.rightJoystick.getTrigger());
 
-    // Elevator
-    SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
-    SmartDashboard.putNumber("Elevator Position (NU)", elevator.getCurrentPositionNU());
-    SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
-    SmartDashboard.putNumber("Elevator Error", elevator.getError());
-    SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());
-    SmartDashboard.putBoolean("Elevator isZeroed", elevator.isZeroed());
-    SmartDashboard.putString("Elevator power mode", elevatorMotor.getControlMode().name());
-    SmartDashboard.putBoolean("Elevator elevator mode", elevator.isMotionControlled());
-    SmartDashboard.putString("Gear", pneumaticsShifter.get() ? "Low" : "High");
+    // Selectors
+//    SmartDashboard.putData("DriveTeam/Start Location", startLocation);
+//    SmartDashboard.putData("DriveTeam/Number Of Cubes", numberCubes);
+//    SmartDashboard.putData("DriveTeam/Confuse enemy", confuseEnenmy);
+//    SmartDashboard.putData("DriveTeam/Behind Switch", behindSwitch);
+//
+//    // Elevator
+//    SmartDashboard.putNumber("Elevator Position (inches)", elevator.getCurrentPosition());
+//    SmartDashboard.putNumber("Elevator Position (NU)", elevator.getCurrentPositionNU());
+//    SmartDashboard.putBoolean("Elevator Limit Switch", RobotMap.elevatorLimitLower.get());
+//    SmartDashboard.putNumber("Elevator Error", elevator.getError());
+//    SmartDashboard.putBoolean("Elevator isZeroing", elevator.isZeroing());
+//    SmartDashboard.putBoolean("Elevator isZeroed", elevator.isZeroed());
+//    SmartDashboard.putString("Elevator power mode", elevatorMotor.getControlMode().name());
+//    SmartDashboard.putBoolean("Elevator elevator mode", elevator.isMotionControlled());
+//    SmartDashboard.putString("Gear", pneumaticsShifter.get() ? "Low" : "High");
 
   }
 

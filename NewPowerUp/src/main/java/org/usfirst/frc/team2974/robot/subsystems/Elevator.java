@@ -27,7 +27,7 @@ import org.usfirst.frc.team2974.robot.util.ElevatorLogger.ElevatorData;
  */
 public class Elevator extends Subsystem {
 
-	private final ElevatorLogger logger;
+//	private final ElevatorLogger logger;
 	private final Timer timer = new Timer();
 	private boolean isMotionControlled;
 	private double power;
@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
 	public Elevator(ElevatorLogger logger) {
 		zeroing = true;
 		initConstants();
-		this.logger = logger;
+//		this.logger = logger;
 	}
 
 	public double getError() {
@@ -52,9 +52,9 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void periodic() {
-		logger.addMotionData(
-			new ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(),
-				getCurrentPositionNU(), power));
+//		logger.addMotionData(
+//			new ElevatorData(Timer.getFPGATimestamp(), getCurrentPosition(),
+//				getCurrentPositionNU(), power));
 
 		if (zeroing) {
 			setPower(-0.2);

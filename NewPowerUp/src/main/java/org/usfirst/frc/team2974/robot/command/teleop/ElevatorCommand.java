@@ -10,9 +10,10 @@ import static org.usfirst.frc.team2974.robot.OI.elevatorLow;
 import static org.usfirst.frc.team2974.robot.OI.elevatorMedium;
 import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeDown;
 import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeUp;
-import static org.usfirst.frc.team2974.robot.OI.elevatorToggleControl;
+//import static org.usfirst.frc.team2974.robot.OI.elevatorToggleControl;
 import static org.usfirst.frc.team2974.robot.OI.elevatorZero;
 import static org.usfirst.frc.team2974.robot.OI.gamepad;
+import static org.usfirst.frc.team2974.robot.OI.stop;
 import static org.usfirst.frc.team2974.robot.Robot.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -63,19 +64,19 @@ public class ElevatorCommand extends Command {
 					power *= 0.75;
 				}
 
-				elevator.setPower(power);
+					elevator.setPower(power);
 			} else {
 				elevator.setPower(0);
 			}
 		}
 
-		if (elevatorToggleControl.get()) {
-			if (elevator.isMotionControlled()) {
-				elevator.disableControl();
-			} else {
-				elevator.enableControl();
-			}
-		}
+//		if (elevatorToggleControl.get()) {
+//			if (elevator.isMotionControlled()) {
+//				elevator.disableControl();
+//			} else {
+//				elevator.enableControl();
+//			}
+//		}
 
 		if (elevatorZero.get()) {
 			elevator.startZero();

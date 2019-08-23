@@ -26,7 +26,7 @@ public class Stop extends Command {
   }
 
   protected boolean isFinished() {
-    return OI.stop.get();
+    return !OI.stop.get();
   }
 
   @Override

@@ -51,8 +51,6 @@ public final class RobotMap {
 
 	public static final DigitalInput elevatorLimitLower;
 
-	public static final DigitalOutput LED1 = new DigitalOutput(LED_CHANNEL5);
-	public static final DigitalOutput LED2 = new DigitalOutput(LED_CHANNEL6);
 
 	// public static final DigitalInput limitIntake;
 

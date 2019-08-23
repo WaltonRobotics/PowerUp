@@ -20,6 +20,7 @@ import org.waltonrobotics.metadata.RobotPair;
 public class Drivetrain extends AbstractDrivetrain {
 
   private final SendableChooser<Boolean> driveMode;
+  private final double slowSpeed = 0.5;
 
   public Drivetrain() {
     super(Robot.robotConfig);
@@ -62,8 +63,14 @@ public class Drivetrain extends AbstractDrivetrain {
 
   @Override
   public void setSpeeds(double leftPower, double rightPower) {
-    motorRight.set(-rightPower);
-    motorLeft.set(-leftPower);
+    if (SmartDashboard.getBoolean("Slow Speed", true)) {
+      motorRight.set(-rightPower * slowSpeed);
+      motorLeft.set(-leftPower * slowSpeed);
+    } else {
+      motorRight.set(-rightPower);
+      motorLeft.set(-leftPower);
+    }
+
   }
 
   public void shiftDown() {
