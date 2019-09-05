@@ -47,10 +47,10 @@ public class DriveCommand extends Command {
 
     if (rightTriggerPress.isRisingEdge()) {
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline")
-          .setDouble(Camera.AUTO_ALIGN_PIPELINE);
+          .setDouble(0);
     } else if (rightTriggerPress.isFallingEdge()) {
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline")
-          .setDouble(Camera.DRIVER_PIPELINE);
+          .setDouble(0);
     }
 
 

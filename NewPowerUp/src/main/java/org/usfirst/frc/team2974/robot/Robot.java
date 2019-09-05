@@ -262,6 +262,7 @@ public class Robot extends TimedRobot {
       autonCommands.cancel();
     }
 
+    planeBreaker.moveUp();
     drivetrain.cancelControllerMotion();
     elevator.disableControl();
     drivetrain.shiftUp(); // start in high gear

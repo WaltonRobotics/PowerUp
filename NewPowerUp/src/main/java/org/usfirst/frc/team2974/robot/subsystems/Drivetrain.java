@@ -64,6 +64,14 @@ public class Drivetrain extends AbstractDrivetrain {
   @Override
   public void setSpeeds(double leftPower, double rightPower) {
     if (SmartDashboard.getBoolean("Slow Speed", true)) {
+      if(Math.abs(leftPower + rightPower) >= 1.5) {
+        leftPower *= (slowSpeed + 0.25);
+        rightPower *= (slowSpeed + 0.25);
+      } else if (Math.abs(leftPower + rightPower) < 0.75) {
+        leftPower /= slowSpeed;
+        rightPower /= slowSpeed;
+      }
+
       motorRight.set(-rightPower * slowSpeed);
       motorLeft.set(-leftPower * slowSpeed);
     } else {
