@@ -20,7 +20,7 @@ import org.waltonrobotics.metadata.RobotPair;
 public class Drivetrain extends AbstractDrivetrain {
 
   private final SendableChooser<Boolean> driveMode;
-  private final double slowSpeed = 0.5;
+  private final double slowSpeed = 0.75;
 
   public Drivetrain() {
     super(Robot.robotConfig);

@@ -37,6 +37,7 @@ public class Elevator extends Subsystem {
 
 	public Elevator(ElevatorLogger logger) {
 		zeroing = true;
+//		zeroEncoder();
 		initConstants();
 //		this.logger = logger;
 	}
