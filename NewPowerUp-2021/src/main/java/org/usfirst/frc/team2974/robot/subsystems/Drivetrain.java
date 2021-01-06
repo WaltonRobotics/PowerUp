@@ -6,7 +6,10 @@ import static org.usfirst.frc.team2974.robot.RobotMap.motorLeft;
 import static org.usfirst.frc.team2974.robot.RobotMap.motorRight;
 import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
+import org.graalvm.compiler.debug.TimerKey;
+
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2974.robot.Robot;
@@ -27,7 +30,7 @@ public class Drivetrain extends AbstractDrivetrain {
     driveMode = new SendableChooser<>();
     driveMode.addDefault("Tank", true);
     driveMode.addObject("Cheesy", false);
-    SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
+        SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
 
     motorRight.setInverted(true);
   }
