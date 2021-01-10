@@ -6,8 +6,6 @@ import static org.usfirst.frc.team2974.robot.RobotMap.motorLeft;
 import static org.usfirst.frc.team2974.robot.RobotMap.motorRight;
 import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
 
-import org.graalvm.compiler.debug.TimerKey;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
