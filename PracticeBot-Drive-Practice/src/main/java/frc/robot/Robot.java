@@ -17,10 +17,7 @@ import frc.robot.commands.teleop.driveMode.ArcadeDrive;
 import frc.robot.commands.teleop.driveMode.CurvatureDrive;
 import frc.robot.commands.teleop.driveMode.DriveMode;
 import frc.robot.commands.teleop.driveMode.TankDrive;
-import frc.robot.commands.teleop.responseFunction.CubicResponse;
-import frc.robot.commands.teleop.responseFunction.LinearResponse;
-import frc.robot.commands.teleop.responseFunction.ResponseFunction;
-import frc.robot.commands.teleop.responseFunction.SquaredResponse;
+import frc.robot.commands.teleop.responseFunction.*;
 import frc.robot.subsystems.Drivetrain;
 
 import static frc.robot.Constants.Inputs.JOYSTICKS_HID_KEY;
@@ -57,6 +54,7 @@ public class Robot extends TimedRobot {
         responseFunctionChooser.setDefaultOption("Linear", new LinearResponse());
         responseFunctionChooser.addOption("Squared", new SquaredResponse());
         responseFunctionChooser.addOption("Cubic", new CubicResponse());
+        responseFunctionChooser.addOption("S Curve", new SCurveResponse());
         SmartDashboard.putData("Response Function Selector", responseFunctionChooser);
 
         hidDeviceChooser = new SendableChooser<>();
