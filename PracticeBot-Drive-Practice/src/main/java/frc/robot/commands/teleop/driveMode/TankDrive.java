@@ -6,8 +6,8 @@ public class TankDrive extends DriveMode {
 
     @Override
     public void feed() {
-        double leftOutput = applyResponseFunction(applyDeadband(getLeftJoystickY()));
-        double rightOutput = applyResponseFunction(applyDeadband(getRightJoystickY()));
+        double leftOutput = applyDeadband(getLeftJoystickY());
+        double rightOutput = applyDeadband(getRightJoystickY());
 
         drivetrain.setDutyCycles(leftOutput, rightOutput);
     }

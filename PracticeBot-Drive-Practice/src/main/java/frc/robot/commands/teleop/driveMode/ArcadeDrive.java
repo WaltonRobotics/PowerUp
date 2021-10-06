@@ -17,9 +17,6 @@ public class ArcadeDrive extends DriveMode {
         zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
         zRotation = applyDeadband(zRotation);
 
-        xSpeed = applyResponseFunction(xSpeed);
-        zRotation = applyResponseFunction(zRotation);
-
         double leftMotorOutput;
         double rightMotorOutput;
 

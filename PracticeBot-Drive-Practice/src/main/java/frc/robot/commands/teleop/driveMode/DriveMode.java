@@ -6,8 +6,6 @@ import static frc.robot.Constants.DriveSettings.DEADBAND;
 import static frc.robot.Constants.Inputs.JOYSTICKS_HID_KEY;
 import static frc.robot.Constants.Inputs.XBOX_CONTROLLER_HID_KEY;
 import static frc.robot.OI.*;
-import static frc.robot.Robot.hidDeviceChooser;
-import static frc.robot.Robot.responseFunctionChooser;
 
 public abstract class DriveMode {
 
@@ -20,23 +18,11 @@ public abstract class DriveMode {
         return Math.abs(value) > DEADBAND ? value : 0;
     }
 
-    double applyResponseFunction(double value) {
-        return responseFunctionChooser.getSelected().getOutput(value);
-    }
-
     double getLeftJoystickY() {
-        if (hidDeviceChooser.getSelected().equals(XBOX_CONTROLLER_HID_KEY)) {
-            return -mainDriverController.getY(GenericHID.Hand.kLeft);
-        }
-
         return -leftJoystick.getY();
     }
 
     double getRightJoystickY() {
-        if (hidDeviceChooser.getSelected().equals(XBOX_CONTROLLER_HID_KEY)) {
-            return -mainDriverController.getY(GenericHID.Hand.kRight);
-        }
-
         return -rightJoystick.getY();
     }
 
@@ -53,10 +39,6 @@ public abstract class DriveMode {
      * The right joystick is used for turning.
      */
     double getTurn() {
-        if (hidDeviceChooser.getSelected().equals(XBOX_CONTROLLER_HID_KEY)) {
-            return mainDriverController.getX(GenericHID.Hand.kRight);
-        }
-
         return rightJoystick.getX();
     }
 

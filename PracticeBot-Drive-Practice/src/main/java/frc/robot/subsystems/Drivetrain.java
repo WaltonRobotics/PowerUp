@@ -19,8 +19,8 @@ public class Drivetrain extends SubsystemBase {
     private final Solenoid pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
 
     public Drivetrain() {
-        rightWheels.setInverted(true);
-        rightEncoder.setReverseDirection(true);
+        leftWheels.setInverted(true);
+        leftEncoder.setReverseDirection(true);
 
         setDistancePerPulse();
         resetEncoders();

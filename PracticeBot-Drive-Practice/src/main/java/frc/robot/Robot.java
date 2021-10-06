@@ -17,7 +17,6 @@ import frc.robot.commands.teleop.driveMode.ArcadeDrive;
 import frc.robot.commands.teleop.driveMode.CurvatureDrive;
 import frc.robot.commands.teleop.driveMode.DriveMode;
 import frc.robot.commands.teleop.driveMode.TankDrive;
-import frc.robot.commands.teleop.responseFunction.*;
 import frc.robot.subsystems.Drivetrain;
 
 import static frc.robot.Constants.Inputs.JOYSTICKS_HID_KEY;
@@ -33,8 +32,6 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain;
 
     public static SendableChooser<DriveMode> driveModeChooser;
-    public static SendableChooser<ResponseFunction> responseFunctionChooser;
-    public static SendableChooser<String> hidDeviceChooser;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -47,20 +44,7 @@ public class Robot extends TimedRobot {
         driveModeChooser = new SendableChooser<>();
         driveModeChooser.setDefaultOption("Curvature", new CurvatureDrive());
         driveModeChooser.addOption("Tank", new TankDrive());
-        driveModeChooser.addOption("Arcade", new ArcadeDrive());
         SmartDashboard.putData("Drive Mode Selector", driveModeChooser);
-
-        responseFunctionChooser = new SendableChooser<>();
-        responseFunctionChooser.setDefaultOption("Linear", new LinearResponse());
-        responseFunctionChooser.addOption("Squared", new SquaredResponse());
-        responseFunctionChooser.addOption("Cubic", new CubicResponse());
-        responseFunctionChooser.addOption("S Curve", new SCurveResponse());
-        SmartDashboard.putData("Response Function Selector", responseFunctionChooser);
-
-        hidDeviceChooser = new SendableChooser<>();
-        hidDeviceChooser.setDefaultOption("Joysticks", JOYSTICKS_HID_KEY);
-        hidDeviceChooser.addOption("Xbox Controller", XBOX_CONTROLLER_HID_KEY);
-        SmartDashboard.putData("HID Selector", hidDeviceChooser);
 
         CommandScheduler.getInstance().setDefaultCommand(drivetrain, new DriveCommand());
     }
