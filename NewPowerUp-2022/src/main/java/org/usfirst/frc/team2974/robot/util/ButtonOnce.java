@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2974.robot.util;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * get() returns true only the first "frame" it is pressed.

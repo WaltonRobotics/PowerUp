@@ -23,35 +23,27 @@ public class Drivetrain extends SubsystemBase {
   private final double slowSpeed = 0.5;
 
   public Drivetrain() {
-    super(Robot.robotConfig);
     driveMode = new SendableChooser<>();
     driveMode.addDefault("Tank", true);
     driveMode.addObject("Cheesy", false);
     SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
 
     motorRight.setInverted(true);
+
+    setEncoderDistancePerPulse();
   }
 
-  @Override
   public RobotPair getWheelPositions() {
     return new RobotPair(encoderLeft.getDistance(), encoderRight.getDistance(),
         Timer.getFPGATimestamp());
   }
 
-
-  @Override
-  protected void initDefaultCommand() {
-    setDefaultCommand(new DriveCommand());
-  }
-
-  @Override
   public void reset() {
     System.out.println("Reset Drivetrain");
     encoderLeft.reset();
     encoderRight.reset();
   }
 
-  @Override
   public void setEncoderDistancePerPulse() {
     double distancePerPulse = Robot.getChoosenRobot().getDistancePerPulse();
 
@@ -61,7 +53,6 @@ public class Drivetrain extends SubsystemBase {
     motorRight.setInverted(true);
   }
 
-  @Override
   public void setSpeeds(double leftPower, double rightPower) {
     if (SmartDashboard.getBoolean("Slow Speed", true)) {
       if(Math.abs(leftPower + rightPower) >= 1.5) {

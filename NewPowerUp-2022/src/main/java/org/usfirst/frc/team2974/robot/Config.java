@@ -7,7 +7,7 @@ import static org.usfirst.frc.team2974.robot.Config.Elevator.MINIMUM_HEIGHT_COMP
 
 import org.usfirst.frc.team2974.robot.Gamepad.Button;
 import org.usfirst.frc.team2974.robot.Gamepad.POV;
-import org.waltonrobotics.metadata.Pose;
+import org.usfirst.frc.team2974.robot.lib.metadata.Pose;
 
 /**
  * This holds many constant values for all parts of the robot. It increases efficiency and effectiveness of the code.

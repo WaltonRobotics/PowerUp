@@ -15,8 +15,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
@@ -25,7 +26,7 @@ import org.usfirst.frc.team2974.robot.util.ElevatorLogger.ElevatorData;
 /**
  * The elevator subsystem, which raises and lowers the intake/outtake
  */
-public class Elevator extends Subsystem {
+public class Elevator extends SubsystemBase {
 
 //	private final ElevatorLogger logger;
 	private final Timer timer = new Timer();
@@ -43,11 +44,6 @@ public class Elevator extends Subsystem {
 
 	public double getError() {
 		return isMotionControlled ? elevatorMotor.getClosedLoopError(0) : 0;
-	}
-
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorCommand());
 	}
 
 	@Override

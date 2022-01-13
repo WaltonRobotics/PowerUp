@@ -5,28 +5,28 @@ import static org.usfirst.frc.team2974.robot.OI.output;
 import static org.usfirst.frc.team2974.robot.OI.outputHalf;
 import static org.usfirst.frc.team2974.robot.Robot.intakeOutput;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * This command does the intake/output function of the State subsystem.
  */
-public class IntakeCommand extends Command {
+public class IntakeCommand extends CommandBase {
 
   private State state = State.OFF;
 
   public IntakeCommand() {
-    requires(intakeOutput);
+    addRequirements(intakeOutput);
   }
 
   @Override
-  protected void initialize() {
+  public void initialize() {
     state = State.OFF;
     state.init();
   }
 
   @Override
-  protected void execute() {
+  public void execute() {
     State newState = state.periodic();
 
     if (state != newState) {
@@ -37,18 +37,13 @@ public class IntakeCommand extends Command {
   }
 
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
     intakeOutput.off();
-  }
-
-  @Override
-  protected void interrupted() {
-    end();
   }
 
   public enum State {

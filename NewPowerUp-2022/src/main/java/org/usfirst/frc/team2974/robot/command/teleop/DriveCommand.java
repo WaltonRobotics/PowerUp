@@ -80,13 +80,13 @@ public class DriveCommand extends CommandBase {
   // Called just before this Command runs the first time
 
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
 
   @Override
-  protected void execute() {
+  public void execute() {
     updateLimelightTracking();
 
     tankDrive();
@@ -94,7 +94,7 @@ public class DriveCommand extends CommandBase {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 

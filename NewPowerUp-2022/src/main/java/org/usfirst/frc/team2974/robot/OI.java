@@ -16,9 +16,8 @@ import static org.usfirst.frc.team2974.robot.Config.Input.RIGHT_JOYSTICK_PORT;
 import static org.usfirst.frc.team2974.robot.Config.Input.STOP_BUTTON;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team2974.robot.command.teleop.Stop;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import org.usfirst.frc.team2974.robot.util.ButtonOnce;
 import org.usfirst.frc.team2974.robot.util.POVButton;
 

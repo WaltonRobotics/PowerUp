@@ -18,11 +18,7 @@ import static org.usfirst.frc.team2974.robot.Config.Hardware.SHIFTER_CHANNEL;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 /**
@@ -63,10 +59,10 @@ public final class RobotMap {
 		encoderLeft = new Encoder(new DigitalInput(LEFT_ENCODER_CHANNEL1),
 			new DigitalInput(LEFT_ENCODER_CHANNEL2));
 
-		compressor = new Compressor();
-		pneumaticsShifter = new Solenoid(SHIFTER_CHANNEL);
+		compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+		pneumaticsShifter = new Solenoid(PneumaticsModuleType.CTREPCM, SHIFTER_CHANNEL);
 
-		planeBreaker = new Solenoid(PLANE_BREAK);
+		planeBreaker = new Solenoid(PneumaticsModuleType.CTREPCM, PLANE_BREAK);
 
 		elevatorMotor = new TalonSRX(ELEVATOR_MOTOR_CHANNEL);
 		elevatorLimitLower = new DigitalInput(ELEVATOR_LIMIT_LOWER_CHANNEL);

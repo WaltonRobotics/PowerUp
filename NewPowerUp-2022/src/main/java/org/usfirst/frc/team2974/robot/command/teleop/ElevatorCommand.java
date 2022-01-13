@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import static org.usfirst.frc.team2974.robot.Config.Elevator.HIGH_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.LOW_HEIGHT;
 import static org.usfirst.frc.team2974.robot.Config.Elevator.MEDIUM_HEIGHT;
@@ -16,22 +18,19 @@ import static org.usfirst.frc.team2974.robot.OI.gamepad;
 import static org.usfirst.frc.team2974.robot.OI.stop;
 import static org.usfirst.frc.team2974.robot.Robot.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class ElevatorCommand extends Command {
-
+public class ElevatorCommand extends CommandBase {
 
 	public ElevatorCommand() {
-		requires(elevator);
+		addRequirements(elevator);
 	}
 
 	@Override
-	protected void initialize() {
+	public void initialize() {
 		elevator.disableControl();
 	}
 
 	@Override
-	protected void execute() {
+	public void execute() {
 		if (elevator.isMotionControlled()) {
 			if (elevatorNudgeUp.get() && !elevator.atTopPosition()) {
 				elevator.nudge(NUDGE_DISTANCE);
@@ -85,7 +84,7 @@ public class ElevatorCommand extends Command {
 	}
 
 	@Override
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		return false;
 	}
 

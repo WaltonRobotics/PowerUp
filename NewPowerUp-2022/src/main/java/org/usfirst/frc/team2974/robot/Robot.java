@@ -18,21 +18,22 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.com
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import org.opencv.core.Mat;
-import org.usfirst.frc.team2974.robot.command.auton.GamePosition;
 import org.usfirst.frc.team2974.robot.command.teleop.CompPowerUp;
+import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
+import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
+import org.usfirst.frc.team2974.robot.command.teleop.IntakeCommand;
+import org.usfirst.frc.team2974.robot.lib.config.RobotConfig;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 import org.usfirst.frc.team2974.robot.util.ParkingLines;
-import org.waltonrobotics.config.RobotConfig;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -57,7 +58,7 @@ public class Robot extends TimedRobot {
   private static int doNumberOfCubes = 2;
   private static boolean confuseEnemy = false;
   private static boolean doBehindSwitch = true;
-  private CommandGroup autonCommands;
+  private SequentialCommandGroup autonCommands;
   private SendableChooser<Character> startLocation;
   private SendableChooser<Integer> numberCubes;
   private SendableChooser<Boolean> confuseEnenmy;
@@ -110,6 +111,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Steer K", 0.06);
     SmartDashboard.putNumber("Steer B", 0.1);
     SmartDashboard.putBoolean("Slow Speed", true);
+
+    CommandScheduler.getInstance().setDefaultCommand(drivetrain, new DriveCommand());
+    CommandScheduler.getInstance().setDefaultCommand(elevator, new ElevatorCommand());
+    CommandScheduler.getInstance().setDefaultCommand(intakeOutput, new IntakeCommand());
 //
 //    startLocation = new SendableChooser<>();
 //    startLocation.addObject("Do Nothing", ' ');
@@ -200,13 +205,13 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     gameData = null;
     drivetrain.reset();
-    drivetrain.getMotionLogger().writeMotionDataCSV(true);
+//    drivetrain.getMotionLogger().writeMotionDataCSV(true);
 //		elevatorLogger.writeMotionDataCSV();
   }
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
     updateSmartDashboard();
   }
 
@@ -252,7 +257,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
     updateSmartDashboard();
   }
 
@@ -263,7 +268,7 @@ public class Robot extends TimedRobot {
     }
 
     planeBreaker.moveUp();
-    drivetrain.cancelControllerMotion();
+//    drivetrain.cancelControllerMotion();
     elevator.disableControl();
     drivetrain.shiftUp(); // start in high gear
     drivetrain.reset();
@@ -274,7 +279,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
     updateSmartDashboard();
   }
 
