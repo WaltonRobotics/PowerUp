@@ -23,7 +23,7 @@ public class DriveCommand extends CommandBase {
   private double limelightSteerCommand;
 
   public DriveCommand() {
-    requires(drivetrain);
+    addRequirements(drivetrain);
   }
 
   public double getLeftThrottle() {

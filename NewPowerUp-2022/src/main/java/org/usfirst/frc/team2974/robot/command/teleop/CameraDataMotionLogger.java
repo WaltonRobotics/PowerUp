@@ -12,8 +12,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.waltonrobotics.metadata.ErrorVector;
-import org.waltonrobotics.metadata.MotionData;
+
+import org.usfirst.frc.team2974.robot.lib.metadata.ErrorVector;
+import org.usfirst.frc.team2974.robot.lib.metadata.MotionData;
 
 /**
  * @author Marius Juston

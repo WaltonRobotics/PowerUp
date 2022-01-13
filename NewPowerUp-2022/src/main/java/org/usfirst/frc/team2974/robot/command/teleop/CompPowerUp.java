@@ -1,10 +1,9 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-
-import org.waltonrobotics.config.Controls;
-import org.waltonrobotics.config.EncoderConfig;
-import org.waltonrobotics.config.RobotConfig;
-import org.waltonrobotics.config.TalonConfig;
+import org.usfirst.frc.team2974.robot.lib.config.Controls;
+import org.usfirst.frc.team2974.robot.lib.config.EncoderConfig;
+import org.usfirst.frc.team2974.robot.lib.config.RobotConfig;
+import org.usfirst.frc.team2974.robot.lib.config.TalonConfig;
 
 public class CompPowerUp extends RobotConfig {
 

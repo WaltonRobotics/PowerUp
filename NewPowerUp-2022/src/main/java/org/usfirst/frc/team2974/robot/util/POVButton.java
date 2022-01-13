@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2974.robot.util;
 
-import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import org.usfirst.frc.team2974.robot.Gamepad;
 
 /**

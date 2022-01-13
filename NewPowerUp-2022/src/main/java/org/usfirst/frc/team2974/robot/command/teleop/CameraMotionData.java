@@ -1,12 +1,6 @@
 package org.usfirst.frc.team2974.robot.command.teleop;
 
-
-import org.waltonrobotics.metadata.CameraData;
-import org.waltonrobotics.metadata.ErrorVector;
-import org.waltonrobotics.metadata.MotionData;
-import org.waltonrobotics.metadata.MotionState;
-import org.waltonrobotics.metadata.Pose;
-import org.waltonrobotics.metadata.RobotPair;
+import org.usfirst.frc.team2974.robot.lib.metadata.*;
 
 /**
  * @author Marius Juston
@@ -17,8 +11,8 @@ public class CameraMotionData extends MotionData {
   private final Pose offset;
 
   public CameraMotionData(Pose actual, Pose target,
-      ErrorVector error, RobotPair powers, int pathNumber,
-      MotionState currentMotionState, CameraData cameraPosition, Pose offset) {
+                          ErrorVector error, RobotPair powers, int pathNumber,
+                          MotionState currentMotionState, CameraData cameraPosition, Pose offset) {
     super(actual, target, error, powers, pathNumber, currentMotionState);
     this.cameraPosition = cameraPosition;
     this.offset = offset;

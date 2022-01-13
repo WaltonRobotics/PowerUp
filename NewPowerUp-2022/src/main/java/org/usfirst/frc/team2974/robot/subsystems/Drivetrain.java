@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team2974.robot.Robot;
 import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
-import org.waltonrobotics.AbstractDrivetrain;
-import org.waltonrobotics.metadata.RobotPair;
+import org.usfirst.frc.team2974.robot.lib.metadata.RobotPair;
 
 /**
  *
