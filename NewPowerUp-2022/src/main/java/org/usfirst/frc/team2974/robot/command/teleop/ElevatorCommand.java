@@ -14,8 +14,7 @@ import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeDown;
 import static org.usfirst.frc.team2974.robot.OI.elevatorNudgeUp;
 //import static org.usfirst.frc.team2974.robot.OI.elevatorToggleControl;
 import static org.usfirst.frc.team2974.robot.OI.elevatorZero;
-import static org.usfirst.frc.team2974.robot.OI.gamepad;
-import static org.usfirst.frc.team2974.robot.OI.stop;
+import static org.usfirst.frc.team2974.robot.OI.manipulationGamepad;
 import static org.usfirst.frc.team2974.robot.Robot.elevator;
 
 public class ElevatorCommand extends CommandBase {
@@ -48,16 +47,16 @@ public class ElevatorCommand extends CommandBase {
 				elevator.setTarget(LOW_HEIGHT);
 			}
 		} else {
-			if (Math.abs(gamepad.getLeftY()) > TOLERANCE) {
-				double power = -gamepad.getLeftY();
+			if (Math.abs(manipulationGamepad.getLeftY()) > TOLERANCE) {
+				double power = -manipulationGamepad.getLeftY();
 
 				if (power < 0) {
 					power *= 0.75;
 				}
 
 				elevator.setPower(power);
-			} else if (Math.abs(gamepad.getRightY()) > TOLERANCE) {
-				double power = -gamepad.getRightY();
+			} else if (Math.abs(manipulationGamepad.getRightY()) > TOLERANCE) {
+				double power = -manipulationGamepad.getRightY();
 
 				if (power < 0) {
 					power *= 0.75;

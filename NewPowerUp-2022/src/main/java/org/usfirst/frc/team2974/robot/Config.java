@@ -109,7 +109,8 @@ public final class Config {
 
     public static final int LEFT_JOYSTICK_PORT = 0;
     public static final int RIGHT_JOYSTICK_PORT = 1;
-    public static final int GAMEPAD_PORT = 2;
+    public static final int DRIVE_GAMEPAD_PORT = 2;
+    public static final int MANIPULATION_GAMEPAD_PORT = 3;
 
     // left joystick //
     public static final int SHIFT_UP_BUTTON = 3;
@@ -319,6 +320,13 @@ public final class Config {
     public static final double IAng = 0.005; // 0.01
 
     private MotionConstants() {
+    }
+    public static class DriveSettings {
+
+      public static final double DEADBAND = 0.1;
+      public static final double QUICK_STOP_THRESHOLD = 0.2;
+      public static final double QUICK_STOP_ALPHA = 0.1;
+
     }
   }
 }

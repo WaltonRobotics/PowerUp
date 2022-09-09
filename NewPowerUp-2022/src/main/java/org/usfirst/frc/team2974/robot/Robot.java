@@ -1,39 +1,21 @@
 package org.usfirst.frc.team2974.robot;
 
-import static org.usfirst.frc.team2974.robot.Config.Camera.FPS;
-import static org.usfirst.frc.team2974.robot.Config.Camera.HEIGHT;
-import static org.usfirst.frc.team2974.robot.Config.Camera.WIDTH;
-import static org.usfirst.frc.team2974.robot.Config.IntakeOutput.LOW_POWER;
-import static org.usfirst.frc.team2974.robot.Config.SmartDashboardKeys.PARKING_LINE_FOCUS_X;
-import static org.usfirst.frc.team2974.robot.Config.SmartDashboardKeys.PARKING_LINE_FOCUS_Y;
-import static org.usfirst.frc.team2974.robot.Config.SmartDashboardKeys.PARKING_LINE_OFFSET;
-import static org.usfirst.frc.team2974.robot.Config.SmartDashboardKeys.PARKING_LINE_PERCENTAGE;
-import static org.usfirst.frc.team2974.robot.RobotMap.elevatorMotor;
-import static org.usfirst.frc.team2974.robot.RobotMap.pneumaticsShifter;
-
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.MjpegServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import org.opencv.core.Mat;
-import org.usfirst.frc.team2974.robot.command.teleop.CompPowerUp;
-import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
-import org.usfirst.frc.team2974.robot.command.teleop.ElevatorCommand;
-import org.usfirst.frc.team2974.robot.command.teleop.IntakeCommand;
+import org.usfirst.frc.team2974.robot.command.teleop.*;
+import org.usfirst.frc.team2974.robot.command.teleop.driveMode.CurvatureDrive;
+import org.usfirst.frc.team2974.robot.command.teleop.driveMode.DriveMode;
+import org.usfirst.frc.team2974.robot.command.teleop.driveMode.TankDrive;
 import org.usfirst.frc.team2974.robot.lib.config.RobotConfig;
 import org.usfirst.frc.team2974.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2974.robot.subsystems.Elevator;
 import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
-import org.usfirst.frc.team2974.robot.util.ParkingLines;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -63,6 +45,8 @@ public class Robot extends TimedRobot {
   private SendableChooser<Integer> numberCubes;
   private SendableChooser<Boolean> confuseEnenmy;
   private SendableChooser<Boolean> behindSwitch;
+  public static SendableChooser<DriveMode> driveModeChooser;
+  public static SendableChooser<String> driveInputDeviceChooser;
 
   public static Config.Robot getChoosenRobot() {
     return currentRobot;
@@ -110,8 +94,19 @@ public class Robot extends TimedRobot {
     elevator = new Elevator(elevatorLogger);
     SmartDashboard.putNumber("Steer K", 0.06);
     SmartDashboard.putNumber("Steer B", 0.1);
-    SmartDashboard.putBoolean("Slow Speed", true);
+    SmartDashboard.putBoolean("Slow Speed", false);
 
+    driveModeChooser = new SendableChooser<>();
+    driveModeChooser.setDefaultOption("Curvature", new CurvatureDrive());
+    driveModeChooser.addOption("Tank", new TankDrive());
+    SmartDashboard.putData("Drive Mode Selector", driveModeChooser);
+
+    driveInputDeviceChooser = new SendableChooser<>();
+    driveInputDeviceChooser.addOption("Joysticks", "Joysticks");
+    driveInputDeviceChooser.setDefaultOption("Gamepad", "Gamepad");
+    SmartDashboard.putData("Drive Input Device Chooser", driveInputDeviceChooser);
+
+    SmartDashboard.putData("Drive Mode Selector", driveModeChooser);
     CommandScheduler.getInstance().setDefaultCommand(drivetrain, new DriveCommand());
     CommandScheduler.getInstance().setDefaultCommand(elevator, new ElevatorCommand());
     CommandScheduler.getInstance().setDefaultCommand(intakeOutput, new IntakeCommand());
@@ -267,7 +262,7 @@ public class Robot extends TimedRobot {
       autonCommands.cancel();
     }
 
-    planeBreaker.moveUp();
+    //planeBreaker.moveUp();
 //    drivetrain.cancelControllerMotion();
     elevator.disableControl();
     drivetrain.shiftUp(); // start in high gear

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team2974.robot.Robot;
-import org.usfirst.frc.team2974.robot.command.teleop.DriveCommand;
 import org.usfirst.frc.team2974.robot.lib.metadata.RobotPair;
 
 /**
@@ -19,14 +18,8 @@ import org.usfirst.frc.team2974.robot.lib.metadata.RobotPair;
  */
 public class Drivetrain extends SubsystemBase {
 
-  private final SendableChooser<Boolean> driveMode;
-  private final double slowSpeed = 0.5;
-
   public Drivetrain() {
-    driveMode = new SendableChooser<>();
-    driveMode.addDefault("Tank", true);
-    driveMode.addObject("Cheesy", false);
-    SmartDashboard.putData("Drive Team/Drive Mode", driveMode);
+
 
     motorRight.setInverted(true);
 
@@ -54,7 +47,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setSpeeds(double leftPower, double rightPower) {
-    if (SmartDashboard.getBoolean("Slow Speed", true)) {
+    if (SmartDashboard.getBoolean("Slow Speed", false)) {
+      double slowSpeed = 1;
       if(Math.abs(leftPower + rightPower) >= 1.5) {
         leftPower *= (slowSpeed + 0.25);
         rightPower *= (slowSpeed + 0.25);
@@ -82,10 +76,6 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean isShiftDown() {
     return pneumaticsShifter.get();
-  }
-
-  public boolean isTankDrive() {
-    return driveMode.getSelected();
   }
 
   public void setArcadeSpeeds(double xSpeed, double zRotation) {
