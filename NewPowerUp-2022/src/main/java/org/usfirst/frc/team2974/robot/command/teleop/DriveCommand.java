@@ -9,7 +9,7 @@ public class DriveCommand extends CommandBase {
     public DriveCommand() {
         addRequirements(drivetrain);
 
-        //button not yet mapped
+        //reset button not yet mapped
         //resetDrivetrainButton.whenPressed(() -> drivetrain.reset());
     }
 

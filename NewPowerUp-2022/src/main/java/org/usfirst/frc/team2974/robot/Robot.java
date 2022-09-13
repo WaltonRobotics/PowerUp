@@ -86,7 +86,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     currentRobot = RobotMap.robotIdentifier.get() ? Config.Robot.COMPETITION : Config.Robot.PRACTICE;
 
-//    System.out.println("Hello?");
     elevatorLogger = new ElevatorLogger("/home/lvuser/");
     drivetrain = new Drivetrain();
     intakeOutput = new IntakeOutput();

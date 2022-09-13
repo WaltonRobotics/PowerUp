@@ -57,11 +57,11 @@ public class IntakeOutput extends SubsystemBase {
   }
 
   public boolean timeElapsed(double time) {
-    return timer.hasPeriodPassed(time);
+    return timer.advanceIfElapsed(time);
   }
 
   public boolean timeElapsed() {
-    return timer.hasPeriodPassed(2.0);
+    return timer.advanceIfElapsed(2.0);
   }
 
   public synchronized void resetTime() {

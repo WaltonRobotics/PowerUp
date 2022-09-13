@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2974.robot.command.teleop.driveMode;
 
-import static org.usfirst.frc.team2974.robot.OI.driveGamepad;
+import static org.usfirst.frc.team2974.robot.OI.*;
+import static org.usfirst.frc.team2974.robot.Robot.driveInputDeviceChooser;
 
 public abstract class DriveMode {
 
@@ -15,11 +16,21 @@ public abstract class DriveMode {
     }
 
     public double getLeftJoystickY() {
-        return -driveGamepad.getLeftY();
+        if(driveInputDeviceChooser.getSelected().equals("Joysticks")){
+            return -leftJoystick.getY();
+        }
+        else {
+            return -driveGamepad.getLeftY();
+        }
     }
 
     public double getRightJoystickY() {
-        return -driveGamepad.getRawAxis(3);
+        if (driveInputDeviceChooser.getSelected().equals("Joysticks")) {
+            return -rightJoystick.getY();
+        }
+        else {
+            return -driveGamepad.getRawAxis(3);
+        }
     }
 
     /* The following methods are for drive modes with separated turn and throttle commands (i.e. Curvature/Arcade). */
