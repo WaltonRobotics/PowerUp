@@ -57,6 +57,8 @@ public class Robot extends TimedRobot {
   public static SendableChooser<DriveMode> driveModeChooser;
   public static SendableChooser<String> driveInputDeviceChooser;
 
+  Timer timer = new Timer();
+
   public static Config.Robot getChoosenRobot() {
     return currentRobot;
   }
@@ -110,7 +112,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     drivetrain.shiftUp();
-    startTime = Timer.getFPGATimestamp();
+    timer.reset();
+    timer.start();
   }
 
   /**
@@ -118,15 +121,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    double time = Timer.getFPGATimestamp();
 
-    if (time -startTime < 3) {
+
+    if (timer.get() < 3) {
       motorLeft.set(.5);
       motorRight.set(.5);
     } else {
       motorLeft.set(0);
       motorRight.set(0);
     }
+
   }
 
   @Override
