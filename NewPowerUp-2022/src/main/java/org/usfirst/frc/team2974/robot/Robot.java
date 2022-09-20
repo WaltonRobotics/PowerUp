@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2974.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,6 +19,9 @@ import org.usfirst.frc.team2974.robot.subsystems.IntakeOutput;
 import org.usfirst.frc.team2974.robot.subsystems.PlaneBreaker;
 import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 
+import static org.usfirst.frc.team2974.robot.Config.Hardware.LEFT_MOTOR_CHANNEL;
+import static org.usfirst.frc.team2974.robot.Config.Hardware.RIGHT_MOTOR_CHANNEL;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the IterativeRobot documentation. If you change the name of this class or the package after creating
@@ -25,6 +30,10 @@ import org.usfirst.frc.team2974.robot.util.ElevatorLogger;
 public class Robot extends TimedRobot {
 
   private static final int DEFAULT_CAMERA_COMPRESSION_QUALITY = 80; // between 0 and 100, 100 being the max, -1 being left to Shuffleboard
+
+  private Talon motorLeft = new Talon(LEFT_MOTOR_CHANNEL);
+  private Talon motorRight = new Talon(RIGHT_MOTOR_CHANNEL);
+  private double startTime;
 
   public static Drivetrain drivetrain;
   public static IntakeOutput intakeOutput;
@@ -52,36 +61,6 @@ public class Robot extends TimedRobot {
     return currentRobot;
   }
 
-  public static int getDoNumberOfCubes() {
-    return doNumberOfCubes;
-  }
-
-  // TODO: 4/2/2018 EVAN lets make a better name for this
-  public static boolean confuseEnemy() {
-    return confuseEnemy;
-  }
-
-  public static boolean doBehindSwitch() {
-    return doBehindSwitch;
-  }
-
-  /**
-   * @return Either 'L' for left position or 'R' for right position.
-   */
-  public static char getSwitchPosition() {
-    return gameData.charAt(0); // 0 = switch position in string
-  }
-
-  /**
-   * @return Either 'L' for left position or 'R' for right position.
-   */
-  public static char getScalePosition() {
-    return gameData.charAt(1); // 1 = scale position in string
-  }
-
-  /**
-   * This function is run when the robot is first started up and should be used for any initialization code.
-   */
   @Override
   public void robotInit() {
     currentRobot = RobotMap.robotIdentifier.get() ? Config.Robot.COMPETITION : Config.Robot.PRACTICE;
@@ -109,90 +88,9 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().setDefaultCommand(drivetrain, new DriveCommand());
     CommandScheduler.getInstance().setDefaultCommand(elevator, new ElevatorCommand());
     CommandScheduler.getInstance().setDefaultCommand(intakeOutput, new IntakeCommand());
-//
-//    startLocation = new SendableChooser<>();
-//    startLocation.addObject("Do Nothing", ' ');
-//    startLocation.addObject("Left", 'l');
-//    startLocation.addObject("Right", 'r');
-//    startLocation.addDefault("Center", 'c');
-//
-//    numberCubes = new SendableChooser<>();
-//    numberCubes.addObject("1 Cube sequence", 1);
-//    numberCubes.addDefault("2 Cube sequence", 2);
-//
-//    confuseEnenmy = new SendableChooser<>();
-//    confuseEnenmy.addDefault("Do complete 2 cube", false);
-//    confuseEnenmy.addObject("Stop before", true);
-//
-//    behindSwitch = new SendableChooser<>();
-//    behindSwitch.addDefault("Do", true);
-//    behindSwitch.addObject("DONT", false);
-//
-//    //		Drive train
-//    SmartDashboard.putNumber("Speed Percentage", 0.50 /*.75*/);
-//    SmartDashboard.putData("Zero elevator", new InstantCommand() {
-//      @Override
-//      protected void initialize() {
-//        elevator.zero();
-//      }
-//    });
-//
-//    SmartDashboard.putNumber("LOW_POWER", LOW_POWER);
-
-//    initCamera();
-//    UsbCamera camera = CameraServer.startAutomaticCapture();
-//    camera.setResolution(1280 / 2, 720 / 2);
-//    camera.setFPS(5);
-
-//		SmartDashboard.putData("Move forwards", SimpleLine.lineWithDistance(new Pose(0, 0, 0), 6));
 
     updateSmartDashboard();
   }
-
-//  private void initCamera() {
-//    new Thread(() -> {
-//      SmartDashboard.putNumber(PARKING_LINE_OFFSET, 100);
-//      SmartDashboard.putNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0);
-//      SmartDashboard.putNumber(PARKING_LINE_FOCUS_Y, 80);
-//      SmartDashboard.putNumber(PARKING_LINE_PERCENTAGE, .69);
-//
-//      CameraServer cameraServer = CameraServer.getInstance();
-//
-//      UsbCamera fishEyeCamera = cameraServer.startAutomaticCapture();
-//      fishEyeCamera.setResolution(WIDTH, HEIGHT);
-//
-//      CvSink cvSink = cameraServer.getVideo();
-//      CvSource outputStream = cameraServer.putVideo("Fisheye Camera", WIDTH, HEIGHT);
-//      outputStream.setFPS(FPS);
-//
-//      MjpegServer fisheyeServer = cameraServer.addServer("Fisheye Camera Server");
-//      fisheyeServer.setSource(outputStream);
-//
-//      fisheyeServer.getProperty("compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
-//      fisheyeServer.getProperty("default_compression").set(DEFAULT_CAMERA_COMPRESSION_QUALITY);
-//
-////      if (!fishEyeCamera.isConnected()) {
-////        fishEyeCamera.close();
-////        fisheyeServer.close();
-////        return;
-////      }
-//
-//      Mat source = new Mat();
-//
-//      while (!Thread.interrupted()) {
-//        cvSink.grabFrame(source);
-//        ParkingLines.setFocusPoint(
-//            SmartDashboard.getNumber(PARKING_LINE_FOCUS_X, WIDTH / 2.0),
-//            SmartDashboard.getNumber(PARKING_LINE_FOCUS_Y, HEIGHT / 2.0)
-//        );
-//        ParkingLines.setPercentage(SmartDashboard.getNumber(PARKING_LINE_PERCENTAGE, 1));
-//        ParkingLines.setXOffset(SmartDashboard.getNumber(PARKING_LINE_OFFSET, 0));
-//
-//        ParkingLines.drawParkingLines(source);
-//        outputStream.putFrame(source);
-//      }
-//    }).start();
-//  }
 
 
   @Override
@@ -211,39 +109,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-//    drivetrain.cancelControllerMotion();
-////		drivetrain.startControllerMotion();
-//    elevator.startZero();
-//    drivetrain.getMotionLogger().initialize();
-//    elevatorLogger.initialize();
-//    drivetrain.shiftUp();
-//    planeBreaker.moveUp();
-//
-//    confuseEnemy = confuseEnenmy.getSelected();
-//    doNumberOfCubes = numberCubes.getSelected();
-//    doBehindSwitch = behindSwitch.getSelected();
-//
-//    while ((gameData == null) || gameData.isEmpty()) {
-//      gameData = DriverStation.getGameSpecificMessage(); // "LRL" or something
-//    }
-//
-//    char startPosition = startLocation.getSelected();
-//
-//    if (startPosition == ' ') { // if should do nothing
-//      System.out.println(">:( Nothing has been chosen. Scrubs.");
-//      autonCommands = GamePosition.DO_NOTHING.getCommand();
-//      return; // skips the rest of the init! WARNING: PUT NEEDED CODE BEFORE THIS!
-//    }
-//
-//    System.out.printf("Start Position: %s", startPosition);
-//    System.out.printf("Given GameData: %s", gameData);
-//    System.out.printf("Game Position loaded: %s", GamePosition.getGamePosition(startPosition, gameData));
-//
-//    autonCommands = GamePosition.getGamePosition(startPosition, gameData).getCommand();
-//
-//    if (autonCommands != null) {
-//      autonCommands.start();
-//    }
+    drivetrain.shiftUp();
+    startTime = Timer.getFPGATimestamp();
   }
 
   /**
@@ -251,8 +118,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    CommandScheduler.getInstance().run();
-    updateSmartDashboard();
+    double time = Timer.getFPGATimestamp();
+
+    if (time -startTime < 3) {
+      motorLeft.set(.5);
+      motorRight.set(.5);
+    } else {
+      motorLeft.set(0);
+      motorRight.set(0);
+    }
   }
 
   @Override
